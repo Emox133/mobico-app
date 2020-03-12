@@ -18,7 +18,7 @@ spreadThis: {
   formWrapper: {
     height: '100%',
     textAlign: 'center',
-    paddingBottom: '30px'
+    paddingBottom: '30px',
     // overflow: 'scroll'
   },
     image: {
@@ -37,6 +37,19 @@ spreadThis: {
     },
     spinner: {
       position: 'absolute'
+    },
+    owner: {
+      fontSize: '20px',
+      fontWeight: 'bold'
+    },
+    card: {
+      marginBottom: '10px',
+      maxWidth: '300px'
+    },
+    userImage: {
+      height: '200px',
+      width: '200px',
+      // borderRadius: '0px'
     }
   }
 }
