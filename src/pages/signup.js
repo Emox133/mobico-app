@@ -60,6 +60,7 @@ class signup extends Component {
         .then(res => {
             if(res.data.status !== 'error') {
                 console.log(res.data)
+                localStorage.setItem('token', res.data.token)
                 this.props.history.push('/')
             } else {
                 this.setState({errors: res.data.error.errors})
@@ -249,7 +250,7 @@ class signup extends Component {
                         <Button type="submit" variant="contained" color="primary" style={{marginTop: '10px'}} className={classes.button}>
                             Signup
                             {this.state.loading && (
-                                <CircularProgress color="white" size="30" className={classes.spinner}/>
+                                <CircularProgress color="secondary" size="30" className={classes.spinner}/>
                             )}
                         </Button>
                     </form>

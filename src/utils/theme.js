@@ -18,7 +18,8 @@ spreadThis: {
   formWrapper: {
     height: '100%',
     textAlign: 'center',
-    overflow: 'scroll'
+    paddingBottom: '30px'
+    // overflow: 'scroll'
   },
     image: {
       width: '300px',
