@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import Posts from './../components/posts/Posts'
+import Profile from './../components/profile/Profile'
 import axios from 'axios'
 
 // * Mui
@@ -17,7 +18,6 @@ class home extends Component {
             this.setState({
                 posts: res.data.data.posts
             })
-            console.log(this.state.posts)
         })
         .catch(err => console.error(err))
     }
@@ -33,7 +33,7 @@ class home extends Component {
                     {fetchedPosts}
                 </Grid>
                 <Grid item sm={4} xs={12}>
-                    <p>Profile ...</p>
+                    <Profile />
                 </Grid>
             </Grid>
         )

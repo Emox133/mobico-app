@@ -45,6 +45,7 @@ class login extends Component {
                 console.log(res.data)
                 localStorage.setItem('token', res.data.token)
                 this.props.history.push('/')
+                window.location.reload()
             } else {
                 this.setState({errors: res.data.error.errors})
             }

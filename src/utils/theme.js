@@ -48,8 +48,20 @@ spreadThis: {
     },
     userImage: {
       height: '200px',
-      width: '200px',
+      width: '100%',
       // borderRadius: '0px'
+    },
+    paper: {
+      height: '70vh',
+      padding: '20px'
+    },
+    imageWrapper: {
+      textAlign: 'center',
+    },
+    profileImage: {
+      height: '250px',
+      width: '50%',
+      borderRadius: '50%'
     }
   }
 }
