@@ -3,7 +3,7 @@ html {
 }
 
 .nav {
-    margin: auto;
+    justify-content: center;
 }
 
 .nav svg {

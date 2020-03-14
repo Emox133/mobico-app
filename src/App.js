@@ -1,13 +1,17 @@
 import React, { Component } from 'react'
+import './App.css'
 import {BrowserRouter as Router, Switch, Route, Redirect} from 'react-router-dom'
 import Navbar from './components/Layout/Navbar'
+import NotFound from './pages/notFound'
 import Home from './pages/home'
 import Signup from './pages/signup'
 import Login from './pages/login'
-import NotFound from './pages/notFound'
 import axios from 'axios'
-import './App.css'
 import jwtDecode from 'jwt-decode'
+
+// * Redux
+import {Provider} from 'react-redux'
+import store from './redux/store'
 
 // * Mui
 import createMuiTheme from '@material-ui/core/styles/createMuiTheme'
@@ -18,15 +22,17 @@ const theme = createMuiTheme(themeUtil)
 
 let authenticated;
 const token = localStorage.token;
-const decoded = jwtDecode(token)
-console.log(decoded)
 
-if(new Date(decoded.exp * 1000) < new Date()) {
-  // !EXPIRED
-  authenticated = false;
-} else {
-  authenticated = true;
-  axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+if(token) {
+  const decoded = jwtDecode(token)
+
+  if(new Date(decoded.exp * 1000) < new Date()) {
+    // !EXPIRED
+    authenticated = false;
+  } else {
+    authenticated = true;
+    axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+  }
 }
 
 class App extends Component {
@@ -45,12 +51,14 @@ class App extends Component {
     </Switch>
 
     return (
+  <Provider store={store}>
     <MuiThemeProvider theme={theme}>
      <Router>
        <Navbar />
        {authNavbar}
      </Router>
     </MuiThemeProvider>
+  </Provider>
     )
   }
 }

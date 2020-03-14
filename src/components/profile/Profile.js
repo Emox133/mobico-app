@@ -20,7 +20,11 @@ class Profile extends Component {
     }
 
     componentDidMount(){
-        axios.get('/users/me')
+        axios.get('/users/me', {
+            validateStatus: () => {
+                return true
+            }
+        })
         .then(res => {
             this.setState({
                 loading: true,
@@ -39,7 +43,7 @@ class Profile extends Component {
         let profile = this.state.loading ? (
             <Paper className={classes.paper}>
                 <div className={classes.imageWrapper}>
-                    <img src={userImage} className={classes.profileImage} alt="profile-image" />
+                    <img src={userImage} className={classes.profileImage} alt="profile" />
                     <Typography variant="h4">
                         {firstName} {lastName}
                     </Typography>

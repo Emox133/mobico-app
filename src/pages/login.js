@@ -2,6 +2,10 @@ import React, { Component } from 'react'
 import AppLogo from './../images/logo-mobico.png'
 import axios from 'axios'
 
+// * Redux
+import {connect} from 'react-redux'
+import * as userActions from './../redux/actions/userActions'
+
 // * Mui
 import withStyles from '@material-ui/core/styles/withStyles'
 import TextField from '@material-ui/core/TextField'
@@ -17,7 +21,7 @@ class login extends Component {
     state = {
         email: '',
         password: '',
-        errors: {},
+        errors: '',
         loading: false
     }
 
@@ -35,24 +39,21 @@ class login extends Component {
             email: this.state.email,
             password: this.state.password
         }
-        axios.post('/users/login', user, {
-            validateStatus: status => {
-                return true
-            }
-        })
-        .then(res => {
-            if(res.data.status !== 'error') {
-                console.log(res.data)
-                localStorage.setItem('token', res.data.token)
-                this.props.history.push('/')
-                window.location.reload()
-            } else {
-                this.setState({errors: res.data.error.errors})
-            }
-        })
-        .catch(err => console.log(err))
-    }
 
+        axios.post('/users/login', user, {validateStatus: () => {return true}})
+        .then(res => {
+        if(res.data.status !== 'fail') {
+            console.log(res.data)
+            localStorage.setItem('token', res.data.token)
+            this.props.history.push('/')
+            window.location.reload()
+        } else {
+            this.setState({errors: res.data.message})
+            console.log(this.state.errors)
+        }
+    })
+    .catch(err => console.log(err))    
+    }
     render() {
         const {classes} = this.props
         const {errors} = this.state
@@ -67,8 +68,8 @@ class login extends Component {
                     name="email"
                     placeholder="Email"
                     type="email"
-                    error={errors.email ? true : false}
-                    helperText={errors.email ? errors.email.message : null}
+                    error={errors ? true : false}
+                    helperText={errors ? errors : null}
                     className={classes.textField}
                     onChange={this.handleChange}
                     value={this.state.email}
@@ -79,8 +80,8 @@ class login extends Component {
                     name="password"
                     placeholder="Password"
                     type="password"
-                    error={errors.password ? true : false}
-                    helperText={errors.password ? errors.password.message : null}
+                    error={errors ? true : false}
+                    helperText={errors ? errors : null}
                     className={classes.textField}
                     onChange={this.handleChange}
                     value={this.state.password}
@@ -100,4 +101,4 @@ class login extends Component {
     }
 }
 
-export default withStyles(styles)(login)
+export default withStyles(styles)(login);
