@@ -31,7 +31,6 @@ class login extends Component {
 
     handleSubmit = e => {
         e.preventDefault();
-        this.setState({loading: true})
 
         const user = {
             email: this.state.email,

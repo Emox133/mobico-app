@@ -12,6 +12,10 @@ import Tooltip from '@material-ui/core/Tooltip'
 import Button from '@material-ui/core/Button'
 import CircularProgress from '@material-ui/core/CircularProgress'
 
+// * Redux
+import {connect} from 'react-redux'
+import * as userActions from './../redux/actions/userActions'
+
 const styles = theme => ({
     ...theme.spreadThis
 })
@@ -26,9 +30,7 @@ class signup extends Component {
         confirmPassword: '',
         bio: '',
         website: '',
-        location: '',
-        errors: {},
-        loading: false
+        location: ''
     }
 
     handleChange = e => {
@@ -39,7 +41,6 @@ class signup extends Component {
 
     handleSubmit = e => {
         e.preventDefault();
-        this.setState({loading: true})
 
         const newUser = {
             firstName: this.state.firstName,
@@ -52,26 +53,13 @@ class signup extends Component {
             website: this.state.website,
             location: this.state.location
         }
-        axios.post('/users/signup', newUser, {
-            validateStatus: status => {
-                return true
-            }
-        })
-        .then(res => {
-            if(res.data.status !== 'error') {
-                console.log(res.data)
-                localStorage.setItem('token', res.data.token)
-                this.props.history.push('/')
-            } else {
-                this.setState({errors: res.data.error.errors})
-            }
-        })
-        .catch(err => console.log(err))
+
+        this.props.onSignupUser(newUser, this.props.history);
     }
 
     render() {
-        const {classes} = this.props
-        const {errors} = this.state
+        const {classes, errors, loading} = this.props
+        
         return (
         <Grid container className={classes.formWrapper}>
             <Grid item sm />
@@ -249,7 +237,7 @@ class signup extends Component {
                     />
                         <Button type="submit" variant="contained" color="primary" style={{marginTop: '10px'}} className={classes.button}>
                             Signup
-                            {this.state.loading && (
+                            {loading && (
                                 <CircularProgress color="secondary" size="30" className={classes.spinner}/>
                             )}
                         </Button>
@@ -261,4 +249,17 @@ class signup extends Component {
     }
 }
 
-export default withStyles(styles)(signup)
+const mapStateToProps = state => {
+    return {
+        errors: state.UI.errors,
+        loading: state.user.loading
+    }
+}
+
+const mapActionsToProps = dispatch => {
+    return {
+        onSignupUser: (userInfo, history) => dispatch(userActions.signupUser(userInfo, history))
+    }
+}
+
+export default connect(mapStateToProps, mapActionsToProps)(withStyles(styles)(signup))
