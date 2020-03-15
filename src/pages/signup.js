@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import AppLogo from './../images/logo-mobico.png'
-import axios from 'axios'
 
 // * Mui
 import withStyles from '@material-ui/core/styles/withStyles'
