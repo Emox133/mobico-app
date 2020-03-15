@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import AppLogo from './../images/logo-mobico.png'
-import axios from 'axios'
 
 // * Redux
 import {connect} from 'react-redux'
@@ -21,7 +20,6 @@ class login extends Component {
     state = {
         email: '',
         password: '',
-        errors: '',
         loading: false
     }
 
@@ -38,25 +36,13 @@ class login extends Component {
         const user = {
             email: this.state.email,
             password: this.state.password
-        }
-
-        axios.post('/users/login', user, {validateStatus: () => {return true}})
-        .then(res => {
-        if(res.data.status !== 'fail') {
-            console.log(res.data)
-            localStorage.setItem('token', res.data.token)
-            this.props.history.push('/')
-            window.location.reload()
-        } else {
-            this.setState({errors: res.data.message})
-            console.log(this.state.errors)
-        }
-    })
-    .catch(err => console.log(err))    
+        }   
+    
+        this.props.onLoginUser(user, this.props.history);
     }
+
     render() {
-        const {classes} = this.props
-        const {errors} = this.state
+        const {classes, errors} = this.props
         return (
         <Grid container className={classes.formWrapper}>
             <Grid item sm />
@@ -68,8 +54,8 @@ class login extends Component {
                     name="email"
                     placeholder="Email"
                     type="email"
-                    error={errors ? true : false}
-                    helperText={errors ? errors : null}
+                    error={errors.message ? true : false}
+                    helperText={errors.message ? errors.message : null}
                     className={classes.textField}
                     onChange={this.handleChange}
                     value={this.state.email}
@@ -80,8 +66,8 @@ class login extends Component {
                     name="password"
                     placeholder="Password"
                     type="password"
-                    error={errors ? true : false}
-                    helperText={errors ? errors : null}
+                    error={errors.message ? true : false}
+                    helperText={errors.message ? errors.message : null}
                     className={classes.textField}
                     onChange={this.handleChange}
                     value={this.state.password}
@@ -101,4 +87,16 @@ class login extends Component {
     }
 }
 
-export default withStyles(styles)(login);
+const mapStateToProps = state => {
+    return {
+        errors: state.UI.errors
+    }
+}
+
+const mapActionToProps = dispatch => {
+    return {
+        onLoginUser: (userInfo, history) => dispatch(userActions.loginUser(userInfo, history))
+    }
+}
+
+export default connect(mapStateToProps, mapActionToProps)(withStyles(styles)(login));

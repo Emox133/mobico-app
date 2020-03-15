@@ -4,7 +4,8 @@ const initialState = {
     user: {},
     likes: [],
     notifications: [],
-    authenticated: false
+    authenticated: false,
+    loading: false
 }
 
 export default function (state = initialState, action) {
@@ -12,6 +13,22 @@ export default function (state = initialState, action) {
         case types.LOGOUT_USER: 
             return initialState
 
+        case types.SET_AUTHENTICATED:
+            return {
+                ...state,
+                authenticated: true
+            }
+        case types.SET_USER: 
+            return {
+                authenticated: true,
+                loading: false,
+                ...action.payload
+            }
+        case types.LOADING_DATA:
+            return {
+                ...state,
+                loading: true
+            }
         default: 
             return state
     }

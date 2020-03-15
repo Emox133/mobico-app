@@ -1,11 +1,13 @@
 import React, {Component} from 'react'
-import axios from 'axios'
 
 // * Mui
 import withStyles from '@material-ui/core/styles/withStyles'
 import Paper from '@material-ui/core/Paper'
 import Typography from '@material-ui/core/Typography'
 import CircularProgress from '@material-ui/core/CircularProgress'
+
+// * Redux
+import {connect} from 'react-redux'
 
 const styles = theme => ({
     ...theme.spreadThis
@@ -16,31 +18,13 @@ class Profile extends Component {
         user: {},
         likes: [],
         notifications: [],
-        loading: false
-    }
-
-    componentDidMount(){
-        axios.get('/users/me', {
-            validateStatus: () => {
-                return true
-            }
-        })
-        .then(res => {
-            this.setState({
-                loading: true,
-                user: res.data.data.user,
-                likes: res.data.data.likes,
-                notifications: res.data.data.notifications
-            })
-        })
-        .catch(err => console.log(err))
     }
 
     render(){
         const {classes} = this.props
-        const {firstName, lastName, username, userImage, location, website, bio}  = this.state.user
+        const {user: {firstName, lastName, username, userImage, location, website, bio, loading}}  = this.props.user
 
-        let profile = this.state.loading ? (
+        let profile = this.props.user && !loading ? (
             <Paper className={classes.paper}>
                 <div className={classes.imageWrapper}>
                     <img src={userImage} className={classes.profileImage} alt="profile" />
@@ -74,4 +58,10 @@ class Profile extends Component {
     }
 }
 
-export default withStyles(styles)(Profile)
+const mapStateToProps = state => {
+    return {
+        user: state.user
+    }
+};
+
+export default connect(mapStateToProps, null)(withStyles(styles)(Profile))

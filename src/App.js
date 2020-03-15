@@ -12,6 +12,7 @@ import jwtDecode from 'jwt-decode'
 // * Redux
 import {Provider} from 'react-redux'
 import store from './redux/store'
+import {getUserData} from './redux/actions/userActions'
 
 // * Mui
 import createMuiTheme from '@material-ui/core/styles/createMuiTheme'
@@ -31,7 +32,8 @@ if(token) {
     authenticated = false;
   } else {
     authenticated = true;
-    axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+    axios.defaults.headers.common['Authorization'] = `${token}`;
+    store.dispatch(getUserData())
   }
 }
 

@@ -2,14 +2,14 @@ import {applyMiddleware, compose, combineReducers, createStore} from 'redux'
 import thunk from 'redux-thunk'
 
 import userReducer from './reducers/userReducer'
-import dataReducer from './reducers/dataReducer'
 import uiReducer from './reducers/uiReducer'
+// import dataReducer from './reducers/dataReducer'
 
 const initialState = {}
 
 const reducers = combineReducers({
-    user: userReducer
-    // UI: uiReducer,
+    user: userReducer,
+    UI: uiReducer
     // data: dataReducer 
 })
 
