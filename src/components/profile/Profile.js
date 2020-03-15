@@ -14,15 +14,8 @@ const styles = theme => ({
 })
 
 class Profile extends Component {
-    state = {
-        user: {},
-        likes: [],
-        notifications: [],
-    }
-
     render(){
-        const {classes} = this.props
-        const {user: {firstName, lastName, username, userImage, location, website, bio, loading}}  = this.props.user
+        const {classes, user: {firstName, lastName, username, userImage, location, website, bio}, loading} = this.props
 
         let profile = this.props.user && !loading ? (
             <Paper className={classes.paper}>
@@ -60,7 +53,8 @@ class Profile extends Component {
 
 const mapStateToProps = state => {
     return {
-        user: state.user
+        user: state.user.user,
+        loading: state.user.loading
     }
 };
 

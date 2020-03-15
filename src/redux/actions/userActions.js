@@ -51,7 +51,8 @@ export const signupUser = (userInfo, history) => dispatch => {
 };
 
 export const getUserData = () => dispatch => {
-    axios.get('users/me', {validateStatus: status => {return true}})
+    dispatch({type: types.LOADING_DATA})
+    axios.get('users/me', {validateStatus: () => {return true}})
     .then(res => {
         dispatch({
             type: types.SET_USER,

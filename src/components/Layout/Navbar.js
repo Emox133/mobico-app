@@ -18,6 +18,7 @@ import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 
 const Navbar = (props) => {
     const dispatch = useDispatch()
+    
     const {authenticated} = useSelector(state => ({
         authenticated: state.user.authenticated
     }), shallowEqual)

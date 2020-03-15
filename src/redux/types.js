@@ -7,3 +7,7 @@ export const LOADING_DATA = 'LOADING_DATA'
 // * Ui types
 export const SET_ERRORS = 'SET_ERRORS'
 export const CLEAR_ERRORS = 'CLEAR_ERRORS'
+export const LOADING_FROM_DATA = 'LOADING_FROM_DATA'
+
+// * Data types
+export const SET_POSTS = 'SET_POSTS'
