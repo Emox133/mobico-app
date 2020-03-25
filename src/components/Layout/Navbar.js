@@ -1,5 +1,6 @@
 import React, {Fragment} from 'react'
 import {Link, withRouter} from 'react-router-dom'
+import AuthBar from './AuthBar'
 
 // * Redux
 import {useDispatch, useSelector, shallowEqual} from 'react-redux'
@@ -9,12 +10,8 @@ import * as userActions from './../../redux/actions/userActions'
 import AppBar from '@material-ui/core/AppBar'
 import Toolbar from '@material-ui/core/Toolbar'
 import Button from '@material-ui/core/Button'
-import OwnButton from './../../utils/OwnButton'
-import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import IconButton from '@material-ui/core/IconButton'
 import HomeIcon from '@material-ui/icons/Home';
-import CreateIcon from '@material-ui/icons/Create';
-import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 
 const Navbar = (props) => {
     const dispatch = useDispatch()
@@ -24,20 +21,7 @@ const Navbar = (props) => {
     }), shallowEqual)
 
     let appbar = authenticated ? (
-        <Fragment>
-            <OwnButton tip="Create Post">
-                <CreateIcon />
-            </OwnButton>
-            <IconButton component={Link} to="/">
-                <HomeIcon />
-            </IconButton>
-            <IconButton>
-                <AccountCircleIcon />
-            </IconButton>
-            <OwnButton tip="Logout" onClick={() => dispatch(userActions.logoutUser(props.history))}>
-                <ExitToAppIcon />
-            </OwnButton>
-        </Fragment>
+        <AuthBar logout={() => dispatch(userActions.logoutUser(props.history))}/>
         ) : (
         <Fragment>
             <Button color="inherit" component={Link} to="/signup">Signup</Button>
@@ -49,7 +33,7 @@ const Navbar = (props) => {
     )
     
         return (
-            <AppBar position="static" >
+            <AppBar position="sticky" >
                 <Toolbar className="nav">
                     {appbar}
                 </Toolbar>

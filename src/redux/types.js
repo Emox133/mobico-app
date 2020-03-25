@@ -11,3 +11,4 @@ export const LOADING_FROM_DATA = 'LOADING_FROM_DATA'
 
 // * Data types
 export const SET_POSTS = 'SET_POSTS'
+export const CREATE_POST = 'CREATE_POST'

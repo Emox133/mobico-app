@@ -19,7 +19,6 @@ const theme = createMuiTheme(themeUtil)
 
 class App extends Component {
   render() {
-    console.log(this.props)
 
     let authNavbar = this.props.authenticated ? (
       <Switch>

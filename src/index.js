@@ -20,7 +20,6 @@ const token = localStorage.token;
 
 if(token) {
   const decoded = jwtDecode(token)
-  console.log(decoded)
 
   if(new Date(decoded.exp * 1000) < new Date()) {
     // !EXPIRED

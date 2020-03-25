@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react'
+import React, {useEffect, useRef} from 'react'
 import Posts from './../components/posts/Posts'
 import Profile from './../components/profile/Profile'
 
@@ -12,6 +12,11 @@ import {fetchPosts} from './../redux/actions/dataActions'
 
 const Home = () => {
     const dispatch = useDispatch()
+    const scrollRef = useRef(null);
+
+    const scrollToBottom = () => {
+        scrollRef.current.scrollIntoView({behaviour: "smooth"})
+    };
 
     const {posts, loading} = useSelector(state => ({
         posts: state.data.posts,
@@ -26,10 +31,17 @@ const Home = () => {
             posts.map(post => <Posts key={post._id} post={post}/>)
         ) : <CircularProgress color="secondary" size={150} thickness={2} style={{display: 'block', margin: '0 auto'}}/>
 
+    useEffect(() => {
+        setTimeout(() => {
+            scrollToBottom()
+        }, 2000);
+    }, [fetchedPosts]);
+
         return (
             <Grid container>
                 <Grid item sm={8} xs={12}>
                     {fetchedPosts}
+                    <div ref={scrollRef}></div>
                 </Grid>
                 <Grid item sm={4} xs={12}>
                     <Profile />
