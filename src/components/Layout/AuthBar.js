@@ -1,7 +1,7 @@
 import React, {Fragment} from 'react'
 import {Link} from 'react-router-dom'
 import OwnButton from '../../utils/OwnButton'
-import CreatePosts from '../CreatePosts'
+import CreatePosts from '../posts/CreatePosts'
 
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import HomeIcon from '@material-ui/icons/Home';

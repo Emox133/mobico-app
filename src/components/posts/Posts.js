@@ -1,6 +1,7 @@
 import React from 'react'
 import OwnButton from './../../utils/OwnButton'
 import moment from 'moment'
+import DeletePost from './DeletePosts'
 
 // * Mui
 import withStyles from '@material-ui/styles/withStyles'
@@ -10,7 +11,6 @@ import CardMedia from '@material-ui/core/CardMedia';
 import Typography from '@material-ui/core/Typography';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import ChatBubbleIcon from '@material-ui/icons/ChatBubble';
-import DeleteIcon from '@material-ui/icons/Delete';
 
 const styles = theme => ({
     ...theme.spreadThis
@@ -18,6 +18,7 @@ const styles = theme => ({
 
 const Posts = props => {
    const {post, classes} = props
+
     return (
             <Card className={classes.card}>
                     <CardMedia 
@@ -27,9 +28,7 @@ const Posts = props => {
                     <CardContent>
                         <Typography className={classes.owner}>
                             {post.owner}
-                            <span className={classes.deletePost}>
-                                <DeleteIcon />
-                            </span>
+                            <DeletePost id={post._id} owner={post.owner}/>
                         </Typography>
 
                         <Typography color="primary">

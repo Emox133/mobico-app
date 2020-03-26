@@ -13,19 +13,40 @@ export const fetchPosts = () => dispatch => {
     .catch(err => console.log(err))
 };
 
-export const createPost = data => dispatch => {
+export const createPost = (data, history) => dispatch => {
     dispatch({type: types.LOADING_FROM_DATA});
     axios.post('/posts', data, {validateStatus: () => {return true}})
     .then(res => {
-        console.log(res.data.data.post)
-        dispatch({
-            type: types.CREATE_POST
-        })
+        console.log(res.data)
+        if(res.data.status !== 'error') {
+            dispatch({
+                type: types.CREATE_POST
+            })
+        } else {
+            dispatch({
+                type: types.SET_ERRORS,
+                payload: res.data.error.errors
+            })
+            dispatch({type: types.STOP_LOADING})
+        }
+    })
+    .catch(err => console.error(err))
+    history.go(0)
+};
+
+export const deletePost = id => dispatch => {
+    dispatch({type: types.LOADING_FROM_DATA});
+    axios.delete(`/posts/${id}`, {validateStatus: () => {return true}})
+    .then(res => {
+        console.log(res)
+        dispatch({type: types.DELETE_POST})
     })
     .catch(err => {
+        console.error(err)
         dispatch({
             type: types.SET_ERRORS,
             payload: err
         })
     })
+    // window.location.reload()
 };

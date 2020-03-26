@@ -1,6 +1,6 @@
 import React, {useState, Fragment} from 'react';
 import {withRouter} from 'react-router-dom'
-import OwnButton from './../utils/OwnButton'
+import OwnButton from '../../utils/OwnButton'
 
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
@@ -10,12 +10,16 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import CreateIcon from '@material-ui/icons/Create';
 
-import {useDispatch} from 'react-redux'
-import {createPost} from './../redux/actions/dataActions'
+import {useDispatch, useSelector, shallowEqual} from 'react-redux'
+import {createPost} from '../../redux/actions/dataActions'
 
 const FormDialog = (props) => {
   const [open, setOpen] = useState(false);
   const [inputState, setInputState] = useState({text: ''})
+
+  const {errors} = useSelector(state => ({
+    errors: state.UI.errors
+  }), shallowEqual)
 
   const dispatch = useDispatch();
 
@@ -36,9 +40,9 @@ const FormDialog = (props) => {
   const handleSubmit = e => {
     e.preventDefault();
 
-    dispatch(createPost({text: inputState.text}))
-    setOpen(false);
-    window.scrollTo(0, document.body.scrollHeight);
+    dispatch(createPost({text: inputState.text}, props.history))
+
+    if(inputState.text.length > 0) setOpen(false);
   };
 
   return (
@@ -52,6 +56,8 @@ const FormDialog = (props) => {
         <DialogContent>
           <TextField
             autoFocus
+            error={errors.text && inputState.text.length === 0 ? errors.text : null}
+            helperText={errors.text && inputState.text.length === 0 ? errors.text.message : null}
             margin="dense"
             id="text"
             name="text"

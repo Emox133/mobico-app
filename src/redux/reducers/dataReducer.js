@@ -19,11 +19,23 @@ export default function(state = initialState, action) {
                 ...state,
                 loading: false
             }
+        
+        case types.DELETE_POST:
+            return {
+                ...state,
+                loading: false
+            }
 
         case types.LOADING_FROM_DATA:
             return {
                 ...state,
                 loading: true
+            }
+
+        case types.STOP_LOADING: 
+            return {
+                ...state,
+                loading: false
             }
 
         default:
