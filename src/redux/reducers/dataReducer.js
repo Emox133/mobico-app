@@ -26,6 +26,12 @@ export default function(state = initialState, action) {
                 loading: false
             }
 
+        case types.LIKE_POST: 
+            return {
+                ...state,
+                loading: false
+            }
+        
         case types.LOADING_FROM_DATA:
             return {
                 ...state,

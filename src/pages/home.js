@@ -15,13 +15,13 @@ const Home = () => {
     const scrollRef = useRef(null);
 
     const scrollToBottom = () => {
-        scrollRef.current.scrollIntoView({behaviour: "smooth"})
+        scrollRef.current.scrollIntoView({behavior: "smooth"})
     };
 
-    const {posts, loading, authenticated} = useSelector(state => ({
+    const {posts, loading, scrollEffect} = useSelector(state => ({
         posts: state.data.posts,
         loading: state.data.loading,
-        authenticated: state.user.authenticated
+        scrollEffect: state.UI.scrollEffect
     }), shallowEqual)
     
     useEffect(() => {
@@ -33,12 +33,12 @@ const Home = () => {
         ) : <CircularProgress color="secondary" size={150} thickness={2} style={{display: 'block', margin: '0 auto'}}/>
 
     useEffect(() => {
-        if(authenticated) {
+        if(scrollEffect) {
             setTimeout(() => {
                 scrollToBottom()
             }, 2000);
         }
-    }, [fetchedPosts, authenticated]);
+    }, [fetchedPosts, scrollEffect]);
 
         return (
             <Grid container>

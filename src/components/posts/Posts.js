@@ -2,6 +2,7 @@ import React from 'react'
 import OwnButton from './../../utils/OwnButton'
 import moment from 'moment'
 import DeletePost from './DeletePosts'
+import LikePosts from './LikePosts'
 
 // * Mui
 import withStyles from '@material-ui/styles/withStyles'
@@ -9,7 +10,6 @@ import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Typography from '@material-ui/core/Typography';
-import FavoriteIcon from '@material-ui/icons/Favorite';
 import ChatBubbleIcon from '@material-ui/icons/ChatBubble';
 
 const styles = theme => ({
@@ -39,12 +39,9 @@ const Posts = props => {
                             {post.text}
                         </Typography>
 
-                        <OwnButton tip="Likes">
-                            <FavoriteIcon color="primary"/> 
-                        </OwnButton>
-                            <span>{post.likeCount} Likes</span>
+                        <LikePosts post={post}/>
 
-                        <OwnButton tip="Comments">
+                        <OwnButton tip="Comment Post">
                             <ChatBubbleIcon color="primary"/> 
                         </OwnButton>
                             <span>{post.commentCount} Comments</span>

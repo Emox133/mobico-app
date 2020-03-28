@@ -1,7 +1,8 @@
 import * as types from './../types'
 
 const initialState = {
-    errors: {}
+    errors: {},
+    scrollEffect: false
 }
 
 export default function(state = initialState, action) {
@@ -13,6 +14,12 @@ export default function(state = initialState, action) {
             }
         case types.CLEAR_ERRORS: 
             return initialState
+        
+        case types.START_SCROLL_EFFECT:
+            return {
+                ...state,
+                scrollEffect: true
+            }
 
         default: 
             return state

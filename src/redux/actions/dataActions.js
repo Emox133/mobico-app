@@ -34,6 +34,7 @@ export const createPost = (data, history) => dispatch => {
     history.go(0)
 };
 
+// TODO: FINISH THIS ACTION
 export const deletePost = id => dispatch => {
     dispatch({type: types.LOADING_FROM_DATA});
     axios.delete(`/posts/${id}`, {validateStatus: () => {return true}})
@@ -49,4 +50,15 @@ export const deletePost = id => dispatch => {
         })
     })
     // window.location.reload()
+};
+
+export const likePost = id => dispatch => {
+    dispatch({type: types.LOADING_FROM_DATA})
+    axios.post(`/posts/${id}/like`, null, {validateStatus: status => {return true}})
+    .then(res => {
+        console.log(res)
+        dispatch({type: types.LIKE_POST})
+        // dispatch({type: types.START_SCROLL_EFFECT})
+    })
+    .catch(err => console.error(err))
 };
