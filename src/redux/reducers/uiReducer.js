@@ -18,7 +18,7 @@ export default function(state = initialState, action) {
         case types.START_SCROLL_EFFECT:
             return {
                 ...state,
-                scrollEffect: true
+                scrollEffect: action.payload === 'on' ? true : false
             }
 
         default: 

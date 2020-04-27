@@ -3,6 +3,8 @@ export const SET_AUTHENTICATED = 'SET_AUTHENTICATED'
 export const LOGOUT_USER = 'LOGOUT_USER'
 export const SET_USER = 'SET_USER'
 export const LOADING_DATA = 'LOADING_DATA'
+export const UPDATE_PROFILE = 'UPDATE_PROFILE'
+export const STOP_USER_LOADING = 'STOP_USER_LOADING'
 
 // * Ui types
 export const SET_ERRORS = 'SET_ERRORS'
@@ -16,3 +18,4 @@ export const DELETE_POST = 'DELETE_POST'
 export const LOADING_FROM_DATA = 'LOADING_FROM_DATA'
 export const STOP_LOADING = 'STOP_LOADING'
 export const LIKE_POST = 'LIKE_POST'
+export const DISLIKE_POST = 'DISLIKE_POST'

@@ -10,7 +10,7 @@ import CircularProgress from '@material-ui/core/CircularProgress'
 import {useDispatch, useSelector, shallowEqual} from 'react-redux'
 import {fetchPosts} from './../redux/actions/dataActions'
 
-const Home = () => {
+const Home = (props) => {
     const dispatch = useDispatch()
     const scrollRef = useRef(null);
 
@@ -47,7 +47,7 @@ const Home = () => {
                     <div ref={scrollRef}></div>
                 </Grid>
                 <Grid item sm={4} xs={12}>
-                    <Profile />
+                    <Profile history={props.history}/>
                 </Grid>
             </Grid>
         )

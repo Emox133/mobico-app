@@ -31,6 +31,12 @@ export default function(state = initialState, action) {
                 ...state,
                 loading: false
             }
+
+        case types.DISLIKE_POST:
+            return {
+                ...state,
+                loading: false
+            }
         
         case types.LOADING_FROM_DATA:
             return {

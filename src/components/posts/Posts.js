@@ -3,6 +3,7 @@ import OwnButton from './../../utils/OwnButton'
 import moment from 'moment'
 import DeletePost from './DeletePosts'
 import LikePosts from './LikePosts'
+// import DislikePosts from './DislikePosts'
 
 // * Mui
 import withStyles from '@material-ui/styles/withStyles'
@@ -11,6 +12,9 @@ import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Typography from '@material-ui/core/Typography';
 import ChatBubbleIcon from '@material-ui/icons/ChatBubble';
+
+// Redux
+// import {useSelector, shallowEqual} from 'react-redux'
 
 const styles = theme => ({
     ...theme.spreadThis

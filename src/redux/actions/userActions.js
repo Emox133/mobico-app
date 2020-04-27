@@ -62,6 +62,28 @@ export const getUserData = () => dispatch => {
     .catch(err => console.log(err))
 };
 
+export const updateProfile = (data) => dispatch => {
+    dispatch({type: types.LOADING_DATA})
+    axios.patch('users/updateMe', data, {validateStatus: () => {return true}})
+    .then(res => {
+        console.log(res)
+        dispatch({type: types.STOP_USER_LOADING})
+        if(res.data.error) {
+            dispatch({
+                type: types.SET_ERRORS,
+                payload: res.data.error.errors
+            })
+        } else {
+            dispatch(getUserData());
+            // alert('Data changed successfully. 😜')
+            // dispatch({type: types.START_SCROLL_EFFECT, payload: 'on'})
+        }
+    })
+    .catch(err => {
+        console.error(err)
+    })
+};
+
 const setAuthorizationHeader = token => {
     const JWT = `Bearer ${token}`;
     localStorage.setItem('token', JWT);

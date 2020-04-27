@@ -53,7 +53,8 @@ spreadThis: {
     },
     paper: {
       height: '70vh',
-      padding: '20px'
+      padding: '20px',
+      position: 'fixed'
     },
     imageWrapper: {
       textAlign: 'center',

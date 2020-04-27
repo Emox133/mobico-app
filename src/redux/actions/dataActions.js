@@ -13,7 +13,7 @@ export const fetchPosts = () => dispatch => {
     .catch(err => console.log(err))
 };
 
-export const createPost = (data, history) => dispatch => {
+export const createPost = (data, history, restrict) => dispatch => {
     dispatch({type: types.LOADING_FROM_DATA});
     axios.post('/posts', data, {validateStatus: () => {return true}})
     .then(res => {
@@ -31,7 +31,11 @@ export const createPost = (data, history) => dispatch => {
         }
     })
     .catch(err => console.error(err))
-    history.go(0)
+    if(restrict.length > 0) {
+        history.go(0)
+    } else {
+        return;
+    }
 };
 
 // TODO: FINISH THIS ACTION
@@ -49,9 +53,10 @@ export const deletePost = id => dispatch => {
             payload: err
         })
     })
-    // window.location.reload()
+    window.location.reload()
 };
 
+// TODO: FINISH SCROLL EFFECT
 export const likePost = id => dispatch => {
     dispatch({type: types.LOADING_FROM_DATA})
     axios.post(`/posts/${id}/like`, null, {validateStatus: status => {return true}})
@@ -61,4 +66,17 @@ export const likePost = id => dispatch => {
         // dispatch({type: types.START_SCROLL_EFFECT})
     })
     .catch(err => console.error(err))
+    window.location.reload();
+};
+
+export const dislikePost = id => dispatch => {
+    dispatch({type: types.LOADING_FROM_DATA})
+    axios.post(`/posts/${id}/dislike`, null, {validateStatus: status => {return true}})
+    .then(res => {
+        console.log(res)
+        dispatch({type: types.DISLIKE_POST})
+        // dispatch({type: types.START_SCROLL_EFFECT})
+    })
+    .catch(err => console.error(err))
+    // window.location.reload();
 };

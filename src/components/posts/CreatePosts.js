@@ -11,6 +11,7 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import CreateIcon from '@material-ui/icons/Create';
 
 import {useDispatch, useSelector, shallowEqual} from 'react-redux'
+import {CLEAR_ERRORS} from './../../redux/types'
 import {createPost} from '../../redux/actions/dataActions'
 
 const FormDialog = (props) => {
@@ -29,6 +30,7 @@ const FormDialog = (props) => {
 
   const handleClose = () => {
     setOpen(false);
+    dispatch({type: CLEAR_ERRORS})
   };
 
   const handleChange = e => {
@@ -40,7 +42,7 @@ const FormDialog = (props) => {
   const handleSubmit = e => {
     e.preventDefault();
 
-    dispatch(createPost({text: inputState.text}, props.history))
+    dispatch(createPost({text: inputState.text}, props.history, inputState.text))
 
     if(inputState.text.length > 0) setOpen(false);
   };
@@ -56,7 +58,7 @@ const FormDialog = (props) => {
         <DialogContent>
           <TextField
             autoFocus
-            error={errors.text && inputState.text.length === 0 ? errors.text : null}
+            error={errors.text ? true : false}
             helperText={errors.text && inputState.text.length === 0 ? errors.text.message : null}
             margin="dense"
             id="text"

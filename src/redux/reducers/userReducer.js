@@ -29,6 +29,11 @@ export default function (state = initialState, action) {
                 ...state,
                 loading: true
             }
+        case types.STOP_USER_LOADING:
+            return {
+                ...state,
+                loading: false
+            }
         default: 
             return state
     }

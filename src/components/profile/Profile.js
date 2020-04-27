@@ -1,4 +1,6 @@
 import React, {Component} from 'react'
+import EditProfile from './EditProfile'
+import EditProfileImage from './EditProfileImage'
 
 // * Mui
 import withStyles from '@material-ui/core/styles/withStyles'
@@ -21,6 +23,7 @@ class Profile extends Component {
             <Paper className={classes.paper}>
                 <div className={classes.imageWrapper}>
                     <img src={userImage} className={classes.profileImage} alt="profile" />
+                    <EditProfileImage />
                     <Typography variant="h4">
                         {firstName} {lastName}
                     </Typography>
@@ -40,6 +43,7 @@ class Profile extends Component {
                             {bio}
                         </Typography>
                     ) : null}
+                    <EditProfile history={this.props.history}/>
                 </div>
             </Paper>
         ) : <CircularProgress size={100} thickness={2} style={{display: 'block', margin: '0 auto'}}/>
