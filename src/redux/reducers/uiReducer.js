@@ -2,7 +2,10 @@ import * as types from './../types'
 
 const initialState = {
     errors: {},
-    scrollEffect: true
+    scrollEffect: true,
+    alertMessage: {
+        message: ''
+    }
 }
 
 export default function(state = initialState, action) {

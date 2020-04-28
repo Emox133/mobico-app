@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import AppLogo from './../images/logo-mobico.png'
+import ForgotPassword from './../components/profile/ForgotPassword'
 
 // * Redux
 import {connect} from 'react-redux'
@@ -79,6 +80,7 @@ class login extends Component {
                             )}
                         </Button>
                     </form>
+                        <ForgotPassword />
                 </Grid>
             <Grid item sm />
         </Grid>
