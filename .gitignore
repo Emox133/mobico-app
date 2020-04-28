@@ -5,6 +5,7 @@
 /.pnp
 .pnp.js
 todo.js
+SnackBar.js
 
 # testing
 /coverage

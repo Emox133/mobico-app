@@ -1,5 +1,6 @@
 import React, {Fragment, useState} from 'react'
 import OwnButton from './../../utils/OwnButton'
+import Emoji from './../../utils/Emoji'
 
 // MUI
 import Dialog from '@material-ui/core/Dialog'
@@ -71,7 +72,9 @@ const EditProfile = (props) => {
 
             <Dialog open={open} onClose={closeHandler} >
                 <form onSubmit={handleSubmit}>
-                <DialogTitle>Edit your profile ✍</DialogTitle>
+                <DialogTitle>
+                    <Emoji symbol="✍" label="edit"/>
+                </DialogTitle>
                 <DialogContent>
                     <DialogContentText>
                          <span role="img" aria-label="note">Note ✔</span> Feel free to change fields individualy but be aware that the field validation is still on.

@@ -62,7 +62,7 @@ export const getUserData = () => dispatch => {
     .catch(err => console.log(err))
 };
 
-export const updateProfile = (data) => dispatch => {
+export const updateProfile = data => dispatch => {
     dispatch({type: types.LOADING_DATA})
     axios.patch('users/updateMe', data, {validateStatus: () => {return true}})
     .then(res => {
@@ -83,6 +83,14 @@ export const updateProfile = (data) => dispatch => {
     .catch(err => {
         console.error(err)
     })
+};
+
+export const forgotPassword = email => {
+    axios.post('/users/forgotPassword', email, {validateStatus: () => {return true}})
+    .then(res => {
+        console.log(res)
+    })
+    .catch(err => {console.error(err)})
 };
 
 const setAuthorizationHeader = token => {
