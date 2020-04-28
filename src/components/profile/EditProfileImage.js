@@ -7,28 +7,34 @@ import Tooltip from '@material-ui/core/Tooltip'
 
 // Redux
 import {useDispatch} from 'react-redux'
-
-const handleImage = e => {
-    const image = e.target.files[0];
-    const formData = new FormData();
-    formData.append('image', image, image.name);
-
-};
-
-const handleImageChange = () => {
-    const file = document.getElementById('image__input');
-    file.click();
-};
+import {updateProfile} from './../../redux/actions/userActions'
 
 const EditProfileImage = () => {
+    const dispatch = useDispatch();
+
+    const handleImage = e => {
+        const image = e.target.files[0];
+        const formData = new FormData();
+        formData.append('photo', image, image.name);
+        dispatch(updateProfile(formData));
+    };
+
+    const handleImageChange = () => {
+        const file = document.getElementById('image__input');
+        file.click();
+    };
+
     return (
     <Fragment>
-        <input 
-        type="file" 
-        id="image__input"
-        hidden="hidden"
-        onChange={handleImage}
-        />
+        <form encType="multipart/form-data" >
+            <input 
+            type="file" 
+            name="photo"
+            id="image__input"
+            hidden="hidden"
+            onChange={handleImage}
+            />
+        </form>
     <Tooltip title="Change profile image">
         <IconButton onClick={handleImageChange}>
             <CreateIcon color="primary"/>

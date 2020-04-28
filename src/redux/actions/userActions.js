@@ -10,7 +10,7 @@ export const loginUser = (userInfo, history) => dispatch => {
             setAuthorizationHeader(res.data.token)
             dispatch(getUserData())
             history.push('/')
-            history.go(0)
+            // history.go(0)
         } else {
             dispatch({
                 type: types.SET_ERRORS,
@@ -66,15 +66,16 @@ export const updateProfile = (data) => dispatch => {
     dispatch({type: types.LOADING_DATA})
     axios.patch('users/updateMe', data, {validateStatus: () => {return true}})
     .then(res => {
-        console.log(res)
         dispatch({type: types.STOP_USER_LOADING})
         if(res.data.error) {
-            dispatch({
-                type: types.SET_ERRORS,
-                payload: res.data.error.errors
-            })
+            // dispatch({
+            //     type: types.SET_ERRORS,
+            //     payload: res.data.error.errors
+            // })
+            console.log(res.data.error)
         } else {
-            dispatch(getUserData());
+            // dispatch(getUserData());
+            window.location.reload();
             // alert('Data changed successfully. 😜')
             // dispatch({type: types.START_SCROLL_EFFECT, payload: 'on'})
         }

@@ -49,6 +49,12 @@ spreadThis: {
     userImage: {
       height: '200px',
       width: '100%',
+      backgroundSize: 'cover',
+      backgroundPosition: 'center',
+
+      '&:hover': {
+      //  ...
+      }
       // borderRadius: '0px'
     },
     paper: {
@@ -62,7 +68,8 @@ spreadThis: {
     profileImage: {
       height: '250px',
       width: '50%',
-      borderRadius: '50%'
+      borderRadius: '50%',
+      objectFit: 'cover'
     }
   }
 }

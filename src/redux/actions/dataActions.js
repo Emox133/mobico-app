@@ -22,6 +22,7 @@ export const createPost = (data, history, restrict) => dispatch => {
             dispatch({
                 type: types.CREATE_POST
             })
+            dispatch(fetchPosts())
         } else {
             dispatch({
                 type: types.SET_ERRORS,
@@ -31,11 +32,11 @@ export const createPost = (data, history, restrict) => dispatch => {
         }
     })
     .catch(err => console.error(err))
-    if(restrict.length > 0) {
-        history.go(0)
-    } else {
-        return;
-    }
+    // if(restrict.length > 0) {
+    //     history.go(0)
+    // } else {
+    //     return;
+    // }
 };
 
 // TODO: FINISH THIS ACTION
@@ -45,6 +46,7 @@ export const deletePost = id => dispatch => {
     .then(res => {
         console.log(res)
         dispatch({type: types.DELETE_POST})
+        dispatch(fetchPosts())
     })
     .catch(err => {
         console.error(err)
@@ -53,7 +55,6 @@ export const deletePost = id => dispatch => {
             payload: err
         })
     })
-    window.location.reload()
 };
 
 // TODO: FINISH SCROLL EFFECT
