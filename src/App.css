@@ -13,3 +13,32 @@ html {
 .nav span {
     text-transform: capitalize;
 }
+
+/* AnimeJS */
+#boxes {
+    height: 300px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.box {
+    height: 50px;
+    width: 50px;
+}
+
+.one {
+    background-color: #8338ec;
+}
+
+.two {
+    background-color: #fb5607;
+}
+
+.three {
+    background-color: #ff006e;
+}
+
+.four {
+    background-color: #3a86ff;
+}

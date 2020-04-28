@@ -1,12 +1,12 @@
 import React, {Component} from 'react'
 import EditProfile from './EditProfile'
 import EditProfileImage from './EditProfileImage'
+import Loader from './../../utils/Loader'
 
 // * Mui
 import withStyles from '@material-ui/core/styles/withStyles'
 import Paper from '@material-ui/core/Paper'
 import Typography from '@material-ui/core/Typography'
-import CircularProgress from '@material-ui/core/CircularProgress'
 
 // * Redux
 import {connect} from 'react-redux'
@@ -46,7 +46,7 @@ class Profile extends Component {
                     <EditProfile history={this.props.history}/>
                 </div>
             </Paper>
-        ) : <CircularProgress size={100} thickness={2} style={{display: 'block', margin: '0 auto'}}/>
+        ) : <Loader />
         return(
             <div>
                 {profile}

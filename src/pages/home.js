@@ -1,10 +1,10 @@
 import React, {useEffect, useRef} from 'react'
 import Posts from './../components/posts/Posts'
 import Profile from './../components/profile/Profile'
+import Loader from './../utils/Loader'
 
 // * Mui
 import Grid from '@material-ui/core/Grid'
-import CircularProgress from '@material-ui/core/CircularProgress'
 
 // * Redux
 import {useDispatch, useSelector, shallowEqual} from 'react-redux'
@@ -30,7 +30,7 @@ const Home = (props) => {
     
         let fetchedPosts = posts && !loading ? (
             posts.map(post => <Posts key={post._id} post={post}/>)
-        ) : <CircularProgress color="secondary" size={150} thickness={2} style={{display: 'block', margin: '0 auto'}}/>
+        ) : <Loader />
 
     useEffect(() => {
         if(scrollEffect) {
