@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Courgette&display=swap');
 
 html {
-    font-family: 'Baloo Chettan 2', cursive;
+    font-family: 'Courgette', cursive;
     box-sizing: border-box;
 }
 
@@ -58,7 +58,7 @@ html {
 }
 
 .landing__page {
-    min-height: 100vh;
+    min-height: calc(100vh - 64px);
     overflow: hidden;
     position: relative;
     background-image: linear-gradient(125deg, rgba(74, 20, 140, .5) 0%, rgba(74, 20, 140, .7) 50%, transparent 50%), url('./images/6.jpg');
@@ -112,3 +112,85 @@ html {
     border: none;
     border-radius: .3rem;
 }
+
+/************** USER PROFILE PAGE ***************/
+.profile {
+    height: calc(100vh - 64px);
+    position: relative;
+    overflow: hidden;
+}
+
+.profile__user {
+    height: 35%;
+    /* background-image: linear-gradient(to right, rgba(0, 0, 0, .9), rgba(120, 0, 255, .9)); */
+    background: #000000;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #434343, #000000);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #434343, #000000); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    color: #fff;
+}
+
+.profile__user-avatar {
+    height: 100%;
+    display: flex;
+    /* justify-content: center; */
+    align-items: center;
+    /* margin: 0 auto; */
+    padding: 0 2rem;
+}
+
+.profile__user-img {
+    height: 90%;
+    width: 350px;
+}
+
+.profile__user-details {
+    /* margin: 0 auto; */
+    text-align: left;
+    margin-left: 2rem;
+}
+
+.profile__user-title {
+    margin-bottom: .5rem;
+    font-size: 2.5rem;
+    /* border-bottom: 3px solid white; */
+    transition: all .5s ease;
+    /* background-image: linear-gradient(to right, rgba(100, 0, 255, .9), rgba(120, 0, 255, .8));
+    color: transparent;
+    background-clip: text; */
+}
+
+.profile__user-title:hover {
+    transform: translateY(-.2rem);
+}
+
+
+.profile__user-location, .profile__user-bio {
+    font-size: 1.3rem;
+    letter-spacing: .1em;
+    overflow-wrap: anywhere;
+}
+
+.profile__posts {
+    height: 65%;
+    background-color: #eee;
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+
+.posts {
+    font-family: 'Baloo Chettan 2' cursive !important;
+    display: grid;
+    grid-template-columns: repeat(4, min-content);
+    grid-template-rows: repeat(auto-fit, minmax(150px, min-content));
+    grid-gap: .8rem;
+    margin-left: .5rem;
+}
+
+.posts__title {
+    font-size: 3rem;
+    text-transform: capitalize;
+    text-align: center;
+}
+/************** USER PROFILE PAGE END***************/
+
+

@@ -8,6 +8,7 @@ import Home from './pages/home'
 import Signup from './pages/signup'
 import Login from './pages/login'
 import ResetPassword from './pages/resetPassword'
+import MyProfile from './pages/myProfile'
 
 // * Redux
 import {connect} from 'react-redux'
@@ -24,6 +25,7 @@ class App extends Component {
     let authNavbar = this.props.authenticated ? (
       <Switch>
         <Route exact path="/" component={Home}/>
+        <Route path="/me" component={MyProfile}/>
         <Redirect to="/"/>
       </Switch>
     ) : 

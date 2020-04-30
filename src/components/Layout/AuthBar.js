@@ -15,7 +15,7 @@ const AuthBar = (props) => {
             <IconButton component={Link} to="/">
                 <HomeIcon />
             </IconButton>
-            <IconButton>
+            <IconButton component={Link} to="/me">
                 <AccountCircleIcon />
             </IconButton>
             <OwnButton tip="Logout" onClick={props.logout}>

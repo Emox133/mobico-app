@@ -127,6 +127,12 @@ export const resetPassword = (token, data,  history) => dispatch => {
     .catch(err => console.log(err))
 };
 
+export const deleteProfile = () => dispatch => {
+    axios.delete('/users/deleteMe', {validateStatus: () => {return true}})
+    .then(res => console.log(res))
+    .catch(err => console.error(err))
+};
+
 const setAuthorizationHeader = token => {
     const JWT = `Bearer ${token}`;
     localStorage.setItem('token', JWT);
