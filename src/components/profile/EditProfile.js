@@ -73,7 +73,7 @@ const EditProfile = (props) => {
             <Dialog open={open} onClose={closeHandler} >
                 <form onSubmit={handleSubmit}>
                 <DialogTitle>
-                    <Emoji symbol="✍" label="edit"/>
+                   Edit your profile details <Emoji symbol="✍" label="edit"/>
                 </DialogTitle>
                 <DialogContent>
                     <DialogContentText>

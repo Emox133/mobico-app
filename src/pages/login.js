@@ -30,7 +30,7 @@ class login extends Component {
             [e.target.name]: e.target.value
         })
     }
-
+    
     handleSubmit = e => {
         e.preventDefault();
 
@@ -38,10 +38,10 @@ class login extends Component {
             email: this.state.email,
             password: this.state.password
         }   
-    
+        
         this.props.onLoginUser(user, this.props.history);
     }
-
+    
     render() {
         const {classes, errors} = this.props
         return (
@@ -81,7 +81,7 @@ class login extends Component {
                             )}
                         </Button>
                     </form>
-                        <ForgotPassword />
+                        <ForgotPassword history={this.props.history}/>
                         {/* <SnackBar /> */}
                 </Grid>
             <Grid item sm />

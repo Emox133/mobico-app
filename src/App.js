@@ -6,6 +6,7 @@ import NotFound from './pages/notFound'
 import Home from './pages/home'
 import Signup from './pages/signup'
 import Login from './pages/login'
+import ResetPassword from './pages/resetPassword'
 
 // * Redux
 import {connect} from 'react-redux'
@@ -19,7 +20,6 @@ const theme = createMuiTheme(themeUtil)
 
 class App extends Component {
   render() {
-
     let authNavbar = this.props.authenticated ? (
       <Switch>
         <Route exact path="/" component={Home}/>
@@ -30,6 +30,7 @@ class App extends Component {
       <Route exact path="/" component={Home}/>
       <Route path="/signup" component={Signup}/>
       <Route path="/login" component={Login}/>
+      <Route path="/resetPassword/:token" component={ResetPassword}/>
       <Route component={NotFound}/>
     </Switch>
 

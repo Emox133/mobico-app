@@ -1,5 +1,6 @@
 import React, {Fragment, useState} from 'react'
 import Emoji from './../../utils/Emoji'
+// import {withRouter}
 
 import Dialog from '@material-ui/core/Dialog'
 import DialogContent from '@material-ui/core/DialogContent'
@@ -11,14 +12,19 @@ import TextField from '@material-ui/core/TextField'
 import Button from '@material-ui/core/Button'
 import SendIcon from '@material-ui/icons/Send'
 
-import {useDispatch} from 'react-redux'
+import {useDispatch, useSelector, shallowEqual} from 'react-redux'
 import {forgotPassword} from './../../redux/actions/userActions'
+import {CLEAR_ERRORS} from './../../redux/types'
 
-const ForgotPassword = () => {
+const ForgotPassword = (props) => {
     const [open, setOpen] = useState(false)
-    const [email, setEmail] = useState({email: ''});
+    const [email, setEmail] = useState({email: ''})
 
     const dispatch = useDispatch();
+
+    const {errors} = useSelector(state => ({
+        errors: state.UI.errors
+    }), shallowEqual)
 
     const handleOpen = () => {
         setOpen(true);
@@ -26,16 +32,19 @@ const ForgotPassword = () => {
 
     const handleClose = () => {
         setOpen(false);
+        dispatch({type: CLEAR_ERRORS})
     }
-
+    
     const handleChange = e => {
         setEmail({
             [e.target.name]: e.target.value
         })
     }
-
-    const handleSubmit = () => {
-        dispatch(forgotPassword(email))
+    
+    const handleSubmit = e => {
+        e.preventDefault();
+        dispatch({type: CLEAR_ERRORS})
+        dispatch(forgotPassword(email, props.history))
     };
 
     return (
@@ -44,7 +53,7 @@ const ForgotPassword = () => {
                     Forgot Password <LiveHelpIcon />
                 </Button>
             <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
-                <form onSubmit={handleSubmit}>
+                <form onSubmit={e => handleSubmit(e)}>
                 <DialogTitle id="form-dialog-title">
                     Forgot your password ? <Emoji symbol="🔐" label="password"/>
                 </DialogTitle>
@@ -57,6 +66,8 @@ const ForgotPassword = () => {
                         margin="dense"
                         name="email"
                         id="e-mail"
+                        error={errors.emailMessage ? true : false}
+                        helperText={errors.emailMessage ? errors.emailMessage : null}
                         label="E-mail"
                         type="email"
                         fullWidth

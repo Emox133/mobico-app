@@ -85,12 +85,46 @@ export const updateProfile = data => dispatch => {
     })
 };
 
-export const forgotPassword = email => {
+export const forgotPassword = (email, history) => dispatch => {
+    // dispatch({type: types.LOADING_DATA})
     axios.post('/users/forgotPassword', email, {validateStatus: () => {return true}})
     .then(res => {
         console.log(res)
+        if(res.data.status !== 'fail' && res.data.status !== 'error') {
+            alert('Email sent!')
+            history.go(0)
+        } else {
+            dispatch({
+                type: types.SET_ERRORS,
+                payload: {emailMessage: res.data.message}
+            })
+        }
     })
-    .catch(err => {console.error(err)})
+    .catch(err => {
+        console.log(err)
+    })
+};
+
+export const resetPassword = (token, data,  history) => dispatch => {
+    dispatch({type: types.LOADING_DATA})
+    axios.post(`/users/resetPassword/${token}`, data, {validateStatus: () => {return true}})
+    .then(res => {
+        console.log(res)
+
+        if(res.data.status !== 'fail' && res.data.status !== 'error') {
+            dispatch({type: types.STOP_USER_LOADING})
+            history.push('/login')
+            alert('Password successfully changed! 🎉')
+        } else {
+            dispatch({type: types.STOP_USER_LOADING})
+            dispatch({
+                type: types.SET_ERRORS,
+                payload: {resetMessage: res.data.message}
+            })
+            // alert(res.data.message + ' ' + '⌛')
+        }
+    })
+    .catch(err => console.log(err))
 };
 
 const setAuthorizationHeader = token => {
