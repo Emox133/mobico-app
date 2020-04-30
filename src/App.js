@@ -3,6 +3,7 @@ import './App.css'
 import {BrowserRouter as Router, Switch, Route, Redirect} from 'react-router-dom'
 import Navbar from './components/Layout/Navbar'
 import NotFound from './pages/notFound'
+import LandingPage from './pages/landingPage'
 import Home from './pages/home'
 import Signup from './pages/signup'
 import Login from './pages/login'
@@ -27,7 +28,7 @@ class App extends Component {
       </Switch>
     ) : 
     <Switch>
-      <Route exact path="/" component={Home}/>
+      <Route exact path="/" component={LandingPage}/>
       <Route path="/signup" component={Signup}/>
       <Route path="/login" component={Login}/>
       <Route path="/resetPassword/:token" component={ResetPassword}/>
