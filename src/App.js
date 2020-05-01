@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React from 'react'
 import './App.css'
 import {BrowserRouter as Router, Switch, Route, Redirect} from 'react-router-dom'
 import Navbar from './components/Layout/Navbar'
@@ -11,18 +11,27 @@ import ResetPassword from './pages/resetPassword'
 import MyProfile from './pages/myProfile'
 
 // * Redux
-import {connect} from 'react-redux'
+import {useSelector, shallowEqual} from 'react-redux'
 
 // * Mui
 import createMuiTheme from '@material-ui/core/styles/createMuiTheme'
 import MuiThemeProvider from '@material-ui/styles/ThemeProvider'
-import themeUtil from './utils/theme'
+import CssBaseline from '@material-ui/core/CssBaseline';
+// import themeUtil from './utils/theme'
+import {useDarkMode} from './utils/theme'
 
-const theme = createMuiTheme(themeUtil)
+// console.log(theme)
 
-class App extends Component {
-  render() {
-    let authNavbar = this.props.authenticated ? (
+const App = () => {
+  const [theme, toggleDarkMode] = useDarkMode();
+  const themeObj = createMuiTheme(theme)
+  
+  const {authenticated, mode} = useSelector(state => ({
+    authenticated: state.user.authenticated,
+    mode: state.UI.mode
+  }), shallowEqual)
+  
+    let authNavbar = authenticated ? (
       <Switch>
         <Route exact path="/" component={Home}/>
         <Route path="/me" component={MyProfile}/>
@@ -38,20 +47,16 @@ class App extends Component {
     </Switch>
 
     return (
-    <MuiThemeProvider theme={theme}>
+    <MuiThemeProvider theme={themeObj}>
+      <CssBaseline />
      <Router>
-       <Navbar />
+      <div className={mode ? 'night' : 'App'}>
+       <Navbar mode={toggleDarkMode}/>
        {authNavbar}
+      </div>
      </Router>
     </MuiThemeProvider>
     )
   }
-}
 
-const mapStateToProps = state => {
-  return {
-    authenticated: state.user.authenticated
-  }
-}
-
-export default connect(mapStateToProps, null)(App)
+export default App

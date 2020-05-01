@@ -16,6 +16,11 @@ html {
     box-sizing: inherit;
 }
 
+/* .App {
+    background-color: #eee;
+    transition: background-color .3s, color .3s;
+} */
+
 .nav {
     justify-content: center;
 }
@@ -30,7 +35,7 @@ html {
 
 /* AnimeJS */
 #boxes {
-    height: 300px;
+    height: calc(100vh - 64px);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -159,11 +164,6 @@ html {
     background-clip: text; */
 }
 
-.profile__user-title:hover {
-    transform: translateY(-.2rem);
-}
-
-
 .profile__user-location, .profile__user-bio {
     font-size: 1.3rem;
     letter-spacing: .1em;
@@ -178,9 +178,9 @@ html {
 }
 
 .posts {
-    font-family: 'Baloo Chettan 2' cursive !important;
+    font-family: 'Baloo Chettan 2' cursive;
     display: grid;
-    grid-template-columns: repeat(4, min-content);
+    grid-template-columns: repeat(auto-fit, minmax(200px, min-content));
     grid-template-rows: repeat(auto-fit, minmax(150px, min-content));
     grid-gap: .8rem;
     margin-left: .5rem;
@@ -194,3 +194,45 @@ html {
 /************** USER PROFILE PAGE END***************/
 
 
+/* CHANGE MODE */
+
+.night {
+    text-align: center; 
+    /* height: 100%; */
+    /* width: 100%;  */
+    background-color: #222;
+    transition: background-color .3s, color .3s;
+}
+
+.night .profile__posts {
+    background-color: #222;
+}
+
+/*
+.night h1, .night h2, .night div, .night p, .night svg, .night button{
+    background-color: #222;
+    color: white;
+    transition: background-color .3s, color .3s;
+}
+
+.night .profile__user {
+    background-color: #fff;
+    color: #000;
+}
+
+.night .one {
+    background-color: #8338ec;
+}
+
+.night .two {
+    background-color: #fb5607;
+}
+
+.night .three {
+    background-color: #ff006e;
+}
+
+.night .four {
+    background-color: #3a86ff;
+}
+*/

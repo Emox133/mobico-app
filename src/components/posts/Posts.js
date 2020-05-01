@@ -35,7 +35,7 @@ const Posts = props => {
                             <DeletePost id={post._id} owner={post.owner}/>
                         </Typography>
 
-                        <Typography color="primary">
+                        <Typography >
                             {moment(post.createdAt).fromNow()}
                         </Typography>
 
@@ -46,7 +46,7 @@ const Posts = props => {
                         <LikePosts post={post}/>
 
                         <OwnButton tip="Comment Post">
-                            <ChatBubbleIcon color="primary"/> 
+                            <ChatBubbleIcon/> 
                         </OwnButton>
                             <span>{post.commentCount} Comments</span>
                     </CardContent>

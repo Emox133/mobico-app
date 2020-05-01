@@ -2,17 +2,32 @@ import React, {useEffect} from 'react'
 import Emoji from './../utils/Emoji'
 import Loader from './../utils/Loader'
 
+import withStyles from '@material-ui/styles/withStyles'
+import Paper from '@material-ui/core/Paper'
+import Card from '@material-ui/core/Card';
+import CardActionArea from '@material-ui/core/CardActionArea';
+import CardActions from '@material-ui/core/CardActions';
+import CardContent from '@material-ui/core/CardContent';
+import CardMedia from '@material-ui/core/CardMedia';
+import Button from '@material-ui/core/Button';
+import Typography from '@material-ui/core/Typography';
+
 import {useDispatch, useSelector, shallowEqual} from 'react-redux'
 import {fetchPosts} from './../redux/actions/dataActions'
 
-const MyProfile = () => {
+const styles = theme => ({
+    ...theme.spreadThis
+})
+
+const MyProfile = props => {
     const {user, posts, loading} = useSelector(state => ({
         user: state.user.user,
         posts: state.data.posts,
-        loading: state.data.loading
+        loading: state.user.loading
     }), shallowEqual);
 
     const dispatch = useDispatch();
+    const {classes} = props;
 
     useEffect(() => {
         dispatch(fetchPosts());
@@ -23,39 +38,61 @@ const MyProfile = () => {
 
     let placeholder = myPosts.map(post => {
         return (
-            <div key={post._id}>
-                <img src={post.userImage} alt="owner" style={{width: '200px', height: '200px'}}/>
-                <h2>{post.owner}</h2>
-                <p>{post.text}</p>
-                <span>{post.likeCount}</span>
-                <span>{post.commentCount}</span>
-            </div> 
+            <Card key={post._id} className={classes.card}>
+                <CardActionArea>
+                    <CardMedia 
+                        image={post.userImage}
+                        title="owner"
+                        style={{width: '220px', height: '200px'}}
+                    />
+                    <CardContent>
+                        <Typography variant="h5" >
+                            {post.owner}
+                        </Typography>
+                        <Typography variant="body2">
+                            {post.text}
+                        </Typography>
+                    </CardContent>
+                </CardActionArea>
+                <CardActions>
+                    <Button size="small" color="primary">
+                        {post.likeCount}
+                    </Button>
+                    <Button size="small" color="primary">
+                        {post.commentCount}
+                    </Button>
+                </CardActions>
+            </Card> 
         )
     })
+
+    let profile = !loading ? (
+        <figure className="profile__user-avatar">
+            <img src={user.userImage} alt="avatar" className="profile__user-img" />
+            <figcaption className="profile__user-details">
+                <h2 className="profile__user-title">{user.firstName + ' ' + user.lastName}</h2>
+                <p className="profile__user-location">Location: {user.location}</p>
+                <p className="profile__user-bio">{user.bio}</p>
+            </figcaption>
+        </figure>
+    ) : <Loader />
 
     return (
         <div className="profile">
             <div className="profile__user">
-                <figure className="profile__user-avatar">
-                    <img src={!loading ? user.userImage : <Loader />} alt="avatar" className="profile__user-img" />
-                    <figcaption className="profile__user-details">
-                        <h2 className="profile__user-title">{user.firstName + ' ' + user.lastName}</h2>
-                        <p className="profile__user-location">Location: {user.location}</p>
-                        <p className="profile__user-bio">{user.bio}</p>
-                    </figcaption>
-                </figure>
+                {profile}
             </div>
 
-            <div className="profile__posts">
+            <Paper component="div" className="profile__posts">
                 <h2 className="posts__title">
                     Posts timeline <Emoji symbol="📕" label="post notes"/>
                 </h2>
                 <div className="posts">
                     {placeholder}
                 </div>
-            </div>  
+            </Paper>  
         </div>
     )
 }
 
-export default MyProfile
+export default withStyles(styles)(MyProfile)

@@ -37,7 +37,7 @@ const EditProfileImage = () => {
         </form>
     <Tooltip title="Change profile image">
         <IconButton onClick={handleImageChange}>
-            <CreateIcon color="primary"/>
+            <CreateIcon/>
         </IconButton>
     </Tooltip>
     </Fragment>

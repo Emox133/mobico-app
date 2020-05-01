@@ -7,6 +7,8 @@ import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import HomeIcon from '@material-ui/icons/Home';
 import IconButton from '@material-ui/core/IconButton'
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
+// import EmojiObjectsIcon from '@material-ui/icons/EmojiObjects';
+import Switch from '@material-ui/core/Switch';
 
 const AuthBar = (props) => {
     return (
@@ -21,6 +23,7 @@ const AuthBar = (props) => {
             <OwnButton tip="Logout" onClick={props.logout}>
                 <ExitToAppIcon />
             </OwnButton>
+            <Switch onClick={props.mode} />
         </Fragment>
     )
 }

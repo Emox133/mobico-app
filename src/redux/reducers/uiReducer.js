@@ -2,10 +2,7 @@ import * as types from './../types'
 
 const initialState = {
     errors: {},
-    scrollEffect: true,
-    alertMessage: {
-        message: ''
-    }
+    scrollEffect: true
 }
 
 export default function(state = initialState, action) {
@@ -16,7 +13,10 @@ export default function(state = initialState, action) {
                 errors: action.payload
             }
         case types.CLEAR_ERRORS: 
-            return initialState
+            return {
+                ...state,
+                errors: {}
+            }
         
         case types.START_SCROLL_EFFECT:
             return {

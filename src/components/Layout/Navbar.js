@@ -13,7 +13,7 @@ import Button from '@material-ui/core/Button'
 import IconButton from '@material-ui/core/IconButton'
 import HomeIcon from '@material-ui/icons/Home';
 
-const Navbar = (props) => {
+const Navbar = props => {
     const dispatch = useDispatch()
     
     const {authenticated} = useSelector(state => ({
@@ -21,7 +21,7 @@ const Navbar = (props) => {
     }), shallowEqual)
 
     let appbar = authenticated ? (
-        <AuthBar logout={() => dispatch(userActions.logoutUser(props.history))}/>
+        <AuthBar logout={() => dispatch(userActions.logoutUser(props.history))} mode={props.mode}/>
         ) : (
         <Fragment>
             <Button color="inherit" component={Link} to="/signup">Signup</Button>

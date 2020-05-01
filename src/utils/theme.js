@@ -1,21 +1,16 @@
-export default {
-  palette: {
-    primary: {
-      light: '#6a1b9a',
-      // main: '#4a148c',
-      main: '#434343',
-      dark: '#311b92',
-      contrastText: '#fff',
-    },
-    secondary: {
-      light: '#f3e5f5',
-      main: '#8e24aa',
-      dark: '#512da8',
-      contrastText: '#fff',
-    }
+import {useState} from 'react'
+
+const themeObject = {
+palette: {
+  primary: { main: '#3f51b5' },
+  secondary: { main: '#f50057' },
+  type: 'light'
 },
 
 spreadThis: {
+  typography: {
+    fontFamily: 'Courgette'
+  },
   formWrapper: {
     height: '100%',
     textAlign: 'center',
@@ -45,7 +40,15 @@ spreadThis: {
     },
     card: {
       marginBottom: '10px',
-      maxWidth: '300px'
+      maxWidth: '300px',
+      // border: '1px solid #fff'
+    },
+    post__card: {
+      // boxShadow: '1rem 0 3rem rgba(0,0,0,.8)',
+
+      '&:hover': {
+        // transform: 'scale(.95)'
+      }
     },
     userImage: {
       height: '200px',
@@ -74,3 +77,21 @@ spreadThis: {
     }
   }
 }
+
+export const useDarkMode = () => {
+  const [theme, setTheme] = useState(themeObject);
+
+  const {palette: {type}} = theme;
+  const toggleDarkMode = () => {
+    const updatedTheme = {
+      ...theme,
+      palette: {
+        ...theme.palette,
+        type: type === 'light' ? 'dark' : 'light'
+      }
+    }
+    setTheme(updatedTheme);
+  };
+
+  return [theme, toggleDarkMode];
+};
