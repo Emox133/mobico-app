@@ -4,7 +4,7 @@ const themeObject = {
 palette: {
   primary: { main: '#3f51b5' },
   secondary: { main: '#f50057' },
-  type: 'light'
+  type: 'dark'
 },
 
 spreadThis: {
@@ -73,7 +73,7 @@ spreadThis: {
       height: '250px',
       width: '50%',
       borderRadius: '50%',
-      objectFit: 'cover'
+      objectFit: 'fill'
     }
   }
 }

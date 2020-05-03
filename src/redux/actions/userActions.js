@@ -2,7 +2,7 @@ import * as types from './../types'
 import axios from 'axios';
 
 export const loginUser = (userInfo, history) => dispatch => {
-    dispatch({type: types.LOADING_DATA})
+    dispatch({type: types.SET_AUTHENTICATED})
     axios.post('/users/login', userInfo, {validateStatus: () => {return true}})
         .then(res => {
             console.log(res.data)
@@ -86,7 +86,6 @@ export const updateProfile = data => dispatch => {
 };
 
 export const forgotPassword = (email, history) => dispatch => {
-    // dispatch({type: types.LOADING_DATA})
     axios.post('/users/forgotPassword', email, {validateStatus: () => {return true}})
     .then(res => {
         console.log(res)
@@ -106,30 +105,61 @@ export const forgotPassword = (email, history) => dispatch => {
 };
 
 export const resetPassword = (token, data,  history) => dispatch => {
-    dispatch({type: types.LOADING_DATA})
     axios.post(`/users/resetPassword/${token}`, data, {validateStatus: () => {return true}})
     .then(res => {
-        console.log(res)
-
-        if(res.data.status !== 'fail' && res.data.status !== 'error') {
-            dispatch({type: types.STOP_USER_LOADING})
-            history.push('/login')
+        if(res.data.status !== 'fail' && res.data.status !== 'error' && res.data.token) {
+            console.log(res)
+            setAuthorizationHeader(res.data.token)
+            dispatch(getUserData())
+            history.push('/')
             alert('Password successfully changed! 🎉')
         } else {
+            console.log(res)
             dispatch({type: types.STOP_USER_LOADING})
             dispatch({
                 type: types.SET_ERRORS,
                 payload: {resetMessage: res.data.message}
             })
-            // alert(res.data.message + ' ' + '⌛')
         }
     })
     .catch(err => console.log(err))
 };
 
-export const deleteProfile = () => dispatch => {
+export const changePassword = (data, history) => dispatch => {
+    dispatch({type: types.LOADING_DATA});
+    axios.patch('/users/updateMyPassword', data, {validateStatus: () => {return true}})
+    .then(res => {
+        if(res.data.status !== 'fail' && res.data.status !== 'error') {
+            dispatch({type: types.STOP_USER_LOADING})
+            alert(`${res.data.message} 🎈 Please log in again 😃`);
+            dispatch(logoutUser(history))
+        } else {
+            console.log(res)
+            dispatch({type: types.STOP_USER_LOADING})
+            dispatch({
+                type: types.SET_ERRORS,
+                payload: {newPasswordMessage: res.data.message}
+            })
+        }
+    }).catch(err => {
+        console.log(err)
+    })
+};
+
+export const deleteProfile = history => dispatch => {
+    dispatch({type: types.LOADING_DATA})
     axios.delete('/users/deleteMe', {validateStatus: () => {return true}})
-    .then(res => console.log(res))
+    .then(res => {
+        if(res.data.status !== 'fail' && res.data.status !== 'error') {
+            dispatch({type: types.STOP_USER_LOADING})
+            dispatch(logoutUser(history))
+        } else {
+            dispatch({
+                type: types.SET_ERRORS,
+                payload: res.data.error
+            })
+        }
+    })
     .catch(err => console.error(err))
 };
 

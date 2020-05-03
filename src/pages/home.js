@@ -34,9 +34,7 @@ const Home = (props) => {
 
     useEffect(() => {
         if(scrollEffect) {
-            setTimeout(() => {
-                scrollToBottom()
-            }, 2000);
+            scrollToBottom()
         }
     }, [fetchedPosts, scrollEffect]);
 

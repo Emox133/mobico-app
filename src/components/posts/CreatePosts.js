@@ -71,10 +71,10 @@ const FormDialog = (props) => {
           />
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleClose} color="primary">
+          <Button onClick={handleClose}>
             Cancel
           </Button>
-          <Button type="submit" color="primary">
+          <Button type="submit">
             Post
           </Button>
         </DialogActions>

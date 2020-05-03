@@ -1,7 +1,14 @@
 import React from 'react'
+import Loader from './../utils/Loader'
+
+import {useSelector, shallowEqual} from 'react-redux'
 
 const LandingPage = () => {
-    return (
+    const {loading} = useSelector(state => ({
+        loading: state.user.loading
+    }), shallowEqual)
+
+    let placeholder = !loading ? 
         <div className="landing__page">
             <div className="content__wrapper">
                 <div className="left__side">
@@ -23,7 +30,9 @@ const LandingPage = () => {
                 </div>
             </div>
         </div>
-    )
+     : <Loader />
+
+    return placeholder
 }
 
 export default LandingPage

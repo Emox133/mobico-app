@@ -16,10 +16,14 @@ html {
     box-sizing: inherit;
 }
 
-/* .App {
-    background-color: #eee;
-    transition: background-color .3s, color .3s;
-} */
+body {
+    overflow-x: hidden !important;
+    overflow-y: scroll !important;
+}
+
+.App, #root {
+    width: 100vw;
+}
 
 .nav {
     justify-content: center;
@@ -170,6 +174,17 @@ html {
     overflow-wrap: anywhere;
 }
 
+.profile__user-delete {
+    position: absolute;
+    top: 13rem;
+    right: 2rem;
+    color: red;
+}
+
+.profile__user-delete:hover {
+    cursor: pointer;
+}
+
 .profile__posts {
     height: 65%;
     background-color: #eee;
@@ -191,48 +206,18 @@ html {
     text-transform: capitalize;
     text-align: center;
 }
+
+/* .posts__create {
+    position: sticky;
+    top: -5rem;
+    left: 100rem;
+} */
+
+.posts__delete {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+}
 /************** USER PROFILE PAGE END***************/
 
-
-/* CHANGE MODE */
-
-.night {
-    text-align: center; 
-    /* height: 100%; */
-    /* width: 100%;  */
-    background-color: #222;
-    transition: background-color .3s, color .3s;
-}
-
-.night .profile__posts {
-    background-color: #222;
-}
-
-/*
-.night h1, .night h2, .night div, .night p, .night svg, .night button{
-    background-color: #222;
-    color: white;
-    transition: background-color .3s, color .3s;
-}
-
-.night .profile__user {
-    background-color: #fff;
-    color: #000;
-}
-
-.night .one {
-    background-color: #8338ec;
-}
-
-.night .two {
-    background-color: #fb5607;
-}
-
-.night .three {
-    background-color: #ff006e;
-}
-
-.night .four {
-    background-color: #3a86ff;
-}
-*/

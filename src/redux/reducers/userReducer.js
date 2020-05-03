@@ -17,6 +17,7 @@ export default function (state = initialState, action) {
             return {
                 ...state,
                 authenticated: true
+                // loading: true
             }
         case types.SET_USER: 
             return {

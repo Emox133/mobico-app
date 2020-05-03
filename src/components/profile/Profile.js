@@ -1,4 +1,4 @@
-import React, {Component} from 'react'
+import React from 'react'
 import EditProfile from './EditProfile'
 import EditProfileImage from './EditProfileImage'
 import Loader from './../../utils/Loader'
@@ -9,17 +9,22 @@ import Paper from '@material-ui/core/Paper'
 import Typography from '@material-ui/core/Typography'
 
 // * Redux
-import {connect} from 'react-redux'
+import {useSelector, shallowEqual} from 'react-redux'
 
 const styles = theme => ({
     ...theme.spreadThis
 })
 
-class Profile extends Component {
-    render(){
-        const {classes, user: {firstName, lastName, username, userImage, location, website, bio}, loading} = this.props
+const Profile = props => {
+    const {user, loading} = useSelector(state => ({
+        user: state.user.user,
+        loading: state.user.loading
+    }), shallowEqual);
+    
+        const {classes} = props
+        const {userImage, firstName, lastName, username,location, website, bio} = user
 
-        let profile = this.props.user && !loading ? (
+        let profile = user && !loading ? 
             <Paper className={classes.paper}>
                 <div className={classes.imageWrapper}>
                     <img src={userImage} className={classes.profileImage} alt="profile" />
@@ -43,23 +48,13 @@ class Profile extends Component {
                             {bio}
                         </Typography>
                     ) : null}
-                    <EditProfile history={this.props.history}/>
+                    <EditProfile history={props.history}/>
                 </div>
             </Paper>
-        ) : <Loader />
-        return(
-            <div>
-                {profile}
-            </div>
-        )
-    }
+         : <Loader />
+       
+        return profile
+         
 }
 
-const mapStateToProps = state => {
-    return {
-        user: state.user.user,
-        loading: state.user.loading
-    }
-};
-
-export default connect(mapStateToProps, null)(withStyles(styles)(Profile))
+export default withStyles(styles)(Profile)

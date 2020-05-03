@@ -13,9 +13,6 @@ import CardMedia from '@material-ui/core/CardMedia';
 import Typography from '@material-ui/core/Typography';
 import ChatBubbleIcon from '@material-ui/icons/ChatBubble';
 
-// Redux
-// import {useSelector, shallowEqual} from 'react-redux'
-
 const styles = theme => ({
     ...theme.spreadThis
 })
