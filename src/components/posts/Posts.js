@@ -1,4 +1,5 @@
 import React from 'react'
+import Post from './Post'
 import OwnButton from './../../utils/OwnButton'
 import moment from 'moment'
 import DeletePost from './DeletePosts'
@@ -18,7 +19,7 @@ const styles = theme => ({
 })
 
 const Posts = props => {
-   const {post, classes} = props
+    const {post, classes} = props
 
     return (
             <Card className={classes.card}>
@@ -39,13 +40,15 @@ const Posts = props => {
                         <Typography className={classes.text}>
                             {post.text}
                         </Typography>
-
+                    <div style={{display: 'flex'}}>
                         <LikePosts post={post}/>
 
                         <OwnButton tip="Comment Post">
                             <ChatBubbleIcon/> 
                         </OwnButton>
                             <span>{post.commentCount} Comments</span>
+                        <Post id={post._id} classes={classes}/>
+                    </div>
                     </CardContent>
             </Card>
     )

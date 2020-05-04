@@ -2,10 +2,8 @@ import * as types from './../types'
 import axios from 'axios';
 
 export const loginUser = (userInfo, history) => dispatch => {
-    dispatch({type: types.SET_AUTHENTICATED})
     axios.post('/users/login', userInfo, {validateStatus: () => {return true}})
-        .then(res => {
-            console.log(res.data)
+    .then(res => {
         if(res.data.status !== 'fail' && res.data.status !== 'error' && res.data.token) {
             setAuthorizationHeader(res.data.token)
             dispatch(getUserData())

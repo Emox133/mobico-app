@@ -13,7 +13,29 @@ export const fetchPosts = () => dispatch => {
     .catch(err => console.log(err))
 };
 
-export const createPost = (data, history, restrict) => dispatch => {
+export const getOnePost = id => dispatch => {
+    // dispatch({type: types.LOADING_FROM_DATA});
+    axios.get(`/posts/${id}`, {validateStatus: () => {return true}})
+    .then(res => {
+        console.log(res)
+        if(res.data.status !== 'error' && res.data.status !== 'fail') {
+            dispatch({
+                type: types.SET_ONE_POST,
+                payload: res.data.data.post
+            })
+        } else {
+            dispatch({
+                type: types.SET_ERRORS,
+                payload: {message: res.data.message}
+            })
+        }
+    })
+    .catch(err => {
+        console.log(err)
+    })
+};
+
+export const createPost = data => dispatch => {
     dispatch({type: types.LOADING_FROM_DATA});
     axios.post('/posts', data, {validateStatus: () => {return true}})
     .then(res => {

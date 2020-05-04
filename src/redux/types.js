@@ -13,6 +13,7 @@ export const START_SCROLL_EFFECT = 'START_SCROLL_EFFECT'
 
 // * Data types
 export const SET_POSTS = 'SET_POSTS'
+export const SET_ONE_POST = 'SET_ONE_POST'
 export const CREATE_POST = 'CREATE_POST'
 export const DELETE_POST = 'DELETE_POST'
 export const LOADING_FROM_DATA = 'LOADING_FROM_DATA'

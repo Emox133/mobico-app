@@ -219,5 +219,14 @@ body {
     justify-content: space-between;
     margin-bottom: 1rem;
 }
+
+.posts__individual {
+    height: 75vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 2rem;
+    text-align: center;
+}
 /************** USER PROFILE PAGE END***************/
 

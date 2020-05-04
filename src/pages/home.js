@@ -20,6 +20,7 @@ const Home = (props) => {
 
     const {posts, loading, scrollEffect} = useSelector(state => ({
         posts: state.data.posts,
+        post: state.data.post,
         loading: state.data.loading,
         scrollEffect: state.UI.scrollEffect
     }), shallowEqual)

@@ -74,6 +74,11 @@ spreadThis: {
       width: '50%',
       borderRadius: '50%',
       objectFit: 'fill'
+    },
+    postImage:{
+      height: '250px',
+      width: '30%',
+      borderRadius: '50%'
     }
   }
 }
