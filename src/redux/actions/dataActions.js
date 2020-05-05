@@ -21,7 +21,7 @@ export const getOnePost = id => dispatch => {
         if(res.data.status !== 'error' && res.data.status !== 'fail') {
             dispatch({
                 type: types.SET_ONE_POST,
-                payload: res.data.data.post
+                payload: res.data.data
             })
         } else {
             dispatch({
@@ -102,4 +102,22 @@ export const dislikePost = id => dispatch => {
     })
     .catch(err => console.error(err))
     // window.location.reload();
+};
+
+export const commentPost = (id, data) => dispatch => {
+    // dispatch({type: types.LOADING_FROM_DATA})
+    axios.post(`/posts/${id}/comment`, data, {validateStatus: () => {return true}})
+    .then(res => {
+        if(res.data.status !== 'fail' && res.data.status !== 'error') {
+            // dispatch({type: types.STOP_LOADING})
+        }
+        else {
+            // dispatch({type: types.STOP_LOADING})
+            dispatch({
+                type: types.SET_ERRORS,
+                payload: {commentErr: res.data.message}
+            })
+        }
+    })
+    .catch(err => console.log(err))
 };

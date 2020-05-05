@@ -58,6 +58,7 @@ const ChangePassword = forwardRef((props, ref) => {
 
     return (
         <div>   
+            {console.log('changed password')}
             <MenuItem onClick={handleOpen}>
                 <span style={{marginRight: '.5rem'}}>Change Password</span>
                 <VpnKeyIcon color="secondary"/>
@@ -117,4 +118,4 @@ const ChangePassword = forwardRef((props, ref) => {
     )
 })
 
-export default ChangePassword
+export default React.memo(ChangePassword)

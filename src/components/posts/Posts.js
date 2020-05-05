@@ -1,9 +1,10 @@
 import React from 'react'
 import Post from './Post'
-import OwnButton from './../../utils/OwnButton'
+// import OwnButton from './../../utils/OwnButton'
 import moment from 'moment'
 import DeletePost from './DeletePosts'
 import LikePosts from './LikePosts'
+import CommentPost from './CommentPost'
 // import DislikePosts from './DislikePosts'
 
 // * Mui
@@ -12,7 +13,6 @@ import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Typography from '@material-ui/core/Typography';
-import ChatBubbleIcon from '@material-ui/icons/ChatBubble';
 
 const styles = theme => ({
     ...theme.spreadThis
@@ -42,10 +42,7 @@ const Posts = props => {
                         </Typography>
                     <div style={{display: 'flex'}}>
                         <LikePosts post={post}/>
-
-                        <OwnButton tip="Comment Post">
-                            <ChatBubbleIcon/> 
-                        </OwnButton>
+                        <CommentPost id={post._id}/>
                             <span>{post.commentCount} Comments</span>
                         <Post id={post._id} classes={classes}/>
                     </div>

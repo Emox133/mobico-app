@@ -2,7 +2,10 @@ import * as types from './../types'
 
 const initialState = {
     posts: [],
-    post: [],
+    singlePost: {
+        post: [],
+        comments: []
+    },
     loading: false
 }
 
@@ -19,7 +22,7 @@ export default function(state = initialState, action) {
             return {
                 ...state,
                 loading: false,
-                post: action.payload
+                singlePost: action.payload
             }
         
         case types.CREATE_POST:
