@@ -33,8 +33,10 @@ const MyProfile = props => {
     const {classes} = props;
 
     useEffect(() => {
-        dispatch(fetchPosts());
-    }, [dispatch]);
+        if(posts.length === 0) {
+            dispatch(fetchPosts());
+        }
+    }, [dispatch, posts]);
 
     const owner = `${user.firstName} ${user.lastName}`;
     const myPosts = posts.filter(post => post.owner === owner);

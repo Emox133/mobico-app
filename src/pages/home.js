@@ -26,8 +26,10 @@ const Home = (props) => {
     }), shallowEqual)
     
     useEffect(() => {
-        dispatch(fetchPosts())
-    }, [dispatch])
+        if(posts.length === 0) {
+            dispatch(fetchPosts())
+        }
+    }, [dispatch, posts])
     
         let fetchedPosts = posts && !loading ? (
             posts.map(post => <Posts key={post._id} post={post}/>)

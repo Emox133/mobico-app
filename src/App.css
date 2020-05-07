@@ -228,5 +228,9 @@ body {
     margin-top: 2rem;
     text-align: center;
 }
+
+.posts__comment {
+    position: relative;
+}
 /************** USER PROFILE PAGE END***************/
 

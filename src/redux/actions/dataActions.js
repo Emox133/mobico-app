@@ -17,7 +17,7 @@ export const getOnePost = id => dispatch => {
     // dispatch({type: types.LOADING_FROM_DATA});
     axios.get(`/posts/${id}`, {validateStatus: () => {return true}})
     .then(res => {
-        console.log(res)
+        // console.log(res)
         if(res.data.status !== 'error' && res.data.status !== 'fail') {
             dispatch({
                 type: types.SET_ONE_POST,
@@ -39,7 +39,7 @@ export const createPost = data => dispatch => {
     dispatch({type: types.LOADING_FROM_DATA});
     axios.post('/posts', data, {validateStatus: () => {return true}})
     .then(res => {
-        console.log(res.data)
+        console.log(res)
         if(res.data.status !== 'error') {
             dispatch({
                 type: types.CREATE_POST
@@ -48,17 +48,12 @@ export const createPost = data => dispatch => {
         } else {
             dispatch({
                 type: types.SET_ERRORS,
-                payload: res.data.error.errors
+                payload: {createPostMsg: res.data.message}
             })
             dispatch({type: types.STOP_LOADING})
         }
     })
     .catch(err => console.error(err))
-    // if(restrict.length > 0) {
-    //     history.go(0)
-    // } else {
-    //     return;
-    // }
 };
 
 // TODO: FINISH THIS ACTION
@@ -67,8 +62,8 @@ export const deletePost = id => dispatch => {
     axios.delete(`/posts/${id}`, {validateStatus: () => {return true}})
     .then(res => {
         console.log(res)
-        dispatch({type: types.DELETE_POST})
-        dispatch(fetchPosts())
+        dispatch({type: types.DELETE_POST, id: id})
+        // dispatch(fetchPosts())
     })
     .catch(err => {
         console.error(err)
@@ -109,7 +104,8 @@ export const commentPost = (id, data) => dispatch => {
     axios.post(`/posts/${id}/comment`, data, {validateStatus: () => {return true}})
     .then(res => {
         if(res.data.status !== 'fail' && res.data.status !== 'error') {
-            // dispatch({type: types.STOP_LOADING})
+            dispatch({type: types.COMMENT_POST, id: id})
+            alert('Comment posted.')
         }
         else {
             // dispatch({type: types.STOP_LOADING})
@@ -120,4 +116,12 @@ export const commentPost = (id, data) => dispatch => {
         }
     })
     .catch(err => console.log(err))
+};
+
+export const deleteComment = (commentId, id) => dispatch => {
+    // dispatch({type: types.LOADING_FROM_DATA})
+    axios.delete(`/posts/${id}/comment/${commentId}`, {validateStatus: () => {return true}})
+    .then(res => {
+        dispatch({type: types.REMOVE_COMMENT, commentId: commentId, id: id})
+    }).catch(err => console.log(err))
 };

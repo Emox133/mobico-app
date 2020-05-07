@@ -45,13 +45,11 @@ const CommentPost = props => {
         e.preventDefault();
         let data = {...text}
         dispatch(commentPost(props.id, data));
-        if(!Object.values(errors)) {
-            setOpen(false)
-        }
+        if(text.text.length > 0) setOpen(false);
     };
 
     return (
-        <div>
+        <form onSubmit={handleSubmit}>
             <Tooltip title="Comment post">
                 <IconButton onClick={handleOpen}>
                     <ChatBubbleIcon />
@@ -68,11 +66,15 @@ const CommentPost = props => {
                     <TextField 
                         id="text"
                         name="text"
-                        label="Comment"
+                        // label="Comment"
+                        // placeholder="Comment"
+                        placeholder="Wow dude 😃 That is amazing."
                         type="text"
                         error={switchError(errors, 'Comment') ? true : false}
                         helperText={switchError(errors, 'Comment') ? errors.commentErr : null}
                         fullWidth
+                        multiline
+                        rowsMax={5}
                         onChange={e => handleChange(e)}
                     />
                 </DialogContent>
@@ -86,7 +88,7 @@ const CommentPost = props => {
                     </Button>
                 </DialogActions>
             </Dialog>
-        </div>
+        </form>
     )
 }
 

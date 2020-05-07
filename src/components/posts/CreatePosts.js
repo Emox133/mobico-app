@@ -1,6 +1,7 @@
 import React, {useState, Fragment} from 'react';
 import {withRouter} from 'react-router-dom'
 import OwnButton from '../../utils/OwnButton'
+import {switchError} from './../../utils/switchError'
 
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
@@ -41,9 +42,7 @@ const FormDialog = (props) => {
 
   const handleSubmit = e => {
     e.preventDefault();
-
     dispatch(createPost({text: inputState.text}, props.history, inputState.text))
-
     if(inputState.text.length > 0) setOpen(false);
   };
 
@@ -58,8 +57,8 @@ const FormDialog = (props) => {
         <DialogContent>
           <TextField
             autoFocus
-            error={errors.text ? true : false}
-            helperText={errors.text && inputState.text.length === 0 ? errors.text.message : null}
+            error={switchError(errors, 'Post') ? true : false}
+            helperText={switchError(errors, 'Post') ? errors.createPostMsg : null}
             margin="dense"
             id="text"
             name="text"
