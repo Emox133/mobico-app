@@ -34,7 +34,6 @@ const Post = (props) => {
 
     return (
         <div>
-    {    console.log('post component')}
             <IconButton onClick={handleOpen}>
                 <ExpandMoreIcon />
             </IconButton>

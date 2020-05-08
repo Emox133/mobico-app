@@ -41,15 +41,23 @@ export default function(state = initialState, action) {
             }
 
         case types.LIKE_POST: 
+            let likeCopiedPosts = [...state.posts]
+            let likePostIndex = likeCopiedPosts.findIndex(el => el._id === action.id)
+            likeCopiedPosts[likePostIndex].likeCount += 1
             return {
                 ...state,
-                loading: false
+                posts: likeCopiedPosts,
+                // loading: false
             }
 
         case types.DISLIKE_POST:
+            let dislikeCopiedPosts = [...state.posts]
+            let dislikePostIndex = dislikeCopiedPosts.findIndex(el => el._id === action.id)
+            dislikeCopiedPosts[dislikePostIndex].likeCount -= 1
             return {
                 ...state,
-                loading: false
+                posts: dislikeCopiedPosts
+                // loading: false
             }
         
         case types.LOADING_FROM_DATA:

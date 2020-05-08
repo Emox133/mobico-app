@@ -20,12 +20,11 @@ export const loginUser = (userInfo, history) => dispatch => {
 };
 
 export const logoutUser = history => dispatch => {
+    dispatch({type: types.LOGOUT_USER})
     localStorage.removeItem('token')
     delete axios.defaults.headers.common['Authorization'];
     history.push('/login')
     history.go(0)
-
-    dispatch({type: types.LOGOUT_USER})
 };
 
 export const signupUser = (userInfo, history) => dispatch => {
@@ -61,21 +60,19 @@ export const getUserData = () => dispatch => {
 };
 
 export const updateProfile = data => dispatch => {
-    dispatch({type: types.LOADING_DATA})
     axios.patch('users/updateMe', data, {validateStatus: () => {return true}})
     .then(res => {
-        dispatch({type: types.STOP_USER_LOADING})
-        if(res.data.error) {
-            // dispatch({
-            //     type: types.SET_ERRORS,
-            //     payload: res.data.error.errors
-            // })
-            console.log(res.data.error)
+        if(res.data.status !== 'fail' && res.data.status !== 'error') {
+            console.log(res)
+            dispatch(getUserData());
+            alert('Data changed successfully. 😜')
         } else {
-            // dispatch(getUserData());
-            window.location.reload();
-            // alert('Data changed successfully. 😜')
-            // dispatch({type: types.START_SCROLL_EFFECT, payload: 'on'})
+            console.log(res)
+            dispatch({type: types.STOP_USER_LOADING})
+            dispatch({
+                type: types.SET_ERRORS,
+                payload: res.data.error.errors
+            })
         }
     })
     .catch(err => {

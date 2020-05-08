@@ -32,7 +32,7 @@ const Home = (props) => {
     }, [dispatch, posts])
     
         let fetchedPosts = posts && !loading ? (
-            posts.map(post => <Posts key={post._id} post={post}/>)
+           posts.map(post => <Posts key={post._id} post={post}/>)
         ) : <Loader />
 
     useEffect(() => {

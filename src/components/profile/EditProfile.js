@@ -59,9 +59,10 @@ const EditProfile = (props) => {
     };
 
     const handleSubmit = e => {
-        const data = {...inputFields}
         e.preventDefault();
+        const data = {...inputFields}
         dispatch(updateProfile(data, props.history));
+        if(!Object.values(errors)) setOpen(false);
     };
 
     return (

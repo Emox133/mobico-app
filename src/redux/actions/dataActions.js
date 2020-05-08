@@ -76,23 +76,23 @@ export const deletePost = id => dispatch => {
 
 // TODO: FINISH SCROLL EFFECT
 export const likePost = id => dispatch => {
-    dispatch({type: types.LOADING_FROM_DATA})
-    axios.post(`/posts/${id}/like`, null, {validateStatus: status => {return true}})
+    // dispatch({type: types.LOADING_FROM_DATA})
+    axios.post(`/posts/${id}/like`, null, {validateStatus: () => {return true}})
     .then(res => {
         console.log(res)
-        dispatch({type: types.LIKE_POST})
+        dispatch({type: types.LIKE_POST, id: id, payload: res.data.data.like})
         // dispatch({type: types.START_SCROLL_EFFECT})
     })
     .catch(err => console.error(err))
-    window.location.reload();
+    // window.location.reload();
 };
 
 export const dislikePost = id => dispatch => {
-    dispatch({type: types.LOADING_FROM_DATA})
-    axios.post(`/posts/${id}/dislike`, null, {validateStatus: status => {return true}})
+    // dispatch({type: types.LOADING_FROM_DATA})
+    axios.post(`/posts/${id}/dislike`, null, {validateStatus: () => {return true}})
     .then(res => {
         console.log(res)
-        dispatch({type: types.DISLIKE_POST})
+        dispatch({type: types.DISLIKE_POST, id: id})
         // dispatch({type: types.START_SCROLL_EFFECT})
     })
     .catch(err => console.error(err))

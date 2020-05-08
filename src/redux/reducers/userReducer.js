@@ -35,6 +35,22 @@ export default function (state = initialState, action) {
                 ...state,
                 loading: false
             }
+
+        case types.LIKE_POST: 
+            return {
+                ...state,
+                likes: [
+                    ...state.likes,
+                    action.payload
+                ]
+            }
+
+        case types.DISLIKE_POST: 
+            return {
+                ...state,
+                likes: state.likes.filter(l => l.belongsTo !== action.id)
+            }
+
         default: 
             return state
     }
