@@ -26,6 +26,8 @@ const Posts = props => {
         likes: state.user.likes
     }), shallowEqual)
 
+    // console.log(post)
+
     let likedPost = () => {
         if (likes && likes.find(l => l.belongsTo === post._id))
         return true
@@ -57,7 +59,7 @@ const Posts = props => {
                         {likeButton}
                         <CommentPost id={post._id}/>
                             <span>{post.commentCount} Comments</span>
-                        <Post id={post._id} classes={classes}/>
+                        <Post id={post._id}/>
                     </div>
                     </CardContent>
             </Card>

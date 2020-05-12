@@ -2,6 +2,7 @@ import React, {Fragment} from 'react'
 import {Link} from 'react-router-dom'
 import CreatePosts from '../posts/CreatePosts'
 import Menu from './../Layout/Menu'
+import Notifications from './../profile/Notifications'
 
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import HomeIcon from '@material-ui/icons/Home';
@@ -24,6 +25,7 @@ const AuthBar = (props) => {
                     <AccountCircleIcon />
                 </IconButton>
             </Tooltip>
+            <Notifications />
             <Menu logout={props.logout}/>
             <Tooltip title="Day / Night">
                 <Switch onClick={props.mode} />

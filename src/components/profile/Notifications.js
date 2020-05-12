@@ -1,0 +1,104 @@
+import React, {useState} from 'react'
+import moment from 'moment'
+import {withRouter, Link} from 'react-router-dom'
+// import Post from './../posts/Post'
+
+import Badge from '@material-ui/core/Badge'
+import NotificationsIcon from '@material-ui/icons/Notifications';
+import IconButton from '@material-ui/core/IconButton'
+import Tooltip from '@material-ui/core/Tooltip'
+import Menu from '@material-ui/core/Menu'
+import MenuItem from '@material-ui/core/MenuItem'
+import FavoriteIcon from '@material-ui/icons/Favorite'
+import ChatIcon from '@material-ui/icons/Chat';
+import Typography from '@material-ui/core/Typography'
+
+import { useSelector, shallowEqual, useDispatch } from 'react-redux';
+import {notificationsSeen} from './../../redux/actions/userActions'
+
+const Notifications = props => {
+    const [link, setLink] = useState(null)
+    // const [postId, setPostId] = useState(null)
+
+    const {notifications} = useSelector(state => ({
+        notifications: state.user.notifications
+    }), shallowEqual)
+
+    const dispatch = useDispatch();
+
+    const handleClick = e => {
+        setLink(e.currentTarget)
+    };
+
+    const handleClose = () => {
+        setLink(null)
+    };
+
+    const onNotificationsVisited = () => {
+        dispatch(notificationsSeen());
+    };
+
+    let icon;
+    if(notifications && notifications.length > 0) {
+        notifications.filter(n => n.read === false).length > 0
+        ? icon = (
+            <Badge badgeContent={notifications.filter(n => n.read === false).length} color="secondary">
+                <NotificationsIcon onClick={onNotificationsVisited}/>
+            </Badge>
+        ) : icon = <NotificationsIcon />
+    } else {
+        icon = <NotificationsIcon />
+    }
+
+    let placeholder = 
+    notifications && notifications.length > 0 ? (
+        notifications.map(n => {
+            const nType = n.type === 'like' ? 'liked' : 'commented on';
+            const time = moment(n.createdAt).fromNow();
+            const iconColor = n.read ? 'primary' : 'secondary';
+            const icon = n.type === 'like' ? <FavoriteIcon color={iconColor} style={{ marginRight: 10 }}/> 
+            : <ChatIcon color={iconColor} style={{marginRight: 10}}/>
+            
+            return (
+                <MenuItem
+                    key={n.createdAt}
+                    onClick={handleClose}
+                    component={Link}
+                    to={`/me/posts/${n.postId}`}
+                >
+                    {icon}
+                    <Typography>
+                        {n.sender} {nType} your post {time}
+                    </Typography>
+                </MenuItem>
+            )
+        })
+    ) : (
+        <MenuItem onClick={handleClose}>
+            You have no notifications yet.
+        </MenuItem>
+    )
+    
+    return (
+        <div>
+        <Tooltip title="Notifications">
+            <IconButton onClick={e => handleClick(e)}>
+                {icon}
+            </IconButton>
+        </Tooltip>
+        <Menu
+            id="simple-menu"
+            anchorEl={link}
+            keepMounted
+            anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
+            transformOrigin={{ vertical: "top", horizontal: "center" }}
+            open={Boolean(link)}
+            onClose={handleClose}
+        >
+            {placeholder}
+        </Menu>
+        </div>
+    )
+}
+
+export default withRouter(Notifications)

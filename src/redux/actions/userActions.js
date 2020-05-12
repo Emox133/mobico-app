@@ -158,6 +158,16 @@ export const deleteProfile = history => dispatch => {
     .catch(err => console.error(err))
 };
 
+export const notificationsSeen = () => dispatch => {
+    axios.patch('/users/notifications', {validateStatus: () => {return true}})
+    .then(res => {
+        console.log(res)
+    })
+    .catch(err => {
+        console.log(err)
+    })
+};
+
 const setAuthorizationHeader = token => {
     const JWT = `Bearer ${token}`;
     localStorage.setItem('token', JWT);

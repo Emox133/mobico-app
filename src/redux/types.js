@@ -5,6 +5,7 @@ export const SET_USER = 'SET_USER'
 export const LOADING_DATA = 'LOADING_DATA'
 export const UPDATE_PROFILE = 'UPDATE_PROFILE'
 export const STOP_USER_LOADING = 'STOP_USER_LOADING'
+export const NOTIFICATIONS_SEEN = 'NOTIFICATIONS_SEEN'
 
 // * Ui types
 export const SET_ERRORS = 'SET_ERRORS'

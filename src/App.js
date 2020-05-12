@@ -34,6 +34,7 @@ const App = () => {
     let authNavbar = authenticated ? (
       <Switch>
         <Route exact path="/" component={Home}/>
+        <Route exact path="/me/posts/:postId" component={MyProfile} />
         <Route path="/me" component={MyProfile}/>
         <Redirect to="/"/>
       </Switch>

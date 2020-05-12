@@ -1,7 +1,8 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 import Comments from './Comments'
 import moment from 'moment'
 
+import withStyles from '@material-ui/styles/withStyles'
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
@@ -13,6 +14,10 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 
 import {useDispatch, useSelector, shallowEqual} from 'react-redux'
 import {getOnePost} from './../../redux/actions/dataActions'
+
+const styles = theme => ({
+    ...theme.spreadThis
+})
 
 const Post = (props) => {
     const [open, setOpen] = useState(false);
@@ -32,8 +37,16 @@ const Post = (props) => {
         setOpen(false);
     }
 
+    const {openDialog, postId} = props
+    useEffect(() => {
+        if(openDialog) {
+            setOpen(true)
+            dispatch(getOnePost(postId))
+        }
+    }, [openDialog, postId, dispatch]);
+
     return (
-        <div>
+        <div style={{display: props.postId ? 'none' : null}}>
             <IconButton onClick={handleOpen}>
                 <ExpandMoreIcon />
             </IconButton>
@@ -68,4 +81,4 @@ const Post = (props) => {
     )
 }
 
-export default Post
+export default withStyles(styles)(Post)

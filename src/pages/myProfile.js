@@ -1,7 +1,11 @@
-import React, {useEffect} from 'react'
+import React, {useEffect, useState} from 'react'
 import Emoji from './../utils/Emoji'
 import Loader from './../utils/Loader'
 import DeleteProfile from './../components/profile/DeleteProfile'
+import Post from './../components/posts/Post'
+import LikePosts from './../components/posts/LikePosts'
+import DislikePosts from './../components/posts/DislikePosts'
+import CommentPost from './../components/posts/CommentPost'
 
 import withStyles from '@material-ui/styles/withStyles'
 import Paper from '@material-ui/core/Paper'
@@ -10,23 +14,27 @@ import CardActionArea from '@material-ui/core/CardActionArea';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
-import Button from '@material-ui/core/Button';
+// import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import Tooltip from '@material-ui/core/Tooltip'
 import DeleteIcon from '@material-ui/icons/Delete';
 
 import {useDispatch, useSelector, shallowEqual} from 'react-redux'
 import {fetchPosts, deletePost} from './../redux/actions/dataActions'
+// import {getUserData} from './../redux/actions/userActions'
 
 const styles = theme => ({
     ...theme.spreadThis
 })
 
 const MyProfile = props => {
-    const {user, posts, loading} = useSelector(state => ({
-        user: state.user.user,
+    const [postId, setPostId] = useState()
+
+    const {user, posts, likes, loading} = useSelector(state => ({
+        user: state.user.user ? state.user.user : {} ,
         posts: state.data.posts,
-        loading: state.user.loading
+        loading: state.user.loading,
+        likes: state.user.likes
     }), shallowEqual);
 
     const dispatch = useDispatch();
@@ -38,10 +46,26 @@ const MyProfile = props => {
         }
     }, [dispatch, posts]);
 
-    const owner = `${user.firstName} ${user.lastName}`;
+
+    useEffect(() => {
+        if(props.match.params.postId) {
+            setPostId(props.match.params.postId)
+        } 
+    }, [props.match.params])
+
+    let notPost = postId ? <Post postId={postId} openDialog /> : null
+
+    const owner = `${user.firstName} ${user.lastName}` 
     const myPosts = posts.filter(post => post.owner === owner);
 
     let placeholder = myPosts.map(post => {
+        let likedPost = () => {
+            if (likes && likes.find(l => l.belongsTo === post._id))
+            return true
+            else return false
+        }
+
+        let likeButton = likedPost() ? <DislikePosts post={post} /> : <LikePosts post={post}/>
         return (
             <Card key={post._id} className={classes.card}>
                 <CardActionArea>
@@ -63,12 +87,11 @@ const MyProfile = props => {
                     </CardContent>
                 </CardActionArea>
                 <CardActions>
-                    <Button size="small" color="primary">
-                        {post.likeCount}
-                    </Button>
-                    <Button size="small" color="primary">
-                        {post.commentCount}
-                    </Button>
+                    {likeButton}
+                    <CommentPost id={post._id}/>
+                        {/* <span>{post.likeCount} likes</span> */}
+                        <span>{post.commentCount} Comments</span>
+                    <Post id={post._id}/>
                 </CardActions>
             </Card> 
         )
@@ -96,6 +119,7 @@ const MyProfile = props => {
             <Paper component="div" className="profile__posts">
                 <h2 className="posts__title">
                     Posts timeline <Emoji symbol="📕" label="post notes"/>
+                    {notPost}
                 </h2>
                 <div className="posts">
                     {placeholder}
