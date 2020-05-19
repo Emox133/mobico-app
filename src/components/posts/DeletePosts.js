@@ -34,19 +34,22 @@ const FormDialog = (props) => {
 
   let myPost = `${user.firstName} ${user.lastName}`;
 
+  let deleteButton = props.owner === myPost ? 
+  <OwnButton tip="Delete Post" onClick={handleClickOpen}>
+    <DeleteIcon color="secondary" /> 
+  </OwnButton> : null
+
   return (
     <Fragment>
-      <OwnButton tip="Delete Post" onClick={handleClickOpen}>
-        {props.owner === myPost ? <DeleteIcon /> : null}
-      </OwnButton>
+      {deleteButton}
       <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title" fullWidth={true}>
       <form>
         <DialogTitle id="form-dialog-title">Are you sure you want to delete this post?</DialogTitle>
         <DialogActions>
-          <Button onClick={handleClose} color="primary">
+          <Button onClick={handleClose}>
             Cancel
           </Button>
-          <Button type="button" color="primary" onClick={handleDelete}>
+          <Button type="button" color="secondary" onClick={handleDelete}>
             Delete
           </Button>
         </DialogActions>

@@ -9,7 +9,7 @@ import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
-import CreateIcon from '@material-ui/icons/Create';
+import AddIcon from '@material-ui/icons/Add';
 
 import {useDispatch, useSelector, shallowEqual} from 'react-redux'
 import {CLEAR_ERRORS} from './../../redux/types'
@@ -49,7 +49,7 @@ const FormDialog = (props) => {
   return (
     <Fragment>
       <OwnButton tip="Create Post" onClick={handleClickOpen}>
-        <CreateIcon />
+        <AddIcon />
       </OwnButton>
       <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title" fullWidth={true}>
       <form onSubmit={handleSubmit}>
@@ -70,7 +70,7 @@ const FormDialog = (props) => {
           />
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleClose}>
+          <Button onClick={handleClose} color="secondary">
             Cancel
           </Button>
           <Button type="submit">

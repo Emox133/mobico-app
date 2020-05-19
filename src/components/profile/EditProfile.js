@@ -1,5 +1,4 @@
 import React, {Fragment, useState} from 'react'
-import OwnButton from './../../utils/OwnButton'
 import Emoji from './../../utils/Emoji'
 
 // MUI
@@ -10,7 +9,8 @@ import DialogContentText from '@material-ui/core/DialogContentText'
 import DialogTitle from '@material-ui/core/DialogTitle'
 import Button from '@material-ui/core/Button'
 import TextField from '@material-ui/core/TextField'
-import CreateIcon from '@material-ui/icons/Create'
+import AssignmentIndIcon from '@material-ui/icons/AssignmentInd';import IconButton from '@material-ui/core/IconButton'
+import Tooltip from '@material-ui/core/Tooltip'
 
 // Redux
 import {useDispatch, useSelector, shallowEqual} from 'react-redux'
@@ -67,9 +67,11 @@ const EditProfile = (props) => {
 
     return (
     <Fragment>
-        <OwnButton tip="Edit profile" onClick={openHandler}>
-                <CreateIcon />
-            </OwnButton>
+            <Tooltip title="Edit profile" onClick={openHandler}>
+                <IconButton>
+                    <AssignmentIndIcon />
+                </IconButton>
+            </Tooltip>
 
             <Dialog open={open} onClose={closeHandler} >
                 <form onSubmit={handleSubmit}>
@@ -155,11 +157,11 @@ const EditProfile = (props) => {
                     />
                 </DialogContent>
                 <DialogActions>
-                 <Button onClick={closeHandler} color="primary">
+                 <Button onClick={closeHandler} color="secondary">
                     Cancel
                 </Button>
                 <Button type="submit" color="primary">
-                    Post
+                    Confirm
                 </Button>
                 </DialogActions>
                 </form>

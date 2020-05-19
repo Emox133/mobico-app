@@ -1,5 +1,5 @@
-import React, { Component } from 'react'
-import AppLogo from './../images/logo-mobico.png'
+import React, { useState } from 'react'
+import AppLogo from './../images/logo-mobico-5.png'
 
 // * Mui
 import withStyles from '@material-ui/core/styles/withStyles'
@@ -8,19 +8,20 @@ import Grid from '@material-ui/core/Grid'
 import InputAdornment from '@material-ui/core/InputAdornment'
 import StarsIcon from '@material-ui/icons/Stars'
 import Tooltip from '@material-ui/core/Tooltip'
+import Typography from '@material-ui/core/Typography'
 import Button from '@material-ui/core/Button'
-import CircularProgress from '@material-ui/core/CircularProgress'
+import {useMediaQuery} from '@material-ui/core'
 
 // * Redux
-import {connect} from 'react-redux'
-import * as userActions from './../redux/actions/userActions'
+import {useDispatch, useSelector, shallowEqual} from 'react-redux'
+import {signupUser} from './../redux/actions/userActions'
 
 const styles = theme => ({
     ...theme.spreadThis
 })
 
-class signup extends Component {
-    state = {
+const Signup = props => {
+    const [fields, setFields] = useState({
         firstName: '',
         lastName: '',
         username: '',
@@ -30,41 +31,48 @@ class signup extends Component {
         bio: '',
         website: '',
         location: ''
-    }
+    })
 
-    handleChange = e => {
-        this.setState({
+    const isActive = useMediaQuery('(max-width: 650px)')
+   
+    const {errors} = useSelector(state => ({
+        errors: state.UI.errors
+    }), shallowEqual)
+    
+    const dispatch = useDispatch()
+    const {classes} = props
+
+    const handleChange = e => {
+        setFields({
+            ...fields,
             [e.target.name]: e.target.value
         })
     }
 
-    handleSubmit = e => {
+    const handleSubmit = e => {
         e.preventDefault();
 
         const newUser = {
-            firstName: this.state.firstName,
-            lastName: this.state.lastName,
-            username: this.state.username,
-            email: this.state.email,
-            password: this.state.password,
-            confirmPassword: this.state.confirmPassword,
-            bio: this.state.bio,
-            website: this.state.website,
-            location: this.state.location
+            firstName: fields.firstName,
+            lastName: fields.lastName,
+            username: fields.username,
+            email: fields.email,
+            password: fields.password,
+            confirmPassword: fields.confirmPassword,
+            bio: fields.bio,
+            website: fields.website,
+            location: fields.location
         }
 
-        this.props.onSignupUser(newUser, this.props.history);
+        dispatch(signupUser(newUser, props.history));
     }
 
-    render() {
-        const {classes, errors, loading} = this.props
-        
         return (
         <Grid container className={classes.formWrapper}>
-            <Grid item sm />
-                <Grid item sm>
-                <img src={AppLogo} alt="mobico logo" className={classes.image}/>
-                <form noValidate autoComplete="off" className={classes.form} onSubmit={this.handleSubmit}>
+            <Grid item xs/>
+                <Grid item xs>
+                <img src={AppLogo} alt="mobico logo" className={isActive ? classes.logoSmall : classes.logo}/>
+                <form noValidate autoComplete="off" className={classes.form} onSubmit={handleSubmit}>
                     <TextField 
                     id="firstName"
                     name="firstName"
@@ -82,8 +90,8 @@ class signup extends Component {
                         )
                     }}
                     className={classes.textField}
-                    onChange={this.handleChange}
-                    value={this.state.firstName}
+                    onChange={handleChange}
+                    value={fields.firstName}
                     fullWidth
                     />
                     <TextField 
@@ -103,8 +111,8 @@ class signup extends Component {
                         )
                       }}
                     className={classes.textField}
-                    onChange={this.handleChange}
-                    value={this.state.lastName}
+                    onChange={handleChange}
+                    value={fields.lastName}
                     fullWidth
                     />
                     <TextField 
@@ -124,8 +132,8 @@ class signup extends Component {
                         )
                       }}
                     className={classes.textField}
-                    onChange={this.handleChange}
-                    value={this.state.username}
+                    onChange={handleChange}
+                    value={fields.username}
                     fullWidth
                     />
                     <TextField 
@@ -145,8 +153,8 @@ class signup extends Component {
                         )
                       }}
                     className={classes.textField}
-                    onChange={this.handleChange}
-                    value={this.state.email}
+                    onChange={handleChange}
+                    value={fields.email}
                     fullWidth
                     />
                     <TextField 
@@ -166,8 +174,8 @@ class signup extends Component {
                         )
                       }}
                     className={classes.textField}
-                    onChange={this.handleChange}
-                    value={this.state.password}
+                    onChange={handleChange}
+                    value={fields.password}
                     fullWidth
                     />
                     <TextField 
@@ -187,8 +195,8 @@ class signup extends Component {
                         )
                       }}
                     className={classes.textField}
-                    onChange={this.handleChange}
-                    value={this.state.confirmPassword}
+                    onChange={handleChange}
+                    value={fields.confirmPassword}
                     fullWidth
                     />
                     <TextField 
@@ -208,8 +216,8 @@ class signup extends Component {
                         )
                       }}
                     className={classes.textField}
-                    onChange={this.handleChange}
-                    value={this.state.location}
+                    onChange={handleChange}
+                    value={fields.location}
                     fullWidth
                     />
                     <TextField 
@@ -218,8 +226,8 @@ class signup extends Component {
                     placeholder="Website"
                     type="text"
                     className={classes.textField}
-                    onChange={this.handleChange}
-                    value={this.state.website}
+                    onChange={handleChange}
+                    value={fields.website}
                     fullWidth
                     />
                      <TextField 
@@ -230,35 +238,21 @@ class signup extends Component {
                     multiline
                     rows="3"
                     className={classes.textField}
-                    onChange={this.handleChange}
-                    value={this.state.bio}
+                    onChange={handleChange}
+                    value={fields.bio}
                     fullWidth
                     />
-                        <Button type="submit" variant="contained" color="primary" style={{marginTop: '10px'}} className={classes.button}>
+                        <Button type="submit" variant="contained" color="primary" style={{marginTop: '10px'}}>
                             Signup
-                            {loading && (
-                                <CircularProgress color="secondary" size="30" className={classes.spinner}/>
-                            )}
                         </Button>
                     </form>
+                    <Typography style={{marginTop: '.7rem', fontSize: isActive ? '1rem' : '1.3rem'}}>
+                        &copy; Developed and designed by <span style={{fontWeight: 'bold', letterSpacing: '.05em'}}>Emir Salihović</span>
+                    </Typography>
                 </Grid>
-            <Grid item sm />
+            <Grid item xs />
         </Grid>
         )
-    }
 }
 
-const mapStateToProps = state => {
-    return {
-        errors: state.UI.errors,
-        loading: state.user.loading
-    }
-}
-
-const mapActionsToProps = dispatch => {
-    return {
-        onSignupUser: (userInfo, history) => dispatch(userActions.signupUser(userInfo, history))
-    }
-}
-
-export default connect(mapStateToProps, mapActionsToProps)(withStyles(styles)(signup))
+export default withStyles(styles)(Signup)

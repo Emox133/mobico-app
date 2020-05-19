@@ -12,13 +12,14 @@ import MenuItem from '@material-ui/core/MenuItem'
 import FavoriteIcon from '@material-ui/icons/Favorite'
 import ChatIcon from '@material-ui/icons/Chat';
 import Typography from '@material-ui/core/Typography'
+import {useMediaQuery} from '@material-ui/core'
 
 import { useSelector, shallowEqual, useDispatch } from 'react-redux';
 import {notificationsSeen} from './../../redux/actions/userActions'
 
 const Notifications = props => {
     const [link, setLink] = useState(null)
-    // const [postId, setPostId] = useState(null)
+    const isActive = useMediaQuery('(max-width: 768px)')
 
     const {notifications} = useSelector(state => ({
         notifications: state.user.notifications
@@ -33,8 +34,9 @@ const Notifications = props => {
     const handleClose = () => {
         setLink(null)
     };
-
+    
     const onNotificationsVisited = () => {
+        // notifications.filter(n => n.read);
         dispatch(notificationsSeen());
     };
 
@@ -53,7 +55,7 @@ const Notifications = props => {
     let placeholder = 
     notifications && notifications.length > 0 ? (
         notifications.map(n => {
-            const nType = n.type === 'like' ? 'liked' : 'commented on';
+            const nType = n.type === 'like' ? 'liked' : 'commented';
             const time = moment(n.createdAt).fromNow();
             const iconColor = n.read ? 'primary' : 'secondary';
             const icon = n.type === 'like' ? <FavoriteIcon color={iconColor} style={{ marginRight: 10 }}/> 
@@ -61,13 +63,13 @@ const Notifications = props => {
             
             return (
                 <MenuItem
-                    key={n.createdAt}
+                key={n.createdAt}
                     onClick={handleClose}
                     component={Link}
                     to={`/me/posts/${n.postId}`}
-                >
+                    >
                     {icon}
-                    <Typography>
+                    <Typography style={{fontSize: '.7rem'}}> 
                         {n.sender} {nType} your post {time}
                     </Typography>
                 </MenuItem>
@@ -88,12 +90,14 @@ const Notifications = props => {
         </Tooltip>
         <Menu
             id="simple-menu"
+            style={{height: isActive ? '75%' : '100%'}}
             anchorEl={link}
             keepMounted
-            anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
-            transformOrigin={{ vertical: "top", horizontal: "center" }}
+            // anchorOrigin={{ vertical: "right", horizontal: "right" }}
+            // transformOrigin={{ vertical: "top", horizontal: "center" }}
             open={Boolean(link)}
             onClose={handleClose}
+            // onClick={onNotificationsRead}
         >
             {placeholder}
         </Menu>

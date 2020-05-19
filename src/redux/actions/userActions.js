@@ -8,7 +8,7 @@ export const loginUser = (userInfo, history) => dispatch => {
             setAuthorizationHeader(res.data.token)
             dispatch(getUserData())
             history.push('/')
-            // history.go(0)
+            history.go(0)
         } else {
             dispatch({
                 type: types.SET_ERRORS,
@@ -20,18 +20,17 @@ export const loginUser = (userInfo, history) => dispatch => {
 };
 
 export const logoutUser = history => dispatch => {
-    dispatch({type: types.LOGOUT_USER})
+    history.push('/login')
     localStorage.removeItem('token')
     delete axios.defaults.headers.common['Authorization'];
-    history.push('/login')
+    dispatch({type: types.LOGOUT_USER})
     history.go(0)
 };
 
 export const signupUser = (userInfo, history) => dispatch => {
-    dispatch({type: types.LOADING_DATA});
     axios.post('users/signup', userInfo, {validateStatus: () => {return true}})
     .then(res => {
-        console.log(res.data)
+        // console.log(res.data)
         if(res.data.status !== 'fail' && res.data.status !== 'error' && res.data.token) {
             setAuthorizationHeader(res.data.token);
             dispatch(getUserData())
@@ -48,7 +47,7 @@ export const signupUser = (userInfo, history) => dispatch => {
 };
 
 export const getUserData = () => dispatch => {
-    dispatch({type: types.LOADING_DATA})
+    dispatch({type: types.SET_AUTHENTICATED})
     axios.get('users/me', {validateStatus: () => {return true}})
     .then(res => {
         dispatch({
@@ -63,11 +62,11 @@ export const updateProfile = data => dispatch => {
     axios.patch('users/updateMe', data, {validateStatus: () => {return true}})
     .then(res => {
         if(res.data.status !== 'fail' && res.data.status !== 'error') {
-            console.log(res)
+            // console.log(res)
             dispatch(getUserData());
             alert('Data changed successfully. 😜')
         } else {
-            console.log(res)
+            // console.log(res)
             dispatch({type: types.STOP_USER_LOADING})
             dispatch({
                 type: types.SET_ERRORS,
@@ -83,7 +82,7 @@ export const updateProfile = data => dispatch => {
 export const forgotPassword = (email, history) => dispatch => {
     axios.post('/users/forgotPassword', email, {validateStatus: () => {return true}})
     .then(res => {
-        console.log(res)
+        // console.log(res)
         if(res.data.status !== 'fail' && res.data.status !== 'error') {
             alert('Email sent!')
             history.go(0)
@@ -103,13 +102,13 @@ export const resetPassword = (token, data,  history) => dispatch => {
     axios.post(`/users/resetPassword/${token}`, data, {validateStatus: () => {return true}})
     .then(res => {
         if(res.data.status !== 'fail' && res.data.status !== 'error' && res.data.token) {
-            console.log(res)
+            // console.log(res)
             setAuthorizationHeader(res.data.token)
             dispatch(getUserData())
             history.push('/')
             alert('Password successfully changed! 🎉')
         } else {
-            console.log(res)
+            // console.log(res)
             dispatch({type: types.STOP_USER_LOADING})
             dispatch({
                 type: types.SET_ERRORS,
@@ -129,7 +128,7 @@ export const changePassword = (data, history) => dispatch => {
             alert(`${res.data.message} 🎈 Please log in again 😃`);
             dispatch(logoutUser(history))
         } else {
-            console.log(res)
+            // console.log(res)
             dispatch({type: types.STOP_USER_LOADING})
             dispatch({
                 type: types.SET_ERRORS,
@@ -161,12 +160,17 @@ export const deleteProfile = history => dispatch => {
 export const notificationsSeen = () => dispatch => {
     axios.patch('/users/notifications', {validateStatus: () => {return true}})
     .then(res => {
-        console.log(res)
+        // console.log(res)
+        dispatch({type: types.READ_NOTIFICATIONS})
     })
     .catch(err => {
         console.log(err)
     })
 };
+
+export const scrollEffect = ref => dispatch => {
+    ref.current.scrollIntoView({behavior: "smooth"})
+}
 
 const setAuthorizationHeader = token => {
     const JWT = `Bearer ${token}`;

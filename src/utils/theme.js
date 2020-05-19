@@ -2,9 +2,10 @@ import {useState} from 'react'
 
 const themeObject = {
 palette: {
-  primary: { main: '#3f51b5' },
-  secondary: { main: '#f50057' },
-  type: 'dark'
+  // primary: { main: '#f44336' },
+  primary: { main: '#00c9ff' },
+  secondary: { main: '#ff0011' },
+  type: 'light'
 },
 
 spreadThis: {
@@ -17,7 +18,7 @@ spreadThis: {
     paddingBottom: '30px',
     // overflow: 'scroll'
   },
-    image: {
+    logo: {
       width: '300px',
       marginTop: '-30px'
     },
@@ -26,21 +27,16 @@ spreadThis: {
       letterSpacing: '5px'
     },
     textField: {
-      margin: '5px auto'
-    },
-    button: {
-      position: 'relative'
-    },
-    spinner: {
-      position: 'absolute'
+      marginBottom: '5px'
     },
     owner: {
       fontSize: '20px',
-      fontWeight: 'bold'
+      fontWeight: 'bold',
+      alignItems: 'center'
     },
     card: {
-      marginBottom: '10px',
       maxWidth: '300px',
+      marginBottom: '10px',
       // border: '1px solid #fff'
     },
     post__card: {
@@ -53,8 +49,8 @@ spreadThis: {
     userImage: {
       height: '200px',
       width: '100%',
-      backgroundSize: 'cover',
-      backgroundPosition: 'center',
+      // backgroundSize: 'cover',
+      // backgroundPosition: 'center',
 
       '&:hover': {
       //  ...
@@ -62,7 +58,7 @@ spreadThis: {
       // borderRadius: '0px'
     },
     paper: {
-      height: '70vh',
+      height: '100vh',
       padding: '20px',
       position: 'fixed'
     },
@@ -79,6 +75,22 @@ spreadThis: {
       height: '250px',
       width: '30%',
       borderRadius: '50%'
+    },
+
+    // MEDIA QUERY STYLING
+    cardSmall: {
+      maxWidth: '400px',
+      margin: '0 auto 10px auto'
+    },
+    postImageSmall: {
+      height: '160px',
+      width: '50%',
+      borderRadius: '50%',
+      marginBottom: '.8rem'
+    },
+    logoSmall: {
+      width: '245px',
+      marginTop: '-30px'
     }
   }
 }

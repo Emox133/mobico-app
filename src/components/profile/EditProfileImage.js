@@ -2,8 +2,7 @@ import React, {Fragment} from 'react'
 
 // Mui
 import IconButton from '@material-ui/core/IconButton'
-import CreateIcon from '@material-ui/icons/Create'
-import Tooltip from '@material-ui/core/Tooltip'
+import PhotoCameraIcon from '@material-ui/icons/PhotoCamera';import Tooltip from '@material-ui/core/Tooltip'
 
 // Redux
 import {useDispatch} from 'react-redux'
@@ -37,7 +36,7 @@ const EditProfileImage = () => {
         </form>
     <Tooltip title="Change profile image">
         <IconButton onClick={handleImageChange}>
-            <CreateIcon/>
+            <PhotoCameraIcon />
         </IconButton>
     </Tooltip>
     </Fragment>

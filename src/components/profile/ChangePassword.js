@@ -108,7 +108,7 @@ const ChangePassword = forwardRef((props, ref) => {
                     <Button color="secondary" onClick={handleClose}>
                         Cancel
                     </Button>
-                    <Button type="submit" onClick={(e) => handleSubmit(e)}>
+                    <Button type="submit" color="primary" onClick={(e) => handleSubmit(e)}>
                         Submit
                     </Button>
                 </DialogActions>

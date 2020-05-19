@@ -52,7 +52,7 @@ const CommentPost = props => {
         <form onSubmit={handleSubmit}>
             <Tooltip title="Comment post">
                 <IconButton onClick={handleOpen}>
-                    <ChatBubbleIcon />
+                    <ChatBubbleIcon color="primary"/>
                 </IconButton>
             </Tooltip>
             <Dialog open={open} onClose={handleClose} fullWidth={true}>
@@ -68,7 +68,7 @@ const CommentPost = props => {
                         name="text"
                         // label="Comment"
                         // placeholder="Comment"
-                        placeholder="Wow dude 😃 That is amazing."
+                        placeholder="Nice one ! 😃🔥"
                         type="text"
                         error={switchError(errors, 'Comment') ? true : false}
                         helperText={switchError(errors, 'Comment') ? errors.commentErr : null}
@@ -79,7 +79,7 @@ const CommentPost = props => {
                     />
                 </DialogContent>
                 <DialogActions>
-                    <Button onClick={handleClose}>
+                    <Button onClick={handleClose} color="secondary">
                         Cancel
                     </Button>
 

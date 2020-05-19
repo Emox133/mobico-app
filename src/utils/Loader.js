@@ -1,7 +1,10 @@
 import React, {useEffect} from 'react'
+import {useMediaQuery} from '@material-ui/core'
 import anime from 'animejs'
 
 const Loader = () => {
+    const isActive = useMediaQuery('(max-width: 960px)')
+
     useEffect(() => {
         anime ({
             targets: 'div.box',
@@ -23,7 +26,7 @@ const Loader = () => {
     }, []);
 
     return (
-        <div id="boxes">
+        <div id="boxes" style={{width: isActive ? 'calc(100% - 54.4px)' : null, height: isActive ? '100vh' : null}}>
             <div className="box one"></div>
             <div className="box two"></div>
             <div className="box three"></div>

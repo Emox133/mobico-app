@@ -5,30 +5,26 @@ import DeleteProfile from './../components/profile/DeleteProfile'
 import Post from './../components/posts/Post'
 import LikePosts from './../components/posts/LikePosts'
 import DislikePosts from './../components/posts/DislikePosts'
+import DeletePosts from './../components/posts/DeletePosts'
 import CommentPost from './../components/posts/CommentPost'
+import moment from 'moment'
 
 import withStyles from '@material-ui/styles/withStyles'
 import Paper from '@material-ui/core/Paper'
 import Card from '@material-ui/core/Card';
-import CardActionArea from '@material-ui/core/CardActionArea';
-import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
-// import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
-import Tooltip from '@material-ui/core/Tooltip'
-import DeleteIcon from '@material-ui/icons/Delete';
 
 import {useDispatch, useSelector, shallowEqual} from 'react-redux'
-import {fetchPosts, deletePost} from './../redux/actions/dataActions'
-// import {getUserData} from './../redux/actions/userActions'
+import {fetchPosts} from './../redux/actions/dataActions'
 
 const styles = theme => ({
     ...theme.spreadThis
 })
 
 const MyProfile = props => {
-    const [postId, setPostId] = useState()
+    const [postId, setPostId] = useState(null)
 
     const {user, posts, likes, loading} = useSelector(state => ({
         user: state.user.user ? state.user.user : {} ,
@@ -47,13 +43,19 @@ const MyProfile = props => {
     }, [dispatch, posts]);
 
 
+    let rule;
+    if(Object.keys(props.match.params).length > 0 && Object.keys(props.match.params)[0] === 'postId') {
+        rule = true; 
+    } else {
+        rule = false;
+    }
     useEffect(() => {
-        if(props.match.params.postId) {
+        if(rule) {
             setPostId(props.match.params.postId)
         } 
-    }, [props.match.params])
+    }, [props.match.params, rule])
 
-    let notPost = postId ? <Post postId={postId} openDialog /> : null
+    let notPost = postId ? <Post postId={postId} openDialog history={props.history} rule={rule}/> : null
 
     const owner = `${user.firstName} ${user.lastName}` 
     const myPosts = posts.filter(post => post.owner === owner);
@@ -67,33 +69,33 @@ const MyProfile = props => {
 
         let likeButton = likedPost() ? <DislikePosts post={post} /> : <LikePosts post={post}/>
         return (
-            <Card key={post._id} className={classes.card}>
-                <CardActionArea>
+            <Card className={classes.card} key={post._id} variant="outlined">
                     <CardMedia 
+                        className={classes.userImage}
                         image={post.userImage}
-                        title="owner"
-                        style={{width: '220px', height: '200px'}}
-                    />
+                        title="User"/>
                     <CardContent>
-                        <Typography variant="h5" gutterBottom={true} className="posts__delete">
-                            {post.owner} 
-                            <Tooltip title="Delete post">
-                                <DeleteIcon onClick={() => dispatch(deletePost(post._id))}/>
-                            </Tooltip>
+                    <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center', height: '2rem'}}>
+                        <Typography className={classes.owner}>
+                            {post.owner}
                         </Typography>
-                        <Typography variant="body2">
+                            <DeletePosts id={post._id} owner={post.owner}/>
+                    </div>
+                        <Typography style={{fontWeight: 'bold', marginBottom: 'bold'}}>
+                            {moment(post.createdAt).fromNow()}
+                        </Typography>
+
+                        <Typography className={classes.text}>
                             {post.text}
                         </Typography>
+                    <div style={{display: 'flex', alignItems: 'center'}}>
+                        {likeButton}
+                        <CommentPost id={post._id}/>
+                            <span style={{fontSize: '.8rem'}}>{post.commentCount} Comments</span>
+                        <Post id={post._id}/>
+                    </div>
                     </CardContent>
-                </CardActionArea>
-                <CardActions>
-                    {likeButton}
-                    <CommentPost id={post._id}/>
-                        {/* <span>{post.likeCount} likes</span> */}
-                        <span>{post.commentCount} Comments</span>
-                    <Post id={post._id}/>
-                </CardActions>
-            </Card> 
+            </Card>
         )
     })
 
@@ -104,8 +106,8 @@ const MyProfile = props => {
             <figcaption className="profile__user-details">
                 <h2 className="profile__user-title">{user.firstName + ' ' + user.lastName}</h2>
                 <p className="profile__user-location">Location: {user.location}</p>
-                <p className="profile__user-bio">{user.bio}</p>
-                <p className="profile__user-bio">{user.website}</p>
+                <p className="profile__user-bio">{user.bio.length > 0 ? 'Biography:' : null} {user.bio}</p>
+                <p className="profile__user-bio">{user.bio.length > 0 ? 'Website:' : null} {user.website}</p>
             </figcaption>
         </figure>
     ) : <Loader />

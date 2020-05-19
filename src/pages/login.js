@@ -1,55 +1,62 @@
-import React, { Component } from 'react'
-import AppLogo from './../images/logo-mobico.png'
+import React, { useState } from 'react'
+import AppLogo from './../images/logo-mobico-5.png'
 import ForgotPassword from './../components/profile/ForgotPassword'
 
 // * Redux
-import {connect} from 'react-redux'
-import * as userActions from './../redux/actions/userActions'
+import {useSelector, useDispatch, shallowEqual} from 'react-redux'
+import {loginUser} from './../redux/actions/userActions'
 
 // * Mui
 import withStyles from '@material-ui/core/styles/withStyles'
 import TextField from '@material-ui/core/TextField'
 import Grid from '@material-ui/core/Grid'
 import Button from '@material-ui/core/Button'
-import CircularProgress from '@material-ui/core/CircularProgress'
+import {useMediaQuery} from '@material-ui/core'
 // import SnackBar from './../utils/SnackBar'
 
 const styles = theme => ({
     ...theme.spreadThis
 })
 
-class login extends Component {
-    state = {
+const Login = props => {
+    const [fields, setFields] = useState({
         email: '',
-        password: '',
-        loading: false
-    }
+        password: ''
+    })
 
-    handleChange = e => {
-        this.setState({
+    const {errors} = useSelector(state => ({
+        errors: state.UI.errors
+    }), shallowEqual)
+    
+    const {classes} = props
+    const dispatch = useDispatch()
+    const isActive = useMediaQuery('(max-width: 650px)')
+
+   const handleChange = e => {
+        setFields({
+            ...fields,
             [e.target.name]: e.target.value
         })
     }
     
-    handleSubmit = e => {
+   const handleSubmit = e => {
         e.preventDefault();
+        const {email, password} = fields
 
         const user = {
-            email: this.state.email,
-            password: this.state.password
+            email: email,
+            password: password
         }   
         
-        this.props.onLoginUser(user, this.props.history);
+        dispatch(loginUser(user, props.history));
     }
     
-    render() {
-        const {classes, errors} = this.props
         return (
         <Grid container className={classes.formWrapper}>
-            <Grid item sm />
-                <Grid item sm>
-                <img src={AppLogo} alt="mobico logo" className={classes.image}/>
-                <form noValidate autoComplete="off" className={classes.form} onSubmit={this.handleSubmit}>
+            <Grid item xs />
+                <Grid item xs>
+                <img src={AppLogo} alt="mobico logo" className={isActive ? classes.logoSmall : classes.logo}/>
+                <form noValidate autoComplete="on" className={classes.form} onSubmit={handleSubmit}>
                     <TextField 
                     id="email"
                     name="email"
@@ -58,8 +65,8 @@ class login extends Component {
                     error={errors.message ? true : false}
                     helperText={errors.message ? errors.message : null}
                     className={classes.textField}
-                    onChange={this.handleChange}
-                    value={this.state.email}
+                    onChange={handleChange}
+                    value={fields.email}
                     fullWidth
                     />
                     <TextField 
@@ -70,36 +77,20 @@ class login extends Component {
                     error={errors.message ? true : false}
                     helperText={errors.message ? errors.message : null}
                     className={classes.textField}
-                    onChange={this.handleChange}
-                    value={this.state.password}
+                    onChange={handleChange}
+                    value={fields.password}
                     fullWidth
                     />
                         <Button type="submit" variant="contained" color="primary" style={{marginTop: '10px'}} className={classes.button}>
                             Login
-                            {this.state.loading && (
-                                <CircularProgress color="secondary" size="30" className={classes.spinner}/>
-                            )}
                         </Button>
                     </form>
-                        <ForgotPassword history={this.props.history}/>
+                        <ForgotPassword history={props.history}/>
                         {/* <SnackBar /> */}
                 </Grid>
-            <Grid item sm />
+            <Grid item xs />
         </Grid>
         )
-    }
 }
 
-const mapStateToProps = state => {
-    return {
-        errors: state.UI.errors
-    }
-}
-
-const mapActionToProps = dispatch => {
-    return {
-        onLoginUser: (userInfo, history) => dispatch(userActions.loginUser(userInfo, history))
-    }
-}
-
-export default connect(mapStateToProps, mapActionToProps)(withStyles(styles)(login));
+export default withStyles(styles)(Login);

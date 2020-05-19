@@ -6,6 +6,7 @@
 .pnp.js
 todo.js
 SnackBar.js
+switchMediaQuery.js
 
 # testing
 /coverage

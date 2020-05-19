@@ -19,9 +19,9 @@ const LikePosts = props => {
     return (
         <Fragment>
             <OwnButton tip="Like Post" onClick={handleLike}>
-               <FavoriteBorderIcon />
+               <FavoriteBorderIcon color="primary"/>
             </OwnButton>
-            <span>{post.likeCount} Likes</span>
+            <span style={{fontSize: '.8rem'}}>{post.likeCount} Likes</span>
         </Fragment>
     )
 }

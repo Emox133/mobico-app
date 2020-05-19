@@ -3,33 +3,56 @@ import {Link} from 'react-router-dom'
 import CreatePosts from '../posts/CreatePosts'
 import Menu from './../Layout/Menu'
 import Notifications from './../profile/Notifications'
+import EditProfile from './../profile/EditProfile'
+import EditProfileImage from './../profile/EditProfileImage'
+import UserAvatar from './UserAvatar'
 
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import HomeIcon from '@material-ui/icons/Home';
 import Tooltip from '@material-ui/core/Tooltip'
 import IconButton from '@material-ui/core/IconButton'
-// import EmojiObjectsIcon from '@material-ui/icons/EmojiObjects';
 import Switch from '@material-ui/core/Switch';
+import {useMediaQuery} from '@material-ui/core'
+
+import {useSelector, shallowEqual} from 'react-redux'
 
 const AuthBar = (props) => {
+    const {username, userImage} = useSelector(state => ({
+        username: state.user.user.username,
+        userImage: state.user.user.userImage
+    }), shallowEqual)
+
+    const isActive = useMediaQuery('(max-width: 960px)')
+    let userSmall = 
+    <Tooltip title={`${username}`}>
+        <IconButton component={Link} to={'/me'}>
+            <UserAvatar owner={username} image={userImage}/>
+        </IconButton>
+    </Tooltip>
+
     return (
         <Fragment>
+            {isActive ? userSmall : null}
             <Tooltip title="Home">
                 <IconButton component={Link} to="/">
                     <HomeIcon />
                 </IconButton>
             </Tooltip>
             <CreatePosts />
+            {!isActive ?
             <Tooltip title="Profile">
                 <IconButton component={Link} to="/me">
                     <AccountCircleIcon />
                 </IconButton>
-            </Tooltip>
+            </Tooltip> : null
+            }
             <Notifications />
-            <Menu logout={props.logout}/>
+            {isActive ? <EditProfileImage /> : null}
+            {isActive ? <EditProfile /> : null}
             <Tooltip title="Day / Night">
                 <Switch onClick={props.mode} />
             </Tooltip>
+            <Menu logout={props.logout}/>
         </Fragment>
     )
 }

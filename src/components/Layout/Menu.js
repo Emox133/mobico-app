@@ -31,8 +31,8 @@ const Settings = props => {
                 id="simple-menu"
                 anchorEl={link}
                 getContentAnchorEl={null}
-                anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
-                transformOrigin={{ vertical: "top", horizontal: "center" }}
+                // anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
+                // transformOrigin={{ vertical: "top", horizontal: "center" }}
                 keepMounted
                 open={Boolean(link)}
                 onClose={handleClose}

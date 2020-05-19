@@ -11,6 +11,7 @@ import Divider from '@material-ui/core/Divider'
 import Tooltip from '@material-ui/core/Tooltip'
 import IconButton from '@material-ui/core/IconButton'
 import CancelIcon from '@material-ui/icons/Cancel'
+import useMediaQuery from '@material-ui/core/useMediaQuery'
 
 import {useDispatch, useSelector, shallowEqual} from 'react-redux'
 import {deleteComment} from './../../redux/actions/dataActions'
@@ -19,23 +20,23 @@ const Comments = React.memo(props => {
     const {user} = useSelector(state => ({
         user: state.user.user
     }), shallowEqual)
-    
-    const {comments} = props;
     const dispatch = useDispatch();
     
+    const {comments} = props;
+    const isActive = useMediaQuery('(max-width: 375px)')
+
     const handleDelete = () => {
         dispatch(deleteComment(comments._id, comments.belongsTo));
     }
 
     let myComment = user._id === comments.owner ? <Tooltip title="Delete comment">
-        <IconButton onClick={handleDelete} style={{position: 'absolute', top: '.3rem', right: '0'}}>
-            <CancelIcon />
+        <IconButton onClick={handleDelete} style={{position: 'absolute', top: '.3rem', right: isActive ? '-.8rem' : '0'}}>
+            <CancelIcon color="secondary"/>
         </IconButton>
     </Tooltip> : null
 
     return (
         <List>
-            {console.log('Comments component')}
             <ListItem className="posts__comment">
                     {myComment}
                 <ListItemAvatar>
@@ -46,15 +47,19 @@ const Comments = React.memo(props => {
                         <Typography
                             component="span"
                             variant="h6"
+                            style={{fontSize: isActive ? '.88rem' : '1.125rem'}}
                         >
                             {comments.ownerName}
                         </Typography>
                         <Typography 
                             variant="subtitle2"
+                            style={{marginBottom: '.5rem', fontSize: isActive ? '.6rem' : '.8rem'}}
                         >
-                            {moment(comments.createdAt).format("dddd, MMMM Do YYYY, h:mm a")}
+                            {moment(comments.createdAt).format("MMMM Do YYYY, h:mm a")}
                         </Typography>
-                        {" - " + comments.text}
+                        <Typography style={{fontSize: isActive ? '.8rem' : '1rem'}}>
+                            {" - " + comments.text}
+                        </Typography>
                     </Fragment>
                 </ListItemText>
             </ListItem>

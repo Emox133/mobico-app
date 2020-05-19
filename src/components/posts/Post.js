@@ -3,14 +3,13 @@ import Comments from './Comments'
 import moment from 'moment'
 
 import withStyles from '@material-ui/styles/withStyles'
-import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import Typography from '@material-ui/core/Typography';
-
 import IconButton from '@material-ui/core/IconButton'
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import useMediaQuery from '@material-ui/core/useMediaQuery'
 
 import {useDispatch, useSelector, shallowEqual} from 'react-redux'
 import {getOnePost} from './../../redux/actions/dataActions'
@@ -25,8 +24,10 @@ const Post = (props) => {
         post: state.data.singlePost.post,
         comments: state.data.singlePost.comments,
     }), shallowEqual);
-
     const dispatch = useDispatch();
+
+    let {rule, postId} = props
+    const isActive = useMediaQuery('(max-width: 600px)')
 
     const handleOpen = () => {
         setOpen(true);
@@ -35,15 +36,18 @@ const Post = (props) => {
 
     const handleClose = () => {
         setOpen(false);
+        postId = null;
+        return rule ? props.history.push('/me') : null 
     }
 
-    const {openDialog, postId} = props
     useEffect(() => {
-        if(openDialog) {
+        if(rule) {
             setOpen(true)
             dispatch(getOnePost(postId))
         }
-    }, [openDialog, postId, dispatch]);
+    }, [rule, postId, dispatch]);
+    
+    // console.log(props.postId ? true : false, props.postId)
 
     return (
         <div style={{display: props.postId ? 'none' : null}}>
@@ -51,15 +55,20 @@ const Post = (props) => {
                 <ExpandMoreIcon />
             </IconButton>
                 <Dialog open={open} maxWidth="md" onClose={handleClose}> 
-                <div className="posts__individual">
-                    <img src={post.userImage} alt={post.owner} className={props.classes.postImage}/>
-                        <Typography variant="h3">
+                    <DialogActions>
+                        <span onClick={handleClose} style={{fontSize: '2rem', marginRight: '.5rem'}}>
+                            &times;
+                        </span>
+                    </DialogActions>
+                <div className="posts__individual" style={{height: isActive ? '90vh' : null}}>
+                    <img src={post.userImage} alt={post.owner} className={isActive ? props.classes.postImageSmall : props.classes.postImage}/>
+                        <Typography variant={isActive ? "h4" : "h3"}>
                             {post.owner}
                         </Typography>
                         <Typography>
                             {moment(post.createdAt).fromNow()}
                         </Typography>
-                    <DialogContent style={{width: '50%'}}>
+                    <DialogContent style={{width: isActive ? '100%' : '80%'}}>
                         <Typography>
                             {post.text}
                         </Typography>
@@ -71,11 +80,6 @@ const Post = (props) => {
                         })}
                     </DialogContent>
                 </div> 
-                    <DialogActions>
-                        <Button onClick={handleClose}>
-                            Close
-                        </Button>
-                    </DialogActions>
                 </Dialog> 
         </div> 
     )

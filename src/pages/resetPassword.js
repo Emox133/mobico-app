@@ -10,6 +10,7 @@ import Button from '@material-ui/core/Button'
 import {useDispatch, useSelector, shallowEqual} from 'react-redux'
 import {resetPassword} from './../redux/actions/userActions'
 import {CLEAR_ERRORS} from './../redux/types'
+import {useMediaQuery} from '@material-ui/core'
 
 const ResetPassword = (props) => {
     const [fields, setFields] = useState({
@@ -24,6 +25,7 @@ const ResetPassword = (props) => {
 
     const dispatch = useDispatch();
     const token = props.location.pathname.split('/')[2];
+    const isActive = useMediaQuery('(max-width: 768px)')
 
     const handleChange = e => {
         setFields({
@@ -48,10 +50,10 @@ const ResetPassword = (props) => {
 
     let placeholder = !loading ? 
         <Fragment>
-            <Typography variant="h3" gutterBottom align="center" style={{marginTop: '2rem'}}>
+            <Typography variant={isActive ? 'h4' : 'h3'} gutterBottom align="center" style={{marginTop: '2rem'}}>
                 Reset Your Password <Emoji symbol="🔓" label="emoji"/>
             </Typography>
-            <form onSubmit={handleSubmit} style={{width: '35%', margin: '0 auto', textAlign: 'center'}}>
+            <form onSubmit={handleSubmit} style={{width: isActive ? '65%' : '35%', margin: '0 auto', textAlign: 'center'}}>
                 <TextField 
                 autoFocus
                 id="password"
@@ -75,7 +77,7 @@ const ResetPassword = (props) => {
                 fullWidth
                 onChange={e => handleChange(e)}
                 />
-                <Button type="submit" color="primary" variant="contained" style={{marginTop: '.5rem'}}>
+                <Button type="submit" color="primary" variant="contained" size="small" style={{marginTop: '.5rem'}}>
                     Submit
                 </Button>
             </form>    

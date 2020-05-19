@@ -29,6 +29,7 @@ const Profile = props => {
                 <div className={classes.imageWrapper}>
                     <img src={userImage} className={classes.profileImage} alt="profile" />
                     <EditProfileImage />
+                    <EditProfile history={props.history}/>
                     <Typography variant="h4">
                         {firstName} {lastName}
                     </Typography>
@@ -48,7 +49,6 @@ const Profile = props => {
                             {bio}
                         </Typography>
                     ) : null}
-                    <EditProfile history={props.history}/>
                 </div>
             </Paper>
          : <Loader />

@@ -42,10 +42,10 @@ const DeleteProfile = props => {
                </DialogContentText>
            </DialogContent>
            <DialogActions>
-               <Button type="submit" onClick={() => dispatch(deleteProfile(props.history))}>
-                   Submit
+               <Button type="submit" color="secondary" onClick={() => dispatch(deleteProfile(props.history))}>
+                   Delete
                </Button>
-               <Button onClick={handleClose} color="secondary">
+               <Button onClick={handleClose}>
                    Cancel
                </Button>
            </DialogActions>

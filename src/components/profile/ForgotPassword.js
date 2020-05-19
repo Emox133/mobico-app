@@ -75,10 +75,10 @@ const ForgotPassword = (props) => {
                     />
                 </DialogContent>
                 <DialogActions>
-                    <Button onClick={handleClose} color="primary">
+                    <Button onClick={handleClose} color="secondary">
                         Cancel
                     </Button>
-                    <Button type="submit" color="secondary">
+                    <Button type="submit" color="primary">
                         Send <SendIcon />
                     </Button>
                 </DialogActions>

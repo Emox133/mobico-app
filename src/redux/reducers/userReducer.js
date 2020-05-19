@@ -16,8 +16,8 @@ export default function (state = initialState, action) {
         case types.SET_AUTHENTICATED:
             return {
                 ...state,
-                authenticated: true
-                // loading: true
+                authenticated: true,
+                loading: true
             }
         case types.SET_USER: 
             return {
@@ -50,6 +50,14 @@ export default function (state = initialState, action) {
                 ...state,
                 likes: state.likes.filter(l => l.belongsTo !== action.id)
             }
+
+        case types.READ_NOTIFICATIONS:
+                let notificationsCopy = [...state.notifications]
+                notificationsCopy.forEach(n => n.read = true)
+                return {
+                    ...state,
+                    notifications: notificationsCopy
+                }
 
         default: 
             return state
