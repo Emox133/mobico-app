@@ -1,6 +1,6 @@
 {
-  "homepage": ".",
-  "name": "mobico-app-frontend",
+  "name": "mobico-app",
+  "homepage": "https://Emox133.github.com/mobico-app",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -13,6 +13,7 @@
     "@testing-library/user-event": "^7.2.1",
     "animejs": "^3.2.0",
     "axios": "^0.19.2",
+    "gh-pages": "^2.2.0",
     "jwt-decode": "^2.2.0",
     "moment": "^2.24.0",
     "react": "^16.13.0",
@@ -44,5 +45,5 @@
       "last 1 safari version"
     ]
   },
-  "proxy": "http://localhost:8000/api/v1"
+  "proxy": "https://mobicoapp.herokuapp.com/api/v1"
 }

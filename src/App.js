@@ -1,6 +1,6 @@
 import React from 'react'
 import './App.css'
-import {BrowserRouter as Router, Switch, Route, Redirect} from 'react-router-dom'
+import {HashRouter as Router, Switch, Route, Redirect} from 'react-router-dom'
 import Navbar from './components/Layout/Navbar'
 import NotFound from './pages/notFound'
 // import LandingPage from './pages/landingPage'
@@ -44,7 +44,7 @@ const App = () => {
     return (
     <MuiThemeProvider theme={themeObj}>
       <CssBaseline />
-     <Router>
+     <Router basename="/">
       <div className={authenticated ? 'App' : 'App-auth'}>
        <Navbar mode={toggleDarkMode}/>
        {authNavbar}
