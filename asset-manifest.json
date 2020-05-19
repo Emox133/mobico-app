@@ -1,0 +1,24 @@
+{
+  "files": {
+    "main.css": "/mobico-app/static/css/main.848ff8e3.chunk.css",
+    "main.js": "/mobico-app/static/js/main.249b2f2a.chunk.js",
+    "main.js.map": "/mobico-app/static/js/main.249b2f2a.chunk.js.map",
+    "runtime-main.js": "/mobico-app/static/js/runtime-main.5d119695.js",
+    "runtime-main.js.map": "/mobico-app/static/js/runtime-main.5d119695.js.map",
+    "static/js/2.20c50faa.chunk.js": "/mobico-app/static/js/2.20c50faa.chunk.js",
+    "static/js/2.20c50faa.chunk.js.map": "/mobico-app/static/js/2.20c50faa.chunk.js.map",
+    "index.html": "/mobico-app/index.html",
+    "precache-manifest.5fae76cbc74a8d77b95d235d988df162.js": "/mobico-app/precache-manifest.5fae76cbc74a8d77b95d235d988df162.js",
+    "service-worker.js": "/mobico-app/service-worker.js",
+    "static/css/main.848ff8e3.chunk.css.map": "/mobico-app/static/css/main.848ff8e3.chunk.css.map",
+    "static/js/2.20c50faa.chunk.js.LICENSE.txt": "/mobico-app/static/js/2.20c50faa.chunk.js.LICENSE.txt",
+    "static/media/App.css": "/mobico-app/static/media/6.8bc0caee.jpg",
+    "static/media/logo-mobico-5.png": "/mobico-app/static/media/logo-mobico-5.e6d997b0.png"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.5d119695.js",
+    "static/js/2.20c50faa.chunk.js",
+    "static/css/main.848ff8e3.chunk.css",
+    "static/js/main.249b2f2a.chunk.js"
+  ]
+}
