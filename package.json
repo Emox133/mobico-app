@@ -47,7 +47,6 @@
       "last 1 safari version"
     ]
   },
-  "proxy": "https://mobicoapp.herokuapp.com/api/v1",
   "engines": {
     "node": ">= 10.0.0"
   }
