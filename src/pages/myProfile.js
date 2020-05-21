@@ -36,11 +36,11 @@ const MyProfile = props => {
     const dispatch = useDispatch();
     const {classes} = props;
 
-    useEffect(() => {
+    window.addEventListener('load', () => {
         if(posts.length === 0) {
-            dispatch(fetchPosts());
+            dispatch(fetchPosts())
         }
-    }, [dispatch, posts]);
+    })
 
 
     let rule;

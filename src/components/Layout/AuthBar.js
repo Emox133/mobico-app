@@ -17,13 +17,14 @@ import {useMediaQuery} from '@material-ui/core'
 import {useSelector, shallowEqual} from 'react-redux'
 
 const AuthBar = (props) => {
-    const {username, userImage} = useSelector(state => ({
+    const {username, userImage, user} = useSelector(state => ({
+        user: state.user.user,
         username: state.user.user.username,
         userImage: state.user.user.userImage
     }), shallowEqual)
 
     const isActive = useMediaQuery('(max-width: 960px)')
-    let userSmall = 
+    let userSmall =  
     <Tooltip title={`${username}`}>
         <IconButton component={Link} to={'/me'}>
             <UserAvatar owner={username} image={userImage}/>
@@ -32,7 +33,7 @@ const AuthBar = (props) => {
 
     return (
         <Fragment>
-            {isActive ? userSmall : null}
+            {isActive && user ? userSmall : null}
             <Tooltip title="Home">
                 <IconButton component={Link} to="/">
                     <HomeIcon />
