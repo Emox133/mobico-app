@@ -8,7 +8,7 @@ import FavoriteIcon from '@material-ui/icons/Favorite';
 import {useDispatch} from 'react-redux'
 import {dislikePost} from '../../redux/actions/dataActions'
 
-const LikePosts = props => {
+const DislikePosts = props => {
     const {post} = props;
     const dispatch = useDispatch();
 
@@ -21,9 +21,8 @@ const LikePosts = props => {
             <OwnButton tip="Dislike Post" onClick={handleDislike}>
                <FavoriteIcon color="primary"/>
             </OwnButton>
-            <span>{post.likeCount} Likes</span>
         </Fragment>
     )
 }
 
-export default LikePosts
+export default DislikePosts

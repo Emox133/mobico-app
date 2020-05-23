@@ -81,6 +81,25 @@ export const likePost = id => dispatch => {
     .catch(err => console.error(err))
 };
 
+export const likedBy = id => dispatch => {
+    axios.get(`/posts/${id}/like`, {validateStatus: () => {return true}})
+    .then(res => {
+        console.log(res)
+        if(res.data.status !== 'error' && res.data.status !== 'fail') {
+            dispatch({
+                type: types.LIKED_BY,
+                payload: res.data.data
+            })
+        } else {
+            dispatch({
+                type: types.SET_ERRORS,
+                payload: {message: res.data.message}
+            })
+        }
+    })
+    .catch(err => console.log(err))
+};
+
 export const dislikePost = id => dispatch => {
     axios.post(`/posts/${id}/dislike`, null, {validateStatus: () => {return true}})
     .then(res => {

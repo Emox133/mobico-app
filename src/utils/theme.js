@@ -5,7 +5,7 @@ palette: {
   // primary: { main: '#f44336' },
   primary: { main: '#00c9ff' },
   secondary: { main: '#ff0011' },
-  type: 'light'
+  type: 'dark'
 },
 
 spreadThis: {

@@ -8,7 +8,7 @@ import {Provider} from 'react-redux'
 import axios from 'axios'
 import jwtDecode from 'jwt-decode'
 import {getUserData} from './redux/actions/userActions'
-import {LOGOUT_USER, SET_AUTHENTICATED} from './redux/types'
+import {LOGOUT_USER} from './redux/types'
 
 const app = (
     <Provider store={store}>
@@ -25,7 +25,7 @@ if(token) {
     // !EXPIRED
     store.dispatch({type: LOGOUT_USER})
   } else {
-    store.dispatch({type: SET_AUTHENTICATED})
+    // store.dispatch({type: SET_AUTHENTICATED})
     axios.defaults.headers.common['Authorization'] = `${token}`;
     store.dispatch(getUserData())
   }

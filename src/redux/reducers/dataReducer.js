@@ -6,6 +6,7 @@ const initialState = {
         post: [],
         comments: []
     },
+    likedBy: [],
     loading: false
 }
 
@@ -48,6 +49,12 @@ export default function(state = initialState, action) {
                 ...state,
                 posts: likeCopiedPosts,
                 // loading: false
+            }
+
+        case types.LIKED_BY: 
+            return {
+                ...state,
+                likedBy: action.payload
             }
 
         case types.DISLIKE_POST:

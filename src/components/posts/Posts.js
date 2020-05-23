@@ -3,6 +3,7 @@ import Post from './Post'
 import moment from 'moment'
 import DeletePosts from './DeletePosts'
 import LikePosts from './LikePosts'
+import LikedBy from './LikedBy'
 import CommentPost from './CommentPost'
 import DislikePosts from './DislikePosts'
 
@@ -59,7 +60,7 @@ const Posts = props => {
                             {post.text}
                         </Typography>
                     <div style={{display: 'flex', alignItems: 'center'}}>
-                        {likeButton}
+                        {likeButton} <LikedBy likeCount={post.likeCount} _id={post._id}/>
                         <CommentPost id={post._id}/>
                             <span style={{fontSize: '.8rem'}}>{post.commentCount} Comments</span>
                         <Post id={post._id}/>

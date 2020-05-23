@@ -2,6 +2,7 @@ import * as types from './../types'
 import axios from 'axios';
 
 export const loginUser = (userInfo, history) => dispatch => {
+    dispatch({type: types.LOADING_FROM_DATA})
     axios.post('/users/login', userInfo, {validateStatus: () => {return true}})
     .then(res => {
         if(res.data.status !== 'fail' && res.data.status !== 'error' && res.data.token) {
@@ -28,6 +29,7 @@ export const logoutUser = history => dispatch => {
 };
 
 export const signupUser = (userInfo, history) => dispatch => {
+    dispatch({type: types.LOADING_FROM_DATA})
     axios.post('users/signup', userInfo, {validateStatus: () => {return true}})
     .then(res => {
         // console.log(res.data)
