@@ -9,7 +9,7 @@ import Signup from './pages/signup'
 import Login from './pages/login'
 import ResetPassword from './pages/resetPassword'
 import MyProfile from './pages/myProfile'
-// import axios from 'axios'
+import axios from 'axios'
 
 import createMuiTheme from '@material-ui/core/styles/createMuiTheme'
 import MuiThemeProvider from '@material-ui/styles/ThemeProvider'
@@ -18,7 +18,7 @@ import {useDarkMode} from './utils/theme'
 
 import {useSelector, shallowEqual} from 'react-redux'
 
-// axios.defaults.baseURL = 'https://cors-anywhere.herokuapp.com/https://mobicoapp.herokuapp.com/api/v1'
+axios.defaults.baseURL = 'https://cors-anywhere.herokuapp.com/https://mobicoapp.herokuapp.com/api/v1'
 
 const App = () => {
   const [theme, toggleDarkMode] = useDarkMode();
