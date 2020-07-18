@@ -1,6 +1,5 @@
 {
   "name": "mobico-app",
-  "homepage": "https://Emox133.github.com/mobico-app",
   "version": "0.1.0",
   "private": true,
   "dependencies": {

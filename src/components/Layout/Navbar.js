@@ -30,8 +30,8 @@ const Navbar = props => {
     )
     
         return (
-            <AppBar position={authenticated ? 'sticky' : 'relative'} style={{height: authenticated ? '100vh' : null}} color="primary">
-                <Toolbar className={authenticated ? 'nav__toolbar' : null} style={{justifyContent: !authenticated ? 'center' : null}}>
+            <AppBar className="appbar" position={authenticated ? 'sticky' : 'relative'} style={{height: authenticated ? '100vh' : null}} color="primary">
+                <Toolbar className={authenticated ? 'nav nav__toolbar' : 'nav'} style={{justifyContent: !authenticated ? 'center' : null}}>
                     {appbar}
                 </Toolbar>
             </AppBar>

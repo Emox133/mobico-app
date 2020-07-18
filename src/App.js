@@ -1,8 +1,11 @@
-import React from 'react'
+import React, {useState, useEffect} from 'react'
 import './App.css'
 import {HashRouter as Router, Switch, Route, Redirect} from 'react-router-dom'
 import Navbar from './components/Layout/Navbar'
 import NotFound from './pages/notFound'
+// import Alert from './utils/Alert'
+import {showAlerts} from './utils/Alerts'
+
 // import LandingPage from './pages/landingPage'
 import Home from './pages/home'
 import Signup from './pages/signup'
@@ -22,11 +25,27 @@ axios.defaults.baseURL = 'https://cors-anywhere.herokuapp.com/https://mobicoapp.
 
 const App = () => {
   const [theme, toggleDarkMode] = useDarkMode();
+  const [offline, setOffline] = useState(undefined);
   let themeObj = createMuiTheme(theme)
+
+  useEffect(() => {
+    window.addEventListener('offline', () => {
+      setOffline(true);
+    });
+
+    window.addEventListener('online', () => {
+      setOffline(false);
+      setTimeout(() => {
+        setOffline(undefined)
+      },500)
+    });
+  }, []);
   
   const {authenticated} = useSelector(state => ({
     authenticated: state.user.authenticated
   }), shallowEqual)
+
+  // console.log(offline)
   
     let authNavbar = authenticated ? (
       <Switch>
@@ -45,11 +64,13 @@ const App = () => {
     </Switch>
 
     return (
-    <MuiThemeProvider theme={themeObj}>
+      <MuiThemeProvider theme={themeObj}>
       <CssBaseline />
      <Router basename="/">
       <div className={authenticated ? 'App' : 'App-auth'}>
        <Navbar mode={toggleDarkMode}/>
+       {offline === true ? showAlerts('warning--offline', 'Please check your connection.') : offline === false ? 
+       showAlerts('success', 'You are back online.') : null}
        {authNavbar}
       </div>
      </Router>

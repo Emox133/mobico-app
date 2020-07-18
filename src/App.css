@@ -299,3 +299,39 @@ body {
         justify-content: center;
     }
 }
+
+
+/* ALERTS */
+.alert {
+    height: 2rem;
+    width: 14rem;
+    color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 3px;
+    margin: .5rem auto 0;
+    font-size: .8rem;
+    font-weight: bold;
+    text-align: center;
+}
+
+.alert--success {
+    background-color: green;
+}
+
+.alert--warning {
+    color: yellow;
+}
+
+.alert--warning--offline {
+    background-color: coral;
+}
+
+.alert--danger {
+    color: red;
+}
+
+.alert--info {
+    color: lightseagreen;
+}
