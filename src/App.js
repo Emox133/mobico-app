@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react'
+import React, {useState, useEffect, useCallback} from 'react'
 import './App.css'
 import {HashRouter as Router, Switch, Route, Redirect} from 'react-router-dom'
 import Navbar from './components/Layout/Navbar'
@@ -35,17 +35,24 @@ const App = () => {
 
     window.addEventListener('online', () => {
       setOffline(false);
-      setTimeout(() => {
-        setOffline(undefined)
-      },500)
     });
   }, []);
+
+  const onlineStatusHandler = useCallback(() => {
+    if(offline === true) {
+      showAlerts('warning--offline', 'Please check your connection');
+    } else if (offline === false) {
+      showAlerts('success', 'You are back online.');
+    }
+  }, [offline]);
+
+  useEffect(() => {
+    onlineStatusHandler();
+  }, [onlineStatusHandler]);
   
   const {authenticated} = useSelector(state => ({
     authenticated: state.user.authenticated
   }), shallowEqual)
-
-  // console.log(offline)
   
     let authNavbar = authenticated ? (
       <Switch>
@@ -69,8 +76,8 @@ const App = () => {
      <Router basename="/">
       <div className={authenticated ? 'App' : 'App-auth'}>
        <Navbar mode={toggleDarkMode}/>
-       {offline === true ? showAlerts('warning--offline', 'Please check your connection.') : offline === false ? 
-       showAlerts('success', 'You are back online.') : null}
+       {/* {offline === true ? showAlerts('warning--offline', 'Please check your connection.') : offline === false ? 
+       showAlerts('success', 'You are back online.') : null} */}
        {authNavbar}
       </div>
      </Router>
