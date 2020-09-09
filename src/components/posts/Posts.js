@@ -6,6 +6,7 @@ import LikePosts from './LikePosts'
 import LikedBy from './LikedBy'
 import CommentPost from './CommentPost'
 import DislikePosts from './DislikePosts'
+import VisitProfiles from '../profile/VisitProfile'
 
 // * Mui
 import withStyles from '@material-ui/styles/withStyles'
@@ -50,7 +51,8 @@ const Posts = props => {
                         <Typography className={classes.owner}>
                             {post.owner}
                         </Typography>
-                            <DeletePosts id={post._id} owner={post.owner}/>
+                            <VisitProfiles ownerId={post.ownerId} id={post.ownerId} history={props.history} />
+                            <DeletePosts id={post._id} ownerId={post.ownerId}/>
                     </div>
                         <Typography style={{fontWeight: 'bold', marginBottom: '.5rem'}}>
                             {moment(post.createdAt).fromNow()}

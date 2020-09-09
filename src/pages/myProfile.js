@@ -26,8 +26,9 @@ const styles = theme => ({
 const MyProfile = props => {
     const [postId, setPostId] = useState(null)
 
-    const {user, posts, likes, loading} = useSelector(state => ({
-        user: state.user.user ? state.user.user : {} ,
+    const {user, visitingUser, posts, likes, loading} = useSelector(state => ({
+        user: state.user.user,
+        visitingUser: state.user.visitingUser,
         posts: state.data.posts,
         loading: state.user.loading,
         likes: state.user.likes
@@ -42,6 +43,7 @@ const MyProfile = props => {
         }
     })
 
+    let criteria = Object.values(visitingUser).length > 0
 
     let rule;
     if(Object.keys(props.match.params).length > 0 && Object.keys(props.match.params)[0] === 'postId') {
@@ -57,8 +59,9 @@ const MyProfile = props => {
 
     let notPost = postId ? <Post postId={postId} openDialog history={props.history} rule={rule}/> : null
 
-    const owner = `${user.firstName} ${user.lastName}` 
-    const myPosts = posts.filter(post => post.owner === owner);
+    // const owner = `${user.firstName} ${user.lastName}` 
+    const myPosts = !criteria ? posts.filter(post => post.ownerId === user._id) 
+        : posts.filter(post => post.ownerId === visitingUser._id)
 
     let placeholder = myPosts.map(post => {
         let likedPost = () => {
@@ -79,7 +82,7 @@ const MyProfile = props => {
                         <Typography className={classes.owner}>
                             {post.owner}
                         </Typography>
-                            <DeletePosts id={post._id} owner={post.owner}/>
+                            <DeletePosts id={post._id} ownerId={post.ownerId}/>
                     </div>
                         <Typography style={{fontWeight: 'bold', marginBottom: 'bold'}}>
                             {moment(post.createdAt).fromNow()}
@@ -99,7 +102,7 @@ const MyProfile = props => {
         )
     })
 
-    let profile = !loading ? (
+    let profile = !loading && !criteria ? (
         <figure className="profile__user-avatar">
             <img src={user.userImage} alt="avatar" className="profile__user-img" />
                 <DeleteProfile history={props.history}/>
@@ -110,7 +113,17 @@ const MyProfile = props => {
                 <p className="profile__user-bio">{user.bio.length > 0 ? 'Website:' : null} {user.website}</p>
             </figcaption>
         </figure>
-    ) : <Loader />
+    ) : !loading && criteria ? (
+        <figure className="profile__user-avatar">
+            <img src={visitingUser.userImage} alt="avatar" className="profile__user-img" />
+                <DeleteProfile history={props.history}/>
+            <figcaption className="profile__user-details">
+                <h2 className="profile__user-title">{visitingUser.firstName + ' ' + visitingUser.lastName}</h2>
+                <p className="profile__user-location">Location: {visitingUser.location}</p>
+                <p className="profile__user-bio">{visitingUser.bio.length > 0 ? 'Biography:' : null} {visitingUser.bio}</p>
+                <p className="profile__user-bio">{visitingUser.bio.length > 0 ? 'Website:' : null} {visitingUser.website}</p>
+            </figcaption>
+        </figure>) : <Loader />
 
     return (
         <div className="profile">

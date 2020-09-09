@@ -28,7 +28,7 @@ const Home = (props) => {
     })
 
         let fetchedPosts = !loading ? (
-           posts.map(post => <Posts key={post._id} post={post}/>)
+           posts.map(post => <Posts key={post._id} post={post} history={props.history}/>)
         ) : <Loader /> 
 
         return (

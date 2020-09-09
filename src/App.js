@@ -59,6 +59,7 @@ const App = () => {
         <Route exact path="/" component={Home}/>
         <Route exact path="/me/posts/:postId" component={MyProfile} />
         <Route path="/me" component={MyProfile}/>
+        <Route path="/:id" component={MyProfile} />
         <Redirect to="/"/>
       </Switch>
     ) : 

@@ -32,9 +32,7 @@ const FormDialog = (props) => {
     dispatch(deletePost(props.id))
   };
 
-  let myPost = `${user.firstName} ${user.lastName}`;
-
-  let deleteButton = props.owner === myPost ? 
+  let deleteButton = props.ownerId === user._id ? 
   <OwnButton tip="Delete Post" onClick={handleClickOpen}>
     <DeleteIcon color="secondary" /> 
   </OwnButton> : null

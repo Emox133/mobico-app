@@ -2,6 +2,7 @@ import * as types from './../types'
 
 const initialState = {
     user: {},
+    visitingUser: {},
     likes: [],
     notifications: [],
     authenticated: false,
@@ -21,9 +22,20 @@ export default function (state = initialState, action) {
             }
         case types.SET_USER: 
             return {
+                ...state,
                 authenticated: true,
                 loading: false,
-                ...action.payload
+                user: {...action.payload}
+            }
+        case types.VISITING_USER: 
+            return {
+                ...state,
+                visitingUser: {...action.payload}
+            }
+        case types.CLEAR_VISITING_USER: 
+            return {
+                ...state,
+                visitingUser: {}
             }
         case types.LOADING_DATA:
             return {

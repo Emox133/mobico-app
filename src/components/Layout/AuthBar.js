@@ -14,7 +14,8 @@ import IconButton from '@material-ui/core/IconButton'
 import Switch from '@material-ui/core/Switch';
 import {useMediaQuery} from '@material-ui/core'
 
-import {useSelector, shallowEqual} from 'react-redux'
+import {useDispatch, useSelector, shallowEqual} from 'react-redux'
+import {clearVisitingUser} from '../../redux/actions/userActions'
 
 const AuthBar = (props) => {
     const {username, userImage, user} = useSelector(state => ({
@@ -22,6 +23,8 @@ const AuthBar = (props) => {
         username: state.user.user.username,
         userImage: state.user.user.userImage
     }), shallowEqual)
+
+    const dispatch = useDispatch()
 
     const isActive = useMediaQuery('(max-width: 960px)')
     let userSmall =  
@@ -35,7 +38,8 @@ const AuthBar = (props) => {
         <Fragment>
             {isActive && user ? userSmall : null}
             <Tooltip title="Home">
-                <IconButton component={Link} to="/">
+                <IconButton component={Link} to="/" 
+                        onClick={() => dispatch(clearVisitingUser())}>
                     <HomeIcon />
                 </IconButton>
             </Tooltip>

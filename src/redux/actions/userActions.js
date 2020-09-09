@@ -54,11 +54,27 @@ export const getUserData = () => dispatch => {
     .then(res => {
         dispatch({
             type: types.SET_USER,
-            payload: res.data.data
+            payload: res.data.data.user
         })
     })
     .catch(err => console.log(err))
 };
+
+export const visitProfiles = (history, id) => dispatch => {
+    axios.get(`users/${id}`).then(res => {
+        dispatch({
+            type: types.VISITING_USER,
+            payload: res.data.user
+        })
+        history.push('/me')
+    }).catch(err => {
+        console.log(err.response)
+    })
+}
+
+export const clearVisitingUser = () => dispatch => {
+    dispatch({type: types.CLEAR_VISITING_USER})
+}
 
 export const updateProfile = data => dispatch => {
     axios.patch('users/updateMe', data, {validateStatus: () => {return true}})
