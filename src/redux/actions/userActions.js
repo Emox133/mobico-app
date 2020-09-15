@@ -48,13 +48,30 @@ export const signupUser = (userInfo, history) => dispatch => {
     .catch(err => console.log(err))
 };
 
+export const getAllUsers = () => dispatch => {
+    axios.get('/users').then(res => {
+        dispatch({
+            type: types.GET_ALL_USERS,
+            payload: res.data.users
+        })
+    }).catch(err => {
+        console.log(err.response)
+    })
+}
+
 export const getUserData = () => dispatch => {
     dispatch({type: types.SET_AUTHENTICATED})
     axios.get('users/me', {validateStatus: () => {return true}})
     .then(res => {
         dispatch({
             type: types.SET_USER,
-            payload: res.data.data.user
+            payload: {
+                user: res.data.data.user,
+                // myFriends: res.data.data.myFriends,
+                friendRequestsSentByMe: res.data.data.friendRequests,
+                notifications: res.data.data.notifications,
+                likes: res.data.data.likes
+            }
         })
     })
     .catch(err => console.log(err))
@@ -112,7 +129,7 @@ export const forgotPassword = (email, history) => dispatch => {
         }
     })
     .catch(err => {
-        console.log(err)
+        console.log(err.response)
     })
 };
 
@@ -176,15 +193,100 @@ export const deleteProfile = history => dispatch => {
 };
 
 export const notificationsSeen = () => dispatch => {
-    axios.patch('/users/notifications', {validateStatus: () => {return true}})
+    axios.patch('/users/notifications')
     .then(res => {
-        // console.log(res)
+        console.log(res)
         dispatch({type: types.READ_NOTIFICATIONS})
     })
     .catch(err => {
-        console.log(err)
+        console.log(err.response)
     })
 };
+
+export const getMyFriendRequests = () => dispatch => {
+    axios.get('/users/friend-requests').then(res => {
+        dispatch({
+            type: types.GET_MY_FRIEND_REQUESTS,
+            payload: res.data.friendRequests
+        })
+        dispatch({
+            type: types.WHO_SENT_FRIEND_REQUEST,
+            payload: res.data.senders
+        })
+    }).catch(err => {
+        console.log(err.response)
+    })
+}
+
+export const sendFriendRequest = (id) => dispatch =>{
+    axios.post(`/users/${id}`).then(res => {
+        dispatch({
+            type: types.SEND_FRIEND_REQUEST,
+            payload: res.data.friendRequest
+        })
+    }).catch(err => {
+        console.log(err.response)
+    })
+}
+
+export const acceptFriendRequest = id => dispatch => {
+    axios.patch(`users/${id}`).then(res => {
+        console.log(res)
+        dispatch({
+            type: types.ACCEPT_FRIEND_REQUEST,
+            id
+        })
+    }).catch(err => {
+        console.log(err.response)
+    })
+}
+
+export const undoFriendRequest = (id) => dispatch =>{
+    axios.delete(`/users/${id}`).then(res => {
+        dispatch({
+            type: types.UNDO_FRIEND_REQUEST,
+            id
+        })
+    }).catch(err => {
+        console.log(err.response)
+    })
+}
+
+export const friends = () => dispatch => {
+    dispatch({type: types.LOADING_FROM_DATA});
+    axios.get('/users/friends').then(res => {
+        // console.log(res)
+        dispatch({
+            type: types.SET_POSTS,
+            payload: res.data.friendsPosts
+        })
+    }).catch(err => {
+        console.log(err.response)
+    })
+}
+
+export const friendRequestsIreceivedAndAccepted = () => dispatch => {
+    axios.get('/users/my-friends').then(res => {
+        dispatch({
+            type: types.FRIEND_REQUESTS_I_RECEIVED_AND_ACCEPTED,
+            payload: res.data.acceptedRequests
+        })
+    }).catch(err => {
+        console.log(err.response)
+    })
+} 
+
+// export const fetchPosts = () => dispatch => {
+//     dispatch({type: types.LOADING_FROM_DATA});
+//     axios.get('/posts', {validateStatus: () => {return true}})
+//     .then(res => {
+//         dispatch({
+//             type: types.SET_POSTS,
+//             payload: res.data.data.posts
+//         })
+//     })
+//     .catch(err => console.log(err))
+// };
 
 export const scrollEffect = ref => dispatch => {
     ref.current.scrollIntoView({behavior: "smooth"})

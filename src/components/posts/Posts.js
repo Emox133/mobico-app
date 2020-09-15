@@ -25,18 +25,17 @@ const styles = theme => ({
 const Posts = props => {
     const isActive = useMediaQuery('(max-width: 960px)');
 
-    const {post, classes} = props
     const {likes} = useSelector(state => ({
         likes: state.user.likes
     }), shallowEqual)
+    
+    const {post, classes} = props
 
     let likedPost = () => {
         if (likes && likes.find(l => l.belongsTo === post._id))
         return true
         else return false
     }
-
-    // console.log(props.post ? true : false)
 
     let likeButton = likedPost() ? <DislikePosts post={post} /> : <LikePosts post={post}/>
 

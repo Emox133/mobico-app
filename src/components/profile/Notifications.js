@@ -11,11 +11,12 @@ import Menu from '@material-ui/core/Menu'
 import MenuItem from '@material-ui/core/MenuItem'
 import FavoriteIcon from '@material-ui/icons/Favorite'
 import ChatIcon from '@material-ui/icons/Chat';
+import PersonIcon from '@material-ui/icons/Person';
 import Typography from '@material-ui/core/Typography'
 import {useMediaQuery} from '@material-ui/core'
 
-import { useSelector, shallowEqual, useDispatch } from 'react-redux';
-import {notificationsSeen} from './../../redux/actions/userActions'
+import { useSelector, shallowEqual } from 'react-redux';
+// import {notificationsSeen} from './../../redux/actions/userActions'
 
 const Notifications = props => {
     const [link, setLink] = useState(null)
@@ -25,7 +26,7 @@ const Notifications = props => {
         notifications: state.user.notifications
     }), shallowEqual)
 
-    const dispatch = useDispatch();
+    // const dispatch = useDispatch();
 
     const handleClick = e => {
         setLink(e.currentTarget)
@@ -35,17 +36,18 @@ const Notifications = props => {
         setLink(null)
     };
     
-    const onNotificationsVisited = () => {
-        // notifications.filter(n => n.read);
-        dispatch(notificationsSeen());
-    };
+    // const onNotificationsVisited = () => {
+    //     // notifications.filter(n => n.read);
+    //     dispatch(notificationsSeen());
+    // };
 
     let icon;
     if(notifications && notifications.length > 0) {
         notifications.filter(n => n.read === false).length > 0
         ? icon = (
             <Badge badgeContent={notifications.filter(n => n.read === false).length} color="secondary">
-                <NotificationsIcon onClick={onNotificationsVisited}/>
+                <NotificationsIcon />
+                {/* onClick={onNotificationsVisited} */}
             </Badge>
         ) : icon = <NotificationsIcon />
     } else {
@@ -55,22 +57,24 @@ const Notifications = props => {
     let placeholder = 
     notifications && notifications.length > 0 ? (
         notifications.map(n => {
-            const nType = n.type === 'like' ? 'liked' : 'commented';
+            const nType = n.type === 'like' ? 'liked' : n.type === 'friend-request' ? 'accepted' : 'commented';
+            const nVariant = n.type === 'friend-request' ? 'friend request' : 'post'
             const time = moment(n.createdAt).fromNow();
             const iconColor = n.read ? 'primary' : 'secondary';
             const icon = n.type === 'like' ? <FavoriteIcon color={iconColor} style={{ marginRight: 10 }}/> 
+            : n.type === 'friend-request' ? <PersonIcon color={iconColor} style={{marginRight: 10}}/> 
             : <ChatIcon color={iconColor} style={{marginRight: 10}}/>
             
             return (
                 <MenuItem
-                key={n.createdAt}
+                    key={n.createdAt}
                     onClick={handleClose}
                     component={Link}
-                    to={`/me/posts/${n.postId}`}
+                    to={n.type !== 'friend-request' ? `/me/posts/${n.postId}` : '/search'}
                     >
                     {icon}
                     <Typography style={{fontSize: '.7rem'}}> 
-                        {n.sender} {nType} your post {time}
+                        {n.sender} {nType} your {nVariant} {time}
                     </Typography>
                 </MenuItem>
             )

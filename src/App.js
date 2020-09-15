@@ -1,18 +1,19 @@
 import React, {useState, useEffect, useCallback} from 'react'
 import './App.css'
-import {HashRouter as Router, Switch, Route, Redirect} from 'react-router-dom'
+import {BrowserRouter as Router, Switch, Route, Redirect} from 'react-router-dom'
 import Navbar from './components/Layout/Navbar'
 import NotFound from './pages/notFound'
 // import Alert from './utils/Alert'
 import {showAlerts} from './utils/Alerts'
 
 // import LandingPage from './pages/landingPage'
+import SearchUsers from './pages/SearchUsers'
 import Home from './pages/home'
 import Signup from './pages/signup'
 import Login from './pages/login'
 import ResetPassword from './pages/resetPassword'
 import MyProfile from './pages/myProfile'
-import axios from 'axios'
+// import axios from 'axios'
 
 import createMuiTheme from '@material-ui/core/styles/createMuiTheme'
 import MuiThemeProvider from '@material-ui/styles/ThemeProvider'
@@ -59,7 +60,7 @@ const App = () => {
         <Route exact path="/" component={Home}/>
         <Route exact path="/me/posts/:postId" component={MyProfile} />
         <Route path="/me" component={MyProfile}/>
-        <Route path="/:id" component={MyProfile} />
+        <Route path="/search" component={SearchUsers}/>
         <Redirect to="/"/>
       </Switch>
     ) : 

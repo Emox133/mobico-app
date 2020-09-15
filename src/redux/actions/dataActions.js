@@ -1,17 +1,18 @@
 import * as types from './../types'
 import axios from 'axios'
+import {friends} from './userActions'
 
-export const fetchPosts = () => dispatch => {
-    dispatch({type: types.LOADING_FROM_DATA});
-    axios.get('/posts', {validateStatus: () => {return true}})
-    .then(res => {
-        dispatch({
-            type: types.SET_POSTS,
-            payload: res.data.data.posts
-        })
-    })
-    .catch(err => console.log(err))
-};
+// export const friends = () => dispatch => {
+//     dispatch({type: types.LOADING_FROM_DATA});
+//     axios.get('/posts', {validateStatus: () => {return true}})
+//     .then(res => {
+//         dispatch({
+//             type: types.SET_POSTS,
+//             payload: res.data.data.posts
+//         })
+//     })
+//     .catch(err => console.log(err))
+// };
 
 export const getOnePost = id => dispatch => {
     axios.get(`/posts/${id}`, {validateStatus: () => {return true}})
@@ -43,7 +44,7 @@ export const createPost = data => dispatch => {
             dispatch({
                 type: types.CREATE_POST
             })
-            dispatch(fetchPosts())
+            dispatch(friends())
         } else {
             dispatch({
                 type: types.SET_ERRORS,

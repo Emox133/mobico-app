@@ -6,9 +6,11 @@ import Notifications from './../profile/Notifications'
 import EditProfile from './../profile/EditProfile'
 import EditProfileImage from './../profile/EditProfileImage'
 import UserAvatar from './UserAvatar'
+import FriendRequests from './../users/FriendRequests'
 
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import HomeIcon from '@material-ui/icons/Home';
+import SearchIcon from '@material-ui/icons/Search';
 import Tooltip from '@material-ui/core/Tooltip'
 import IconButton from '@material-ui/core/IconButton'
 import Switch from '@material-ui/core/Switch';
@@ -43,6 +45,7 @@ const AuthBar = (props) => {
                     <HomeIcon />
                 </IconButton>
             </Tooltip>
+            <FriendRequests />
             <CreatePosts />
             {!isActive ?
             <Tooltip title="Profile">
@@ -56,6 +59,12 @@ const AuthBar = (props) => {
             {isActive ? <EditProfile /> : null}
             <Tooltip title="Day / Night">
                 <Switch onClick={props.mode} />
+            </Tooltip>
+            
+            <Tooltip title="Search Users">
+                <IconButton component={Link} to="/search">
+                    <SearchIcon />
+                </IconButton>
             </Tooltip>
             <Menu logout={props.logout}/>
         </Fragment>

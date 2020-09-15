@@ -78,8 +78,8 @@ const Signup = props => {
                     name="firstName"
                     type="text"
                     placeholder="First Name"
-                    error={errors.firstName ? true : false}
-                    helperText={errors.firstName ? errors.firstName.message : null}
+                    error={errors && errors.firstName ? true : false}
+                    helperText={errors && errors.firstName ? errors.firstName.message : null}
                     InputProps={{
                         startAdornment: (
                             <InputAdornment position="start">
@@ -99,8 +99,8 @@ const Signup = props => {
                     name="lastName"
                     placeholder="Last Name"
                     type="text"
-                    error={errors.lastName ? true : false}
-                    helperText={errors.lastName ? errors.lastName.message : null}
+                    error={errors && errors.lastName ? true : false}
+                    helperText={errors && errors.lastName ? errors.lastName.message : null}
                     InputProps={{
                         startAdornment: (
                         <InputAdornment position="start">
@@ -120,8 +120,8 @@ const Signup = props => {
                     name="username"
                     placeholder="Username"
                     type="text"
-                    error={errors.username ? true : false}
-                    helperText={errors.username ? errors.username.message : null}
+                    error={errors && errors.username ? true : false}
+                    helperText={errors && errors.username ? errors.username.message : null}
                     InputProps={{
                         startAdornment: (
                         <InputAdornment position="start">
@@ -141,8 +141,8 @@ const Signup = props => {
                     name="email"
                     placeholder="Email"
                     type="email"
-                    error={errors.email ? true : false}
-                    helperText={errors.email ? errors.email.message : null}
+                    error={errors && errors.email ? true : false}
+                    helperText={errors && errors.email ? errors.email.message : null}
                     InputProps={{
                         startAdornment: (
                         <InputAdornment position="start">
@@ -162,8 +162,8 @@ const Signup = props => {
                     name="password"
                     placeholder="Password"
                     type="password"
-                    error={errors.password ? true : false}
-                    helperText={errors.password ? errors.password.message : null}
+                    error={errors && errors.password ? true : false}
+                    helperText={errors && errors.password ? errors.password.message : null}
                     InputProps={{
                         startAdornment: (
                         <InputAdornment position="start">
@@ -183,8 +183,8 @@ const Signup = props => {
                     name="confirmPassword"
                     placeholder="Confirm Password"
                     type="password"
-                    error={errors.confirmPassword ? true : false}
-                    helperText={errors.confirmPassword ? errors.confirmPassword.message : null}
+                    error={errors && errors.confirmPassword ? true : false}
+                    helperText={errors && errors.confirmPassword ? errors.confirmPassword.message : null}
                     InputProps={{
                         startAdornment: (
                         <InputAdornment position="start">
@@ -204,8 +204,8 @@ const Signup = props => {
                     name="location"
                     placeholder="Location"
                     type="text"
-                    error={errors.location ? true : false}
-                    helperText={errors.location ? errors.location.message : null}
+                    error={errors && errors.location ? true : false}
+                    helperText={errors && errors.location ? errors.location.message : null}
                     InputProps={{
                         startAdornment: (
                         <InputAdornment position="start">

@@ -7,7 +7,7 @@ import Tooltip from '@material-ui/core/Tooltip'
 import ArrowDownwardIcon from '@material-ui/icons/ArrowDownward';
 
 import {useDispatch, useSelector, shallowEqual} from 'react-redux'
-import {fetchPosts} from './../redux/actions/dataActions'
+import {friends} from './../redux/actions/userActions'
 import {scrollEffect} from './../redux/actions/userActions'
 import { Fab } from '@material-ui/core'
 
@@ -23,7 +23,7 @@ const Home = (props) => {
 
     window.addEventListener('load', () => {
         if(posts.length === 0) {
-            dispatch(fetchPosts())
+            dispatch(friends())
         }
     })
 

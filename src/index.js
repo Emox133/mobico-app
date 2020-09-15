@@ -6,7 +6,7 @@ import store from './redux/store'
 import {Provider} from 'react-redux'
 import axios from 'axios'
 import jwtDecode from 'jwt-decode'
-import {getUserData} from './redux/actions/userActions'
+import {getUserData, getMyFriendRequests, friends, friendRequestsIreceivedAndAccepted} from './redux/actions/userActions'
 import {LOGOUT_USER} from './redux/types'
 
 const app = (
@@ -27,6 +27,9 @@ if(token) {
     // store.dispatch({type: SET_AUTHENTICATED})
     axios.defaults.headers.common['Authorization'] = `${token}`;
     store.dispatch(getUserData())
+    store.dispatch(friends())
+    store.dispatch(getMyFriendRequests())
+    store.dispatch(friendRequestsIreceivedAndAccepted())
   }
 }
 

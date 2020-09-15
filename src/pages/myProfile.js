@@ -17,7 +17,7 @@ import CardMedia from '@material-ui/core/CardMedia';
 import Typography from '@material-ui/core/Typography';
 
 import {useDispatch, useSelector, shallowEqual} from 'react-redux'
-import {fetchPosts} from './../redux/actions/dataActions'
+import {friends} from './../redux/actions/userActions'
 
 const styles = theme => ({
     ...theme.spreadThis
@@ -39,7 +39,7 @@ const MyProfile = props => {
 
     window.addEventListener('load', () => {
         if(posts.length === 0) {
-            dispatch(fetchPosts())
+            dispatch(friends())
         }
     })
 
@@ -116,7 +116,6 @@ const MyProfile = props => {
     ) : !loading && criteria ? (
         <figure className="profile__user-avatar">
             <img src={visitingUser.userImage} alt="avatar" className="profile__user-img" />
-                <DeleteProfile history={props.history}/>
             <figcaption className="profile__user-details">
                 <h2 className="profile__user-title">{visitingUser.firstName + ' ' + visitingUser.lastName}</h2>
                 <p className="profile__user-location">Location: {visitingUser.location}</p>
