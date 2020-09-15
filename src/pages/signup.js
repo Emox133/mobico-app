@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import AppLogo from './../images/logo-mobico-5.png'
+import WhatsNew from './whatsNew'
 
 // * Mui
 import withStyles from '@material-ui/core/styles/withStyles'
@@ -249,6 +250,7 @@ const Signup = props => {
                     <Typography style={{marginTop: '.7rem', fontSize: isActive ? '1rem' : '1.3rem'}}>
                         &copy; Developed and designed by <span style={{fontWeight: 'bold', letterSpacing: '.05em'}}>Emir Salihović</span>
                     </Typography>
+                    <WhatsNew />
                 </Grid>
             <Grid item xs />
         </Grid>

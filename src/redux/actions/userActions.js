@@ -177,7 +177,7 @@ export const changePassword = (data, history) => dispatch => {
 
 export const deleteProfile = history => dispatch => {
     dispatch({type: types.LOADING_DATA})
-    axios.delete('/users/deleteMe', {validateStatus: () => {return true}})
+    axios.delete('/users/deleteMe')
     .then(res => {
         if(res.data.status !== 'fail' && res.data.status !== 'error') {
             dispatch({type: types.STOP_USER_LOADING})
@@ -189,7 +189,7 @@ export const deleteProfile = history => dispatch => {
             })
         }
     })
-    .catch(err => console.error(err))
+    .catch(err => console.error(err.response))
 };
 
 export const notificationsSeen = () => dispatch => {
