@@ -13,7 +13,7 @@ import Signup from './pages/signup'
 import Login from './pages/login'
 import ResetPassword from './pages/resetPassword'
 import MyProfile from './pages/myProfile'
-// import axios from 'axios'
+import axios from 'axios'
 
 import createMuiTheme from '@material-ui/core/styles/createMuiTheme'
 import MuiThemeProvider from '@material-ui/styles/ThemeProvider'
