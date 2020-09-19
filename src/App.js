@@ -13,6 +13,7 @@ import Signup from './pages/signup'
 import Login from './pages/login'
 import ResetPassword from './pages/resetPassword'
 import MyProfile from './pages/myProfile'
+import Chat from './pages/Chat'
 import axios from 'axios'
 
 import createMuiTheme from '@material-ui/core/styles/createMuiTheme'
@@ -61,6 +62,7 @@ const App = () => {
         <Route exact path="/me/posts/:postId" component={MyProfile} />
         <Route path="/me" component={MyProfile}/>
         <Route path="/search" component={SearchUsers}/>
+        <Route path="/chat" component={Chat}/>
         <Redirect to="/"/>
       </Switch>
     ) : 
