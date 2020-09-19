@@ -16,11 +16,11 @@ const Dashboard = (props) => {
     console.log('Conversations:', conversations)
     return (
         <Grid container>
-            <Grid item md={3}>
+            <Grid item xs={12} md={3}>
                 <Sidebar id={props.id}/>
             </Grid>
 
-            <Grid item md={9}>
+            <Grid item x2={12} md={9}>
                {selectedConversation ? <OpenConversation /> : null}
             </Grid>
         </Grid>
