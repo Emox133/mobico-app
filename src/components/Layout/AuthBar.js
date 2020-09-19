@@ -11,6 +11,7 @@ import FriendRequests from './../users/FriendRequests'
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import HomeIcon from '@material-ui/icons/Home';
 import SearchIcon from '@material-ui/icons/Search';
+import ChatIcon from '@material-ui/icons/Chat';
 import Tooltip from '@material-ui/core/Tooltip'
 import IconButton from '@material-ui/core/IconButton'
 import Switch from '@material-ui/core/Switch';
@@ -64,6 +65,12 @@ const AuthBar = (props) => {
             <Tooltip title="Search Users">
                 <IconButton component={Link} to="/search">
                     <SearchIcon />
+                </IconButton>
+            </Tooltip>
+
+            <Tooltip title="Chat on mobico!">
+                <IconButton component={Link} to="/chat">
+                    <ChatIcon />
                 </IconButton>
             </Tooltip>
             <Menu logout={props.logout}/>
