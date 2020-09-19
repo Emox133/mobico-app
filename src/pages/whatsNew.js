@@ -71,6 +71,12 @@ export default function FullScreenDialog() {
           <ListItem button>
             <ListItemText primary="Friends system !!!"/>
           </ListItem>
+          <ListItem button>
+            <ListItemText primary="Chat now on mobico !!! (v1)"/>
+          </ListItem>
+          <ListItem button>
+            <ListItemText primary="Group chats are available too !!!"/>
+          </ListItem>
           <Divider />
           <ListItem button>
             <ListItemText primary="Visit other users profiles feature."/>
