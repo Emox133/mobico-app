@@ -33,7 +33,7 @@ export default function NewContactModal(props) {
             [e.target.name]: e.target.value
         })
 
-        console.log(fields.id, fields.name)
+        // console.log(fields.id, fields.name)
     }
     
   return (

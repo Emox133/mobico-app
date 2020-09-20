@@ -12,8 +12,8 @@ const Dashboard = (props) => {
     const {contacts} = useContacts()
     const {conversations, selectedConversation} = useConversations()
 
-    console.log('Contacts:', contacts)
-    console.log('Conversations:', conversations)
+    // console.log('Contacts:', contacts)
+    // console.log('Conversations:', conversations)
     return (
         <Grid container>
             <Grid item xs={12} md={3}>

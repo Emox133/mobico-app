@@ -10,7 +10,7 @@ import {makeStyles} from '@material-ui/core/styles'
 
 const useStyles = makeStyles({
     list: {
-        width: '100%',
+        width: '90vw',
         display: 'flex',
         flexDirection: 'column'
     },
@@ -36,10 +36,10 @@ const useStyles = makeStyles({
 
 const OpenConversation = () => {
     const classes = useStyles()
-    console.log(classes)
+    // console.log(classes)
     const [text, setText] = useState('')
     const {selectedConversation, sendMessage} = useConversations()
-    console.log(selectedConversation)
+    // console.log(selectedConversation)
 
     const handleSubmit = (e) => {
         e.preventDefault()
