@@ -12,7 +12,7 @@ export function SocketProvider({ id, children }) {
 
   useEffect(() => {
     const newSocket = io(
-      'https://mobicoapp.herokuapp.com/api/v1',
+      'https://cors-anywhere.herokuapp.com/https://mobicoapp.herokuapp.com/api/v1',
       { query: { id } }
     )
     setSocket(newSocket)
