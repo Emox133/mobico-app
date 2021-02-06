@@ -19,11 +19,12 @@ import axios from 'axios'
 import createMuiTheme from '@material-ui/core/styles/createMuiTheme'
 import MuiThemeProvider from '@material-ui/styles/ThemeProvider'
 import CssBaseline from '@material-ui/core/CssBaseline';
+import Typography from '@material-ui/core/Typography'
 import {useDarkMode} from './utils/theme'
 
 import {useSelector, shallowEqual} from 'react-redux'
 
-axios.defaults.baseURL = 'https://mobicoapp.herokuapp.com/api/v1'
+// axios.defaults.baseURL = 'https://mobicoapp.herokuapp.com/api/v1'
 
 const App = () => {
   const [theme, toggleDarkMode] = useDarkMode();
@@ -83,6 +84,9 @@ const App = () => {
        {/* {offline === true ? showAlerts('warning--offline', 'Please check your connection.') : offline === false ? 
        showAlerts('success', 'You are back online.') : null} */}
        {authNavbar}
+       <Typography style={{marginTop: ".6rem"}}>
+            &copy; Developed and designed by <span style={{fontWeight: 'bold', letterSpacing: '.05em'}}>Emir Salihović</span>
+        </Typography>
       </div>
      </Router>
     </MuiThemeProvider>

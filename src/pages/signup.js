@@ -7,9 +7,9 @@ import withStyles from '@material-ui/core/styles/withStyles'
 import TextField from '@material-ui/core/TextField'
 import Grid from '@material-ui/core/Grid'
 import InputAdornment from '@material-ui/core/InputAdornment'
-import StarsIcon from '@material-ui/icons/Stars'
+import InfoIcon from '@material-ui/icons/Info';
 import Tooltip from '@material-ui/core/Tooltip'
-import Typography from '@material-ui/core/Typography'
+// import Typography from '@material-ui/core/Typography'
 import Button from '@material-ui/core/Button'
 import {useMediaQuery} from '@material-ui/core'
 
@@ -81,15 +81,15 @@ const Signup = props => {
                     placeholder="First Name"
                     error={errors && errors.firstName ? true : false}
                     helperText={errors && errors.firstName ? errors.firstName.message : null}
-                    InputProps={{
+                    InputProps={errors && errors.firstName ? {
                         startAdornment: (
                             <InputAdornment position="start">
                             <Tooltip title="Required" placement="top">
-                                <StarsIcon />
+                                <InfoIcon />
                             </Tooltip>
                         </InputAdornment>
                         )
-                    }}
+                    } : null}
                     className={classes.textField}
                     onChange={handleChange}
                     value={fields.firstName}
@@ -102,15 +102,15 @@ const Signup = props => {
                     type="text"
                     error={errors && errors.lastName ? true : false}
                     helperText={errors && errors.lastName ? errors.lastName.message : null}
-                    InputProps={{
+                    InputProps={errors && errors.lastName ? {
                         startAdornment: (
-                        <InputAdornment position="start">
+                            <InputAdornment position="start">
                             <Tooltip title="Required" placement="top">
-                                <StarsIcon />
+                                <InfoIcon />
                             </Tooltip>
                         </InputAdornment>
                         )
-                      }}
+                    } : null}
                     className={classes.textField}
                     onChange={handleChange}
                     value={fields.lastName}
@@ -123,15 +123,15 @@ const Signup = props => {
                     type="text"
                     error={errors && errors.username ? true : false}
                     helperText={errors && errors.username ? errors.username.message : null}
-                    InputProps={{
+                    InputProps={errors && errors.username ? {
                         startAdornment: (
-                        <InputAdornment position="start">
+                            <InputAdornment position="start">
                             <Tooltip title="Required" placement="top">
-                                <StarsIcon />
+                                <InfoIcon />
                             </Tooltip>
                         </InputAdornment>
                         )
-                      }}
+                    } : null}
                     className={classes.textField}
                     onChange={handleChange}
                     value={fields.username}
@@ -144,15 +144,15 @@ const Signup = props => {
                     type="email"
                     error={errors && errors.email ? true : false}
                     helperText={errors && errors.email ? errors.email.message : null}
-                    InputProps={{
+                    InputProps={errors && errors.email ? {
                         startAdornment: (
-                        <InputAdornment position="start">
+                            <InputAdornment position="start">
                             <Tooltip title="Required" placement="top">
-                                <StarsIcon />
+                                <InfoIcon />
                             </Tooltip>
                         </InputAdornment>
                         )
-                      }}
+                    } : null}
                     className={classes.textField}
                     onChange={handleChange}
                     value={fields.email}
@@ -165,15 +165,15 @@ const Signup = props => {
                     type="password"
                     error={errors && errors.password ? true : false}
                     helperText={errors && errors.password ? errors.password.message : null}
-                    InputProps={{
+                    InputProps={errors && errors.password ? {
                         startAdornment: (
-                        <InputAdornment position="start">
+                            <InputAdornment position="start">
                             <Tooltip title="Required" placement="top">
-                                <StarsIcon />
+                                <InfoIcon />
                             </Tooltip>
                         </InputAdornment>
                         )
-                      }}
+                    } : null}
                     className={classes.textField}
                     onChange={handleChange}
                     value={fields.password}
@@ -186,15 +186,15 @@ const Signup = props => {
                     type="password"
                     error={errors && errors.confirmPassword ? true : false}
                     helperText={errors && errors.confirmPassword ? errors.confirmPassword.message : null}
-                    InputProps={{
+                    InputProps={errors && errors.confirmPassword ? {
                         startAdornment: (
-                        <InputAdornment position="start">
+                            <InputAdornment position="start">
                             <Tooltip title="Required" placement="top">
-                                <StarsIcon />
+                                <InfoIcon />
                             </Tooltip>
                         </InputAdornment>
                         )
-                      }}
+                    } : null}
                     className={classes.textField}
                     onChange={handleChange}
                     value={fields.confirmPassword}
@@ -207,15 +207,15 @@ const Signup = props => {
                     type="text"
                     error={errors && errors.location ? true : false}
                     helperText={errors && errors.location ? errors.location.message : null}
-                    InputProps={{
+                    InputProps={errors && errors.location ? {
                         startAdornment: (
-                        <InputAdornment position="start">
+                            <InputAdornment position="start">
                             <Tooltip title="Required" placement="top">
-                                <StarsIcon />
+                                <InfoIcon />
                             </Tooltip>
                         </InputAdornment>
                         )
-                      }}
+                    } : null}
                     className={classes.textField}
                     onChange={handleChange}
                     value={fields.location}
@@ -247,9 +247,9 @@ const Signup = props => {
                             Signup
                         </Button>
                     </form>
-                    <Typography style={{marginTop: '.7rem', fontSize: isActive ? '1rem' : '1.3rem'}}>
+                    {/* <Typography style={{marginTop: '.7rem', fontSize: isActive ? '1rem' : '1.3rem'}}>
                         &copy; Developed and designed by <span style={{fontWeight: 'bold', letterSpacing: '.05em'}}>Emir Salihović</span>
-                    </Typography>
+                    </Typography> */}
                     <WhatsNew />
                 </Grid>
             <Grid item xs />

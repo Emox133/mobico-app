@@ -15,11 +15,12 @@ spreadThis: {
   formWrapper: {
     height: '100%',
     textAlign: 'center',
-    paddingBottom: '30px',
+    paddingBottom: '-15px',
     // overflow: 'scroll'
   },
     logo: {
       width: '300px',
+      height: '260px',
       marginTop: '-30px'
     },
     title: {

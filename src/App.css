@@ -335,3 +335,8 @@ body {
 .alert--info {
     color: lightseagreen;
 }
+
+.App-auth {
+    height: 100%;
+    text-align: center;
+}
