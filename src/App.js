@@ -23,7 +23,7 @@ import {useDarkMode} from './utils/theme'
 
 import {useSelector, shallowEqual} from 'react-redux'
 
-axios.defaults.baseURL = 'https://cors-anywhere.herokuapp.com/https://mobicoapp.herokuapp.com/api/v1'
+axios.defaults.baseURL = 'https://mobicoapp.herokuapp.com/api/v1'
 
 const App = () => {
   const [theme, toggleDarkMode] = useDarkMode();
