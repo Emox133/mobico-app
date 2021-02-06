@@ -84,9 +84,9 @@ const App = () => {
        {/* {offline === true ? showAlerts('warning--offline', 'Please check your connection.') : offline === false ? 
        showAlerts('success', 'You are back online.') : null} */}
        {authNavbar}
-       <Typography style={{marginTop: ".6rem"}}>
+       {!authenticated ? <Typography style={{marginTop: ".6rem"}}>
             &copy; Developed and designed by <span style={{fontWeight: 'bold', letterSpacing: '.05em'}}>Emir Salihović</span>
-        </Typography>
+        </Typography> : null}
       </div>
      </Router>
     </MuiThemeProvider>
