@@ -76,8 +76,8 @@ const ChangePassword = forwardRef((props, ref) => {
                         type="password"
                         name="currentPassword"
                         label="Current Password"
-                        error={switchError(errors, 'Your') ? true : false}
-                        helperText={switchError(errors, 'Your') ? errors.newPasswordMessage : null}
+                        error={errors ? switchError(errors, 'Your') ? true : false : null}
+                        helperText={errors ? switchError(errors, 'Your') ? errors.newPasswordMessage : null : null}
                         fullWidth
                         onChange={e => handleChange(e)}
                         />
@@ -88,8 +88,8 @@ const ChangePassword = forwardRef((props, ref) => {
                         name="password"
                         label="New Password"
                         fullWidth
-                        error={switchError(errors, 'User') ? true : false}
-                        helperText={switchError(errors, 'User') ? errors.newPasswordMessage : null}
+                        error={errors ? switchError(errors, 'User') ? true : false : null}
+                        helperText={errors ? switchError(errors, 'User') ? errors.newPasswordMessage : null : null}
                         onChange={e => handleChange(e)}
                         />
                         <TextField 
@@ -98,8 +98,8 @@ const ChangePassword = forwardRef((props, ref) => {
                         type="password"
                         name="confirmPassword"
                         label="Confirm Password"
-                        error={switchError(errors, 'User') ? true : false} 
-                        helperText={switchError(errors, 'User') ? errors.newPasswordMessage : null}
+                        error={errors ? switchError(errors, 'User') ? true : false : null} 
+                        helperText={errors ? switchError(errors, 'User') ? errors.newPasswordMessage : null : null}
                         fullWidth
                         onChange={e => handleChange(e)}
                         />

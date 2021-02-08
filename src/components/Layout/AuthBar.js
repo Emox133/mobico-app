@@ -20,6 +20,8 @@ import {useMediaQuery} from '@material-ui/core'
 import {useDispatch, useSelector, shallowEqual} from 'react-redux'
 import {clearVisitingUser} from '../../redux/actions/userActions'
 
+const themeType = localStorage.getItem('theme-type')
+
 const AuthBar = (props) => {
     const {username, userImage, user} = useSelector(state => ({
         user: state.user.user,
@@ -59,7 +61,7 @@ const AuthBar = (props) => {
             {isActive ? <EditProfileImage /> : null}
             {isActive ? <EditProfile /> : null}
             <Tooltip title="Day / Night">
-                <Switch onClick={props.mode} />
+                <Switch onClick={props.mode} checked={themeType == 'dark' ? true : false}/>
             </Tooltip>
             
             <Tooltip title="Search Users">

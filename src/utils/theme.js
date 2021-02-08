@@ -1,11 +1,13 @@
 import {useState} from 'react'
 
+const themeType = localStorage.getItem('theme-type')
+
 const themeObject = {
 palette: {
   // primary: { main: '#f44336' },
   primary: { main: '#00c9ff' },
   secondary: { main: '#ff0011' },
-  type: 'light'
+  type: themeType
 },
 
 spreadThis: {
@@ -109,6 +111,8 @@ export const useDarkMode = () => {
       }
     }
     setTheme(updatedTheme);
+    localStorage.setItem('theme-type', updatedTheme.palette.type)
+    window.location.reload()
   };
 
   return [theme, toggleDarkMode];

@@ -39,7 +39,7 @@ const EditProfile = (props) => {
         email,
         location,
         username,
-    } = errors
+    } = errors ? errors : {}
 
     const dispatch = useDispatch();
 

@@ -57,8 +57,8 @@ const FormDialog = (props) => {
         <DialogContent>
           <TextField
             autoFocus
-            error={switchError(errors, 'Post') ? true : false}
-            helperText={switchError(errors, 'Post') ? errors.createPostMsg : null}
+            error={errors ? switchError(errors, 'Post') ? true : false : null}
+            helperText={errors ? switchError(errors, 'Post') ? errors.createPostMsg : null : null}
             margin="dense"
             id="text"
             name="text"

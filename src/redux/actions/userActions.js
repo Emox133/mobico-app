@@ -94,7 +94,7 @@ export const clearVisitingUser = () => dispatch => {
 }
 
 export const updateProfile = data => dispatch => {
-    axios.patch('users/updateMe', data, {validateStatus: () => {return true}})
+    axios.patch('users/updateMe', data)
     .then(res => {
         if(res.data.status !== 'fail' && res.data.status !== 'error') {
             // console.log(res)
@@ -110,7 +110,7 @@ export const updateProfile = data => dispatch => {
         }
     })
     .catch(err => {
-        console.error(err)
+        console.error(err.response)
     })
 };
 

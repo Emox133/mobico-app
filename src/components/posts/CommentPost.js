@@ -70,8 +70,8 @@ const CommentPost = props => {
                         // placeholder="Comment"
                         placeholder="Nice one ! 😃🔥"
                         type="text"
-                        error={switchError(errors, 'Comment') ? true : false}
-                        helperText={switchError(errors, 'Comment') ? errors.commentErr : null}
+                        error={errors ? switchError(errors, 'Comment') ? true : false : null}
+                        helperText={errors ? switchError(errors, 'Comment') ? errors.commentErr : null : null}
                         fullWidth
                         multiline
                         rowsMax={5}
