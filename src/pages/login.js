@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import AppLogo from './../images/logo-mobico-5.png'
+import AppLogo from './../images/logo-large.png'
 import ForgotPassword from './../components/profile/ForgotPassword'
 import WhatsNew from './whatsNew'
 

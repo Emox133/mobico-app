@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import AppLogo from './../images/logo-mobico-5.png'
+import AppLogo from './../images/logo-large.png'
 import WhatsNew from './whatsNew'
 
 // * Mui
@@ -29,7 +29,6 @@ const Signup = props => {
         email: '',
         password: '',
         confirmPassword: '',
-        bio: '',
         website: '',
         location: ''
     })
@@ -229,18 +228,6 @@ const Signup = props => {
                     className={classes.textField}
                     onChange={handleChange}
                     value={fields.website}
-                    fullWidth
-                    />
-                     <TextField 
-                    id="bio"
-                    name="bio"
-                    placeholder="Biography"
-                    type="text"
-                    multiline
-                    rows="3"
-                    className={classes.textField}
-                    onChange={handleChange}
-                    value={fields.bio}
                     fullWidth
                     />
                         <Button type="submit" variant="contained" color="primary" style={{marginTop: '10px'}}>

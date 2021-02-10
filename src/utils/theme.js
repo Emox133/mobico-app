@@ -21,6 +21,8 @@ spreadThis: {
     // overflow: 'scroll'
   },
     logo: {
+      position: 'relative',
+      top: '2rem',
       width: '300px',
       height: '260px',
       marginTop: '-30px'
@@ -92,6 +94,9 @@ spreadThis: {
       marginBottom: '.8rem'
     },
     logoSmall: {
+      height: '200px',
+      position: 'relative',
+      top: '2rem',
       width: '245px',
       marginTop: '-30px'
     }
