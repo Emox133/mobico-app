@@ -15,8 +15,8 @@ import PersonIcon from '@material-ui/icons/Person';
 import Typography from '@material-ui/core/Typography'
 import {useMediaQuery} from '@material-ui/core'
 
-import { useSelector, shallowEqual } from 'react-redux';
-// import {notificationsSeen} from './../../redux/actions/userActions'
+import { useSelector, shallowEqual, useDispatch } from 'react-redux';
+import {notificationsSeen} from './../../redux/actions/userActions'
 
 const Notifications = props => {
     const [link, setLink] = useState(null)
@@ -26,7 +26,7 @@ const Notifications = props => {
         notifications: state.user.notifications
     }), shallowEqual)
 
-    // const dispatch = useDispatch();
+    const dispatch = useDispatch();
 
     const handleClick = e => {
         setLink(e.currentTarget)
@@ -37,7 +37,6 @@ const Notifications = props => {
     };
     
     // const onNotificationsVisited = () => {
-    //     // notifications.filter(n => n.read);
     //     dispatch(notificationsSeen());
     // };
 
@@ -46,7 +45,7 @@ const Notifications = props => {
         notifications.filter(n => n.read === false).length > 0
         ? icon = (
             <Badge badgeContent={notifications.filter(n => n.read === false).length} color="secondary">
-                <NotificationsIcon />
+                <NotificationsIcon onClick={() => dispatch(notificationsSeen())}/>
                 {/* onClick={onNotificationsVisited} */}
             </Badge>
         ) : icon = <NotificationsIcon />
@@ -67,7 +66,7 @@ const Notifications = props => {
             
             return (
                 <MenuItem
-                    key={n.createdAt}
+                    key={n._id}
                     onClick={handleClose}
                     component={Link}
                     to={n.type !== 'friend-request' ? `/me/posts/${n.postId}` : '/search'}

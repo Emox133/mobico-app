@@ -61,7 +61,7 @@ const AuthBar = (props) => {
             {isActive ? <EditProfileImage /> : null}
             {isActive ? <EditProfile /> : null}
             <Tooltip title="Day / Night">
-                <Switch onClick={props.mode} checked={themeType == 'dark' ? true : false}/>
+                <Switch onClick={props.mode} checked={themeType === 'dark' ? true : false}/>
             </Tooltip>
             
             <Tooltip title="Search Users">

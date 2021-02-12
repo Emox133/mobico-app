@@ -47,7 +47,7 @@ const User = props => {
         return friendsAlready
     })
 
-    console.log(friendsAlready)
+    // console.log(friendsAlready)
 
     let sendedRequest = false
     friendRequestsSentByMe.map(r => {

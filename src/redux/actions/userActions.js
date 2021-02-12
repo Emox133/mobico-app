@@ -195,7 +195,7 @@ export const deleteProfile = history => dispatch => {
 export const notificationsSeen = () => dispatch => {
     axios.patch('/users/notifications')
     .then(res => {
-        console.log(res)
+        // console.log(res)
         dispatch({type: types.READ_NOTIFICATIONS})
     })
     .catch(err => {
@@ -231,7 +231,7 @@ export const sendFriendRequest = (id) => dispatch =>{
 
 export const acceptFriendRequest = id => dispatch => {
     axios.patch(`users/${id}`).then(res => {
-        console.log(res)
+        // console.log(res)
         dispatch({
             type: types.ACCEPT_FRIEND_REQUEST,
             id

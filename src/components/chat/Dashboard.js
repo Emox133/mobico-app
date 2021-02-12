@@ -6,13 +6,11 @@ import Sidebar from './Sidebar'
 import OpenConversation from './OpenConversation'
 
 import {useConversations} from '../../contexts/ConversationsProvider'
-import {useContacts} from '../../contexts/ContactsProvider'
 import {useMediaQuery} from '@material-ui/core'
 
 
 const Dashboard = (props) => {
-    const {contacts} = useContacts()
-    const {conversations, selectedConversation} = useConversations()
+    const {selectedConversation} = useConversations()
     const isActive = useMediaQuery('(max-width: 600px)')
     
     // console.log('Contacts:', contacts)
