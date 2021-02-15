@@ -26,10 +26,10 @@ const Comments = React.memo(props => {
     const isActive = useMediaQuery('(max-width: 375px)')
 
     const handleDelete = () => {
-        dispatch(deleteComment(comments._id, comments.belongsTo));
+        dispatch(deleteComment(comments._id, comments.post));
     }
 
-    let myComment = user._id === comments.owner ? <Tooltip title="Delete comment">
+    let myComment = user._id === comments.user ? <Tooltip title="Delete comment">
         <IconButton onClick={handleDelete} style={{position: 'absolute', top: '.3rem', right: isActive ? '-.8rem' : '0'}}>
             <CancelIcon color="secondary"/>
         </IconButton>
@@ -40,7 +40,7 @@ const Comments = React.memo(props => {
             <ListItem className="posts__comment">
                     {myComment}
                 <ListItemAvatar>
-                    <Avatar alt={comments.ownerName} src={comments.ownerImage}/>
+                    <Avatar alt={comments.nameOfUser} src={comments.userImage}/>
                 </ListItemAvatar>
                 <ListItemText>
                     <Fragment>
@@ -49,7 +49,7 @@ const Comments = React.memo(props => {
                             variant="h6"
                             style={{fontSize: isActive ? '.88rem' : '1.125rem'}}
                         >
-                            {comments.ownerName}
+                            {comments.nameOfUser}
                         </Typography>
                         <Typography 
                             variant="subtitle2"

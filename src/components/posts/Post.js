@@ -56,7 +56,7 @@ const Post = (props) => {
             </IconButton>
                 <Dialog open={open} maxWidth="md" onClose={handleClose}> 
                     <DialogActions>
-                        <span onClick={handleClose} style={{fontSize: '2rem', marginRight: '.5rem'}}>
+                        <span onClick={handleClose} style={{fontSize: '2rem', marginRight: '.5rem', cursor: 'pointer'}}>
                             &times;
                         </span>
                     </DialogActions>

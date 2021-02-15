@@ -109,8 +109,8 @@ const MyProfile = props => {
             <figcaption className="profile__user-details">
                 <h2 className="profile__user-title">{user.firstName + ' ' + user.lastName}</h2>
                 <p className="profile__user-location">Location: {user.location}</p>
-                <p className="profile__user-bio">{user.bio.length > 0 ? 'Biography:' : null} {user.bio}</p>
-                <p className="profile__user-bio">{user.bio.length > 0 ? 'Website:' : null} {user.website}</p>
+                <p className="profile__user-bio">{user.bio && user.bio.length > 0 ? 'Biography:' : null} {user.bio}</p>
+                <p className="profile__user-bio">{user.bio && user.bio.length > 0 ? 'Website:' : null} {user.website}</p>
             </figcaption>
         </figure>
     ) : !loading && criteria ? (
@@ -119,8 +119,8 @@ const MyProfile = props => {
             <figcaption className="profile__user-details">
                 <h2 className="profile__user-title">{visitingUser.firstName + ' ' + visitingUser.lastName}</h2>
                 <p className="profile__user-location">Location: {visitingUser.location}</p>
-                <p className="profile__user-bio">{visitingUser.bio.length > 0 ? 'Biography:' : null} {visitingUser.bio}</p>
-                <p className="profile__user-bio">{visitingUser.bio.length > 0 ? 'Website:' : null} {visitingUser.website}</p>
+                <p className="profile__user-bio">{visitingUser.bio && visitingUser.bio.length > 0 ? 'Biography:' : null} {visitingUser.bio}</p>
+                <p className="profile__user-bio">{visitingUser.bio && visitingUser.bio.length > 0 ? 'Website:' : null} {visitingUser.website}</p>
             </figcaption>
         </figure>) : <Loader />
 

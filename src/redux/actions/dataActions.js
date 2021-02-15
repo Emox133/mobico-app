@@ -133,8 +133,8 @@ export const commentPost = (id, data) => dispatch => {
 
 export const deleteComment = (commentId, id) => dispatch => {
     // dispatch({type: types.LOADING_FROM_DATA})
-    axios.delete(`/posts/${id}/comment/${commentId}`, {validateStatus: () => {return true}})
+    axios.delete(`/posts/${id}/comment/${commentId}`)
     .then(res => {
         dispatch({type: types.REMOVE_COMMENT, commentId: commentId, id: id})
-    }).catch(err => console.log(err))
+    }).catch(err => console.log(err.response))
 };
