@@ -2,22 +2,9 @@ import * as types from './../types'
 import axios from 'axios'
 import {friends} from './userActions'
 
-// export const friends = () => dispatch => {
-//     dispatch({type: types.LOADING_FROM_DATA});
-//     axios.get('/posts', {validateStatus: () => {return true}})
-//     .then(res => {
-//         dispatch({
-//             type: types.SET_POSTS,
-//             payload: res.data.data.posts
-//         })
-//     })
-//     .catch(err => console.log(err))
-// };
-
 export const getOnePost = id => dispatch => {
     axios.get(`/posts/${id}`, {validateStatus: () => {return true}})
     .then(res => {
-        // console.log(res)
         if(res.data.status !== 'error' && res.data.status !== 'fail') {
             dispatch({
                 type: types.SET_ONE_POST,
@@ -114,25 +101,23 @@ export const dislikePost = id => dispatch => {
 
 export const commentPost = (id, data) => dispatch => {
     // dispatch({type: types.LOADING_FROM_DATA})
-    axios.post(`/posts/${id}/comment`, data, {validateStatus: () => {return true}})
+    axios.post(`/posts/${id}/comment`, data)
     .then(res => {
         if(res.data.status !== 'fail' && res.data.status !== 'error') {
             dispatch({type: types.COMMENT_POST, id: id})
             alert('Comment posted.')
         }
         else {
-            // dispatch({type: types.STOP_LOADING})
             dispatch({
                 type: types.SET_ERRORS,
                 payload: {commentErr: res.data.message}
             })
         }
     })
-    .catch(err => console.log(err))
+    .catch(err => console.log(err.response))
 };
 
 export const deleteComment = (commentId, id) => dispatch => {
-    // dispatch({type: types.LOADING_FROM_DATA})
     axios.delete(`/posts/${id}/comment/${commentId}`)
     .then(res => {
         dispatch({type: types.REMOVE_COMMENT, commentId: commentId, id: id})

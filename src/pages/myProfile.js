@@ -60,8 +60,8 @@ const MyProfile = props => {
     let notPost = postId ? <Post postId={postId} openDialog history={props.history} rule={rule}/> : null
 
     // const owner = `${user.firstName} ${user.lastName}` 
-    const myPosts = !criteria ? posts.filter(post => post.ownerId === user._id) 
-        : posts.filter(post => post.ownerId === visitingUser._id)
+    const myPosts = !criteria ? posts.filter(post => post.userId === user._id) 
+        : posts.filter(post => post.userId === visitingUser._id)
 
     let placeholder = myPosts.map(post => {
         let likedPost = () => {
@@ -80,9 +80,9 @@ const MyProfile = props => {
                     <CardContent>
                     <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center', height: '2rem'}}>
                         <Typography className={classes.owner}>
-                            {post.owner}
+                            {post.user}
                         </Typography>
-                            <DeletePosts id={post._id} ownerId={post.ownerId}/>
+                            <DeletePosts id={post._id} ownerId={post.userId}/>
                     </div>
                         <Typography style={{fontWeight: 'bold', marginBottom: 'bold'}}>
                             {moment(post.createdAt).fromNow()}

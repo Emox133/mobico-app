@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import AppLogo from './../images/logo-large.png'
 import ForgotPassword from './../components/profile/ForgotPassword'
-import WhatsNew from './whatsNew'
+// import WhatsNew from './whatsNew'
 
 // * Redux
 import {useSelector, useDispatch, shallowEqual} from 'react-redux'
@@ -88,7 +88,7 @@ const Login = props => {
                     </form>
                         <ForgotPassword history={props.history}/>
                         {/* <SnackBar /> */}
-                        <WhatsNew />
+                        {/* <WhatsNew /> */}
                 </Grid>
             <Grid item xs />
         </Grid>

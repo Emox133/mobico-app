@@ -61,9 +61,9 @@ const Post = (props) => {
                         </span>
                     </DialogActions>
                 <div className="posts__individual" style={{height: isActive ? '90vh' : null}}>
-                    <img src={post.userImage} alt={post.owner} className={isActive ? props.classes.postImageSmall : props.classes.postImage}/>
+                    <img src={post.userImage} alt={post.user} className={isActive ? props.classes.postImageSmall : props.classes.postImage}/>
                         <Typography variant={isActive ? "h4" : "h3"}>
-                            {post.owner}
+                            {post.user}
                         </Typography>
                         <Typography>
                             {moment(post.createdAt).fromNow()}

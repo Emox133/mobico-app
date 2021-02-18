@@ -48,10 +48,10 @@ const Posts = props => {
                     <CardContent>
                     <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center', height: '2rem'}}>
                         <Typography className={classes.owner}>
-                            {post.owner}
+                            {post.user}
                         </Typography>
-                            <VisitProfiles ownerId={post.ownerId} id={post.ownerId} history={props.history} />
-                            <DeletePosts id={post._id} ownerId={post.ownerId}/>
+                            <VisitProfiles ownerId={post.userId} id={post.userId} history={props.history} />
+                            <DeletePosts id={post._id} ownerId={post.userId}/>
                     </div>
                         <Typography style={{fontWeight: 'bold', marginBottom: '.5rem'}}>
                             {moment(post.createdAt).fromNow()}

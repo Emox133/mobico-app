@@ -3,21 +3,21 @@ import axios from 'axios';
 
 export const loginUser = (userInfo, history) => dispatch => {
     dispatch({type: types.LOADING_FROM_DATA})
-    axios.post('/users/login', userInfo, {validateStatus: () => {return true}})
+    axios.post('/users/login', userInfo)
     .then(res => {
-        if(res.data.status !== 'fail' && res.data.status !== 'error' && res.data.token) {
+        if(res.status === 200 && res.data.token) {
             setAuthorizationHeader(res.data.token)
             dispatch(getUserData())
             history.push('/')
             history.go(0)
-        } else {
-            dispatch({
-                type: types.SET_ERRORS,
-                payload: Object.assign({message: res.data.message}, {}) || res.data.error
-            })
-        }
+        } 
     })
-    .catch(err => console.log(err))
+    .catch(err => {
+        dispatch({
+            type: types.SET_ERRORS,
+            payload: Object.assign({message: err.response.data.message}, {}) || err.response.data.error
+        })
+    })
 };
 
 export const logoutUser = history => dispatch => {
@@ -30,22 +30,21 @@ export const logoutUser = history => dispatch => {
 
 export const signupUser = (userInfo, history) => dispatch => {
     dispatch({type: types.LOADING_FROM_DATA})
-    axios.post('users/signup', userInfo, {validateStatus: () => {return true}})
+    axios.post('users/signup', userInfo)
     .then(res => {
-        // console.log(res.data)
-        if(res.data.status !== 'fail' && res.data.status !== 'error' && res.data.token) {
+        if(res.status === 201 && res.data.token) {
             setAuthorizationHeader(res.data.token);
             dispatch(getUserData())
             history.push('/')
             history.go(0)
-        } else {
-            dispatch({
-                type: types.SET_ERRORS,
-                payload: res.data.error.errors
-            })
-        }
+        } 
     })
-    .catch(err => console.log(err))
+    .catch(err => {
+        dispatch({
+            type: types.SET_ERRORS,
+            payload: err.response.data.error.errors
+        })
+    })
 };
 
 export const getAllUsers = () => dispatch => {
@@ -54,27 +53,24 @@ export const getAllUsers = () => dispatch => {
             type: types.GET_ALL_USERS,
             payload: res.data.users
         })
-    }).catch(err => {
-        console.log(err.response)
-    })
+    }).catch(err => console.log(err.response))
 }
 
 export const getUserData = () => dispatch => {
     dispatch({type: types.SET_AUTHENTICATED})
-    axios.get('users/me', {validateStatus: () => {return true}})
+    axios.get('users/me')
     .then(res => {
         dispatch({
             type: types.SET_USER,
             payload: {
                 user: res.data.data.user,
-                // myFriends: res.data.data.myFriends,
                 friendRequestsSentByMe: res.data.data.friendRequests,
                 notifications: res.data.data.notifications,
                 likes: res.data.data.likes
             }
         })
     })
-    .catch(err => console.log(err))
+    .catch(err => console.log(err.response))
 };
 
 export const visitProfiles = (history, id) => dispatch => {
@@ -84,9 +80,7 @@ export const visitProfiles = (history, id) => dispatch => {
             payload: res.data.user
         })
         history.push('/me')
-    }).catch(err => {
-        console.log(err.response)
-    })
+    }).catch(err => console.log(err.response))
 }
 
 export const clearVisitingUser = () => dispatch => {
@@ -96,82 +90,70 @@ export const clearVisitingUser = () => dispatch => {
 export const updateProfile = data => dispatch => {
     axios.patch('users/updateMe', data)
     .then(res => {
-        if(res.data.status !== 'fail' && res.data.status !== 'error') {
-            // console.log(res)
+        if(res.status === 200) {
             dispatch(getUserData());
             alert('Data changed successfully. 😜')
-        } else {
-            // console.log(res)
-            dispatch({type: types.STOP_USER_LOADING})
-            dispatch({
-                type: types.SET_ERRORS,
-                payload: res.data.error.errors
-            })
         }
     })
     .catch(err => {
-        console.error(err.response)
+        dispatch({type: types.STOP_USER_LOADING})
+        dispatch({
+            type: types.SET_ERRORS,
+            payload: err.response.data.error.errors
+        })
     })
 };
 
 export const forgotPassword = (email, history) => dispatch => {
-    axios.post('/users/forgotPassword', email, {validateStatus: () => {return true}})
+    axios.post('/users/forgotPassword', email)
     .then(res => {
-        // console.log(res)
-        if(res.data.status !== 'fail' && res.data.status !== 'error') {
+        if(res.status === 200) {
             alert('Email sent!')
             history.go(0)
-        } else {
-            dispatch({
-                type: types.SET_ERRORS,
-                payload: {emailMessage: res.data.message}
-            })
-        }
+        } 
     })
     .catch(err => {
-        console.log(err.response)
+        dispatch({
+            type: types.SET_ERRORS,
+            payload: {emailMessage: err.response.data.message}
+        })
     })
 };
 
 export const resetPassword = (token, data,  history) => dispatch => {
-    axios.post(`/users/resetPassword/${token}`, data, {validateStatus: () => {return true}})
+    axios.post(`/users/resetPassword/${token}`, data)
     .then(res => {
-        if(res.data.status !== 'fail' && res.data.status !== 'error' && res.data.token) {
-            // console.log(res)
+        if(res.status === 200 && res.data.token) {
             setAuthorizationHeader(res.data.token)
             dispatch(getUserData())
             history.push('/')
             alert('Password successfully changed! 🎉')
-        } else {
-            // console.log(res)
-            dispatch({type: types.STOP_USER_LOADING})
-            dispatch({
-                type: types.SET_ERRORS,
-                payload: {resetMessage: res.data.message}
-            })
-        }
+        } 
     })
-    .catch(err => console.log(err))
+    .catch(err => {
+        dispatch({type: types.STOP_USER_LOADING})
+        dispatch({
+            type: types.SET_ERRORS,
+            payload: {resetMessage: err.response.data.message}
+        })
+    })
 };
 
 export const changePassword = (data, history) => dispatch => {
     dispatch({type: types.LOADING_DATA});
-    axios.patch('/users/updateMyPassword', data, {validateStatus: () => {return true}})
+    axios.patch('/users/updateMyPassword', data)
     .then(res => {
-        if(res.data.status !== 'fail' && res.data.status !== 'error') {
+        if(res.status === 200) {
             dispatch({type: types.STOP_USER_LOADING})
             alert(`${res.data.message} 🎈 Please log in again 😃`);
             dispatch(logoutUser(history))
-        } else {
-            // console.log(res)
-            dispatch({type: types.STOP_USER_LOADING})
-            dispatch({
-                type: types.SET_ERRORS,
-                payload: {newPasswordMessage: res.data.message}
-            })
         }
     }).catch(err => {
-        console.log(err)
+        dispatch({type: types.STOP_USER_LOADING})
+        dispatch({
+            type: types.SET_ERRORS,
+            payload: {newPasswordMessage: err.response.data.message}
+        })
     })
 };
 
@@ -179,24 +161,25 @@ export const deleteProfile = history => dispatch => {
     dispatch({type: types.LOADING_DATA})
     axios.delete('/users/deleteMe')
     .then(res => {
-        if(res.data.status !== 'fail' && res.data.status !== 'error') {
+        if(res.status === 204) {
             dispatch({type: types.STOP_USER_LOADING})
             dispatch(logoutUser(history))
-        } else {
-            dispatch({
-                type: types.SET_ERRORS,
-                payload: res.data.error
-            })
         }
     })
-    .catch(err => console.error(err.response))
+    .catch(err => {
+        dispatch({
+            type: types.SET_ERRORS,
+            payload: err.response.data.error
+        })
+    })
 };
 
 export const notificationsSeen = () => dispatch => {
     axios.patch('/users/notifications')
     .then(res => {
-        // console.log(res)
-        dispatch({type: types.READ_NOTIFICATIONS})
+        if(res.status === 200) {
+            dispatch({type: types.READ_NOTIFICATIONS})
+        }
     })
     .catch(err => {
         console.log(err.response)
@@ -205,14 +188,16 @@ export const notificationsSeen = () => dispatch => {
 
 export const getMyFriendRequests = () => dispatch => {
     axios.get('/users/friend-requests').then(res => {
-        dispatch({
-            type: types.GET_MY_FRIEND_REQUESTS,
-            payload: res.data.friendRequests
-        })
-        dispatch({
-            type: types.WHO_SENT_FRIEND_REQUEST,
-            payload: res.data.senders
-        })
+        if(res.status === 200) {
+            dispatch({
+                type: types.GET_MY_FRIEND_REQUESTS,
+                payload: res.data.friendRequests
+            })
+            dispatch({
+                type: types.WHO_SENT_FRIEND_REQUEST,
+                payload: res.data.senders
+            })
+        }
     }).catch(err => {
         console.log(err.response)
     })
@@ -220,10 +205,12 @@ export const getMyFriendRequests = () => dispatch => {
 
 export const sendFriendRequest = (id) => dispatch =>{
     axios.post(`/users/${id}`).then(res => {
-        dispatch({
-            type: types.SEND_FRIEND_REQUEST,
-            payload: res.data.friendRequest
-        })
+        if(res.status === 201) {
+            dispatch({
+                type: types.SEND_FRIEND_REQUEST,
+                payload: res.data.friendRequest
+            })
+        }
     }).catch(err => {
         console.log(err.response)
     })
@@ -231,62 +218,48 @@ export const sendFriendRequest = (id) => dispatch =>{
 
 export const acceptFriendRequest = id => dispatch => {
     axios.patch(`users/${id}`).then(res => {
-        // console.log(res)
-        dispatch({
-            type: types.ACCEPT_FRIEND_REQUEST,
-            id
-        })
-    }).catch(err => {
-        console.log(err.response)
-    })
+        if(res.status === 200) {
+            dispatch({
+                type: types.ACCEPT_FRIEND_REQUEST,
+                id
+            })
+        }
+    }).catch(err => console.log(err.response))
 }
 
 export const undoFriendRequest = (id) => dispatch =>{
     axios.delete(`/users/${id}`).then(res => {
-        dispatch({
-            type: types.UNDO_FRIEND_REQUEST,
-            id
-        })
-    }).catch(err => {
-        console.log(err.response)
-    })
+        if(res.status === 204) {
+            dispatch({
+                type: types.UNDO_FRIEND_REQUEST,
+                id
+            })
+        }
+    }).catch(err => console.log(err.response))
 }
 
 export const friends = () => dispatch => {
     dispatch({type: types.LOADING_FROM_DATA});
     axios.get('/users/friends').then(res => {
-        // console.log(res)
-        dispatch({
-            type: types.SET_POSTS,
-            payload: res.data.friendsPosts
-        })
-    }).catch(err => {
-        console.log(err.response)
-    })
+        if(res.status === 200) {
+            dispatch({
+                type: types.SET_POSTS,
+                payload: res.data.friendsPosts
+            })
+        }
+    }).catch(err => console.log(err.response))
 }
 
 export const friendRequestsIreceivedAndAccepted = () => dispatch => {
     axios.get('/users/my-friends').then(res => {
-        dispatch({
-            type: types.FRIEND_REQUESTS_I_RECEIVED_AND_ACCEPTED,
-            payload: res.data.acceptedRequests
-        })
-    }).catch(err => {
-        console.log(err.response)
-    })
+        if(res.status === 200) {
+            dispatch({
+                type: types.FRIEND_REQUESTS_I_RECEIVED_AND_ACCEPTED,
+                payload: res.data.acceptedRequests
+            })
+        }
+    }).catch(err => console.log(err.response))
 } 
-
-// export const fetchPosts = () => dispatch => {
-//     dispatch({type: types.LOADING_FROM_DATA});
-//     axios.get('/posts', {validateStatus: () => {return true}})
-//     .then(res => {
-//         dispatch({
-//             type: types.SET_POSTS,
-//             payload: res.data.data.posts
-//         })
-//     })
-//     .catch(err => console.log(err))
-// };
 
 export const scrollEffect = ref => dispatch => {
     ref.current.scrollIntoView({behavior: "smooth"})
